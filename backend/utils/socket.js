@@ -1,0 +1,47 @@
+import { Server } from "socket.io";
+import http from "http";
+import express from "express";
+
+const app = express();
+const server = http.createServer(app);
+
+// Stores online users: { userId: socketId }
+const userSocketMap = {};
+
+export function getReceiverSocketId(userId) {
+  return userSocketMap[userId];
+}
+
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected", socket.id);
+
+  // 👉 User sends his id from frontend
+  socket.on("register", (userId) => {
+    userSocketMap[userId] = socket.id;
+    console.log("Registered user:", userId);
+
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected", socket.id);
+
+    for (let userId in userSocketMap) {
+      if (userSocketMap[userId] === socket.id) {
+        delete userSocketMap[userId];
+        break;
+      }
+    }
+
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+  });
+});
+
+export { io, server, app };
