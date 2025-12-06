@@ -15,6 +15,9 @@ import SearchStamp from "./Vendor/SearchStamp";
 
 
 
+
+
+
 export default function VendorDashboard() {
   const { user, loading } = useContext(AuthContext);
 
@@ -24,6 +27,7 @@ export default function VendorDashboard() {
     <div className="p-6 space-y-4">
       <h1 className="text-3xl font-bold">
         Welcome {user?.username} to Vendor Dashboard
+        on the tehsil {user.tehsil}
       </h1>
 
       <p className="mt-2 text-gray-600">Vendor Admin Panel</p>
@@ -49,3 +53,6 @@ export default function VendorDashboard() {
     </div>
   );
 }
+
+
+
