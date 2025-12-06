@@ -60,3 +60,4 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 Frontend Environment Variables (.env)
 VITE_GOOGLE_CLIENT_ID=your_google_client_id
 # EStampManagement
+# EStampManagement
