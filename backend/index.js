@@ -5,6 +5,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+import "./utils/cronJobs.js"
 
 import adminRoutes from "./routes/admin.routes.js";
 import AuthRoutes from "./routes/auth.routes.js";
