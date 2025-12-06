@@ -12,7 +12,7 @@ import AuthRoutes from "./routes/auth.routes.js";
 import adcRoutes from "./routes/Adc.routes.js";
 import stampRoutes from "./routes/stamp.routes.js";
 import bankRoutes from "./routes/bank.routes.js";
-import districtsRouter from "./routes/districts.js";
+
 
 
 import connectDB from "./database/Database.js";
@@ -49,9 +49,6 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/adc", adcRoutes);
 app.use("/api/stamp", stampRoutes);
 app.use("/api/bank", bankRoutes);
-
-
-app.use("/api/districts", districtsRouter)
 
 
 app.use("/api/ai", aiRoutes);

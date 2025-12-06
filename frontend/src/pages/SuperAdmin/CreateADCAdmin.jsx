@@ -1,5 +1,9 @@
 
 
+
+
+import PUNJAB from "../../utils/District";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -11,28 +15,23 @@ const CreateADCAdmin = () => {
     password: "",
     district: "",
     districtId: "",
+    tehsil: "",
+    tehsilId: "",
     imageFile: null,
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
   const [districts, setDistricts] = useState([]);
+  const [tehsils, setTehsils] = useState([]);
 
-  // Load districts on component mount
-  const loadDistricts = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/districts/all");
-      setDistricts(res.data);
-    } catch (error) {
-      console.log("Error loading districts:", error);
-    }
-  };
-
+  // Load All Districts on Mount
   useEffect(() => {
-    loadDistricts();
+    setDistricts(PUNJAB.map((d) => d)); // full district object
   }, []);
 
-  // Handle input change
+  // Handle inputs
   const handleChange = (e) => {
     if (e.target.name === "imageFile") {
       setForm({ ...form, imageFile: e.target.files[0] });
@@ -41,14 +40,16 @@ const CreateADCAdmin = () => {
     }
   };
 
-  // Handle district selection
+  // Handle District Selection
   const handleDistrictChange = (e) => {
-    const selected = districts.find((d) => d.Id.toString() === e.target.value);
+    const selected = districts.find(
+      (d) => d.districtId.toString() === e.target.value
+    );
 
     setForm({
       ...form,
-      districtId: selected?.Id || "",
-      district: selected?.Name || "",
+      districtId: selected?.districtId || "",
+      district: selected?.districtName || "",
     });
   };
 
@@ -59,7 +60,6 @@ const CreateADCAdmin = () => {
     setMessage("");
 
     try {
-      // Create FormData
       const fd = new FormData();
       fd.append("fullname", form.fullname);
       fd.append("username", form.username);
@@ -67,7 +67,7 @@ const CreateADCAdmin = () => {
       fd.append("password", form.password);
       fd.append("district", form.district);
       fd.append("districtId", form.districtId);
-      fd.append("imageFile", form.imageFile); // IMPORTANT
+      fd.append("imageFile", form.imageFile);
 
       const res = await axios.post(
         "http://localhost:5000/api/admin/createADCAdmin",
@@ -151,7 +151,7 @@ const CreateADCAdmin = () => {
           required
         />
 
-        {/* District select */}
+        {/* District Select */}
         <select
           name="districtId"
           value={form.districtId}
@@ -161,8 +161,8 @@ const CreateADCAdmin = () => {
         >
           <option value="">Select District</option>
           {districts.map((d) => (
-            <option key={d.Id} value={d.Id}>
-              {d.Name}
+            <option key={d.districtId} value={d.districtId}>
+              {d.districtName}
             </option>
           ))}
         </select>
@@ -171,7 +171,6 @@ const CreateADCAdmin = () => {
           type="file"
           name="imageFile"
           accept="image/*"
-          capture="environment"
           onChange={handleChange}
           className="p-2 border rounded"
           required
