@@ -1,0 +1,80 @@
+
+   /* FORM CONTAINER */
+
+.form-container {
+  width: 100%;
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  background: #ffffff;
+  background-color:rgb(194, 228, 217);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* For mobile screens */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 20px;
+    margin: 20px;
+  }
+}
+   /* FORM GROUP */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+   /* LABEL */
+
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333; 
+}
+
+   /* INPUT / SELECT FIELDS */
+
+.form-group input,
+.form-group select {
+  padding: 10px 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s ease;
+  background-color: #f9f9f9; 
+  border: none;
+}
+
+/* Focus effect */
+.form-group input:focus,
+.form-group select:focus {
+  background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(31, 190, 129, 0.25);
+}
+  /* ERROR MESSAGE */
+.text-red-600 {
+  color: #dc2626;
+  margin-top: -6px;
+  font-size: 14px;
+}
+   /* SUBMIT BUTTON */
+button[type="submit"] {
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* Hover effect */
+button[type="submit"]:hover:not([disabled]) {
+  background-color: rgb(12, 63, 46);
+}
+/* Disabled button */
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

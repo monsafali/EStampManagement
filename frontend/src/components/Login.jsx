@@ -1,7 +1,9 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
-import axios from "axios";
 
+import axios from "axios";
+import "../styles/global/form.css";
+import "../styles/pages/login.css";
 
 
 function Login() {
@@ -120,89 +122,82 @@ function Login() {
   // UI PART
   // ---------------------------------------------------------
   return (
-    <div className="p-4 max-w-sm mx-auto">
-      <h2 className="text-xl font-bold mb-4">Login</h2>
+    <div className="login-wrapper">
+      <div style={{ width: "100%" }}>
+        <h2 className="login-title">Login</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-2">
-        <input
-          name="username"
-          placeholder="username"
-          value={formData.username}
-          onChange={(e) =>
-            setFormData({ ...formData, username: e.target.value })
-          }
-          className="border p-2 w-full"
-        />
+        <form onSubmit={handleSubmit} className="form-container">
 
-        <input
-          name="password"
-          type="password"
-          placeholder="password"
-          value={formData.password}
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-          className="border p-2 w-full"
-        />
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">User Name:</label>
+            <input
+              name="username"
+              id="username"
+              placeholder="username"
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
+            />
+          </div>
 
-        <select
-          name="role"
-          value={formData.role}
-          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-          className="border p-2 w-full"
-        >
-          <option value="">Select Role</option>
-          <option value="super-admin">Super Admin</option>
-          <option value="ADCAdmin">ADC Admin</option>
-          <option value="vendor">Vendor</option>
-          <option value="bank">Bank</option>
-        </select>
+          <div className="form-group">
+            <label htmlFor="pwd" className="form-label">Password:</label>
+            <input
+              name="password"
+              id="pwd"
+              type="password"
+              placeholder="password"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
+          </div>
 
-        {error && <p className="text-red-600">{error}</p>}
+          <div className="form-group">
+            <label htmlFor="role" className="form-label">Role:</label>
+            <select
+              name="role"
+              id="role"
+              value={formData.role}
+              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+            >
+              <option value="">Select Role</option>
+              <option value="super-admin">Super Admin</option>
+              <option value="ADCAdmin">ADC Admin</option>
+              <option value="vendor">Vendor</option>
+              <option value="bank">Bank</option>
+            </select>
+          </div>
+          {error && <p className="text-red-600">{error}</p>}
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white w-full py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? "Sending OTP..." : "Login"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="login-btn"
+            disabled={loading}
+          >
+            {loading ? "Sending OTP..." : "Login"}
+          </button>
+        </form>
 
-      {/* Logout Other Device Button */}
-      <button
-        onClick={logoutOtherDevice}
-        className="bg-red-600 text-white w-full py-2 rounded mt-3"
-        disabled={logoutLoading}
-      >
-        {logoutLoading ? "Processing..." : "Logout Other Device"}
-      </button>
+        {/* Logout Other Device Button */}
+        <div className="logout-container">
+          <button
+            onClick={logoutOtherDevice}
+            className="logout-other-btn"
+            disabled={logoutLoading}
+          >
+            {logoutLoading ? "Processing..." : "Logout Other Device"}
+          </button>
+        </div>
+      </div>
+
 
       {/* OTP POPUP */}
       {showOtpPopup && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-          }}
-        >
-          <div
-            style={{
-              background: "white",
-              padding: 30,
-              borderRadius: 10,
-              width: 300,
-              textAlign: "center",
-            }}
-          >
+        <div className="otp-overlay">
+          <div className="otp-box">
             <h3>Enter OTP</h3>
 
             <input
@@ -211,25 +206,20 @@ function Login() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
-            <br />
-            <br />
-
-            <button
-              onClick={verifyOtp}
-              className="bg-green-600 text-white w-full py-2 rounded"
-            >
-              Verify OTP
-            </button>
-
-            <br />
-            <br />
-
-            <button
-              onClick={() => setShowOtpPopup(false)}
-              className="bg-gray-600 text-white w-full py-2 rounded"
-            >
-              Close
-            </button>
+            <div className="otp-actions">
+              <button
+                onClick={verifyOtp}
+                className="otp-btn verify-btn"
+              >
+                Verify OTP
+              </button>
+              <button
+                onClick={() => setShowOtpPopup(false)}
+                className="otp-btn close-btn"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

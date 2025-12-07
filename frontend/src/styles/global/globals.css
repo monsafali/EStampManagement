@@ -1,0 +1,55 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ /* BASE HTML & BODY */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #f3f4f6;  
+  color: #1f2937;            
+  line-height: 1.6;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove bullets from all lists */
+ul,
+ol {
+  list-style: none;
+}
+
+
+/* IMAGES & LINKS */
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+   /* 4. ROOT CONTAINER */
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+   /* . BUTTON RESET FOR CONSISTENCY */
+
+button {
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.25s ease-in-out;
+}
