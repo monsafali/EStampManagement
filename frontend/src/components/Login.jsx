@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
+import { toast } from "react-toastify";
 
 import axios from "axios";
 import "../styles/global/form.css";
@@ -38,6 +39,7 @@ function Login() {
       );
 
       if (res.data.success) {
+        toast.success("OTP sent to your email!");
         setShowOtpPopup(true); // SHOW OTP POPUP
       }
     } catch (err) {
@@ -52,7 +54,8 @@ function Login() {
   // -------------------------------------------------
   const verifyOtp = async () => {
     if (!otp) {
-      alert("Please enter OTP");
+      toast.error("Please enter OTP");
+
       return;
     }
 
@@ -65,8 +68,10 @@ function Login() {
         },
         { withCredentials: true }
       );
-
-      alert(res.data.message);
+      if (!res.data.success) {
+        throw new Error(res.data.message || "OTP verification failed");
+      }
+      toast.success("Login successful!");
 
       // FINAL LOGIN SUCCESS
       setShowOtpPopup(false);
@@ -76,7 +81,8 @@ function Login() {
 
       window.location.href = "/"; // redirect if needed
     } catch (err) {
-      alert(err.response?.data?.message || "Invalid OTP");
+      toast.error(err.response?.data?.message || "Invalid OTP");
+
     }
   };
 
@@ -109,8 +115,8 @@ function Login() {
         setLogoutLoading(false);
         return;
       }
+      toast.success("Logged out from other device successfully!");
 
-      alert("Logged out from other device successfully!");
     } catch (err) {
       setError("Something went wrong.");
     }
@@ -127,49 +133,51 @@ function Login() {
         <h2 className="login-title">Login</h2>
 
         <form onSubmit={handleSubmit} className="form-container">
-
-          <div className="form-group">
-            <label htmlFor="username" className="form-label">User Name:</label>
+          {/* user name filed */}
+          <div className="form-group floating">
             <input
+              type="text"
               name="username"
               id="username"
-              placeholder="username"
+              placeholder=" "
               value={formData.username}
               onChange={(e) =>
                 setFormData({ ...formData, username: e.target.value })
               }
             />
+            <label htmlFor="username">User Name</label>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="pwd" className="form-label">Password:</label>
+          {/* password filed */}
+          <div className="form-group floating">
             <input
+              type="password"
               name="password"
               id="pwd"
-              type="password"
-              placeholder="password"
+              placeholder=" "
               value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
             />
+            <label htmlFor="pwd">Password</label>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="role" className="form-label">Role:</label>
+          {/* role filed */}
+          <div className="form-group floating">
             <select
-              name="role"
               id="role"
+              name="role"
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
             >
-              <option value="">Select Role</option>
+              <option value="" disabled hidden></option>
               <option value="super-admin">Super Admin</option>
               <option value="ADCAdmin">ADC Admin</option>
               <option value="vendor">Vendor</option>
               <option value="bank">Bank</option>
             </select>
+            <label htmlFor="role">Role</label>
           </div>
+
           {error && <p className="text-red-600">{error}</p>}
 
           <button
