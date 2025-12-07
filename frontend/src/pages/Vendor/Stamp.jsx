@@ -46,9 +46,10 @@ export default function Stamp() {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
+          const baseUrl = import.meta.env.VITE_LOCATION_API;
           try {
-            const res = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            const res = await fetch(   
+               `${baseUrl}&lat=${latitude}&lon=${longitude}`
             );
             const data = await res.json();
             const address = data.address || {};
