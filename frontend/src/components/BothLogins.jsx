@@ -14,13 +14,11 @@ const BothLogins = () => {
   const { googleUser } = useContext(GoogleAuthContext);
 
   return (
-    <div className="login-wrapper">
+    <div className="login-wrapper-both">
       <div className="auth-combined-box">
         {/* Your RBAC Login System */}
         <Login />
         <div className="auth-divider">OR</div>
-
-
         {/* Chat Support Section */}
         <div className="chat-box">
           <h2 className="text-xl font-bold mb-3 text-center">Chat Support</h2>
@@ -31,15 +29,11 @@ const BothLogins = () => {
             <ChatSupport /> // If logged in → show chat UI
           )}
         </div>
-
-
       </div>
-
-
-
     </div>
   );
 };
+
 
 export default BothLogins;
 

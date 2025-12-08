@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import axios from "axios";
@@ -16,6 +17,7 @@ function Login() {
     password: "",
     role: "",
   });
+  const navigate = useNavigate();
 
   const [otp, setOtp] = useState("");
 
@@ -23,13 +25,21 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
 
+
+
   // -------------------------------------------------
   // STEP 1 → Send username/password and get OTP
   // -------------------------------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    //  STEP 0: Client-side validation (no loading if empty)na nazar aye
+    if (!formData.username || !formData.password || !formData.role) {
+      setError("Please fill all fields.");
+      return; //  Stops here, no flicker, no API call
+    }
+
+    setLoading(true); //  only runs when fields are NOT empty
 
     try {
       const res = await axios.post(
@@ -79,7 +89,9 @@ function Login() {
       // Backend returns user → Set the logged-in user in context
       setUser(res.data.user || { username: formData.username });
 
-      window.location.href = "/"; // redirect if needed
+      // window.location.href = "/"; // redirect if needed
+      // after success
+      navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Invalid OTP");
 
@@ -130,9 +142,10 @@ function Login() {
   return (
     <div className="login-wrapper">
       <div style={{ width: "100%" }}>
-        <h2 className="login-title">Login</h2>
+        <h2 className="login-title">E-Stamp</h2>
 
         <form onSubmit={handleSubmit} className="form-container">
+          <h6 className="login-sm-title">Login in to E-Stamp</h6>
           {/* user name filed */}
           <div className="form-group floating">
             <input
