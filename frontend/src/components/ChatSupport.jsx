@@ -134,7 +134,7 @@ export default function ChatSupport() {
       {/* Chat Window - Added ref for auto-scrolling */}
       <div
         ref={chatWindowRef}
-        className="h-[350px] overflow-y-auto border p-2 mb-3 bg-gray-50 rounded shadow"
+        className="h-[350px] overflow-y-auto border p-2 mb-3 bg-red-50 rounded shadow"
       >
         {messages.map((m) => (
           // Use m._id or a combination for a unique key

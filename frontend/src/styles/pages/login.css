@@ -8,7 +8,9 @@
   align-items: center;
   justify-content: center;
 }
-
+.login-wrapper form{
+  box-shadow: none;
+}
 /* =============================
    Title
 ================================ */
@@ -205,8 +207,6 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transition: all 0.2s ease;
 }
 
