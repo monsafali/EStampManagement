@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import axios from "axios";
 import "../styles/global/form.css";
 import "../styles/pages/login.css";
@@ -244,6 +243,7 @@ function Login() {
           </div>
         </div>
       )}
+
     </div>
   );
 }

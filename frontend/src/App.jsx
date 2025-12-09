@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import ChatWidget from "./components/ChatWidget";
+
 // import FloatingChat from "./components/FloatingChat";
 
 
@@ -95,9 +95,6 @@ export default function App() {
 
         <Route path="*" element={<Navigate to={redirectRole()} />} />
       </Routes>
-        {/* Floating Chat for logged-in Google users */}
-   <ChatWidget />
-
     </BrowserRouter>
   );
 }
