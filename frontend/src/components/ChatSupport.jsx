@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import { GoogleAuthContext } from "../ GoogleAuthContext";
+import "../styles/components/chat.css";
 
 // Connect socket
 const socket = io("http://localhost:5000");
@@ -133,18 +134,18 @@ export default function ChatSupport() {
       >
         {messages.map((m) => (
           // Use m._id or a combination for a unique key
-          <div key={m._id || m.userQuery} className="my-2">
+          <div key={m._id || m.userQuery} className="chat-message">
             {/* USER MESSAGE */}
             {m.userQuery && (
               <div className="user-msg">
-                <b>You:</b> {m.userQuery}
+                <b></b> {m.userQuery}
               </div>
             )}
 
             {/* AI MESSAGE */}
             {m.AiResponse && (
               <div className="ai-msg">
-                <b>AI:</b> {m.AiResponse}
+                <b></b> {m.AiResponse}
               </div>
             )}
             {/* Show a loading indicator for messages that are sent but not yet answered */}
