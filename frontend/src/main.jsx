@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./AuthContext.jsx";
 import GoogleAuthProvider from "./ GoogleAuthContext.jsx";
-
+import './styles/global/globals.css';
 
 
 createRoot(document.getElementById("root")).render(

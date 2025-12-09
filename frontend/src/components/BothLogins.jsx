@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ChatSupport from './ChatSupport';
-
+import "../styles/pages/login.css"
 
 
 // import { GoogleLogin } from "@react-oauth/google";
@@ -20,15 +20,10 @@ const BothLogins = () => {
         <Login />
         <div className="auth-divider">OR</div>
         {/* Chat Support Section */}
-        <div className="chat-box">
-          <h2 className="text-xl font-bold mb-3 text-center">Chat Support</h2>
-
-          {!googleUser ? (
-            <GoogleLogin /> // If not logged in → show Google Login button
-          ) : (
-            <ChatSupport /> // If logged in → show chat UI
-          )}
-        </div>
+          <h2>Chat Support</h2>
+          <div className="chat-box-container">
+            {!googleUser ? <GoogleLogin /> : <ChatSupport />}
+          </div>
       </div>
     </div>
   );

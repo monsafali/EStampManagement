@@ -121,67 +121,66 @@ export default function ChatSupport() {
   }, [messages]);
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <p className="mb-2">Welcome, {googleUser.name}</p>
-
-      <button
-        className="bg-red-800 text-white px-4 py-2 rounded mb-4"
-        onClick={logout}
-      >
-        Logout
-      </button>
-
+    <div className="chat-box">
+      <div className="chat-header">
+        <p>Welcome, {googleUser.name}</p>
+        <button className="chat-logout-btn" onClick={logout}>Logout</button>
+      </div>
       {/* Chat Window - Added ref for auto-scrolling */}
       <div
         ref={chatWindowRef}
-        className="h-[350px] overflow-y-auto border p-2 mb-3 bg-red-50 rounded shadow"
+        className="chat-window"
       >
         {messages.map((m) => (
           // Use m._id or a combination for a unique key
           <div key={m._id || m.userQuery} className="my-2">
             {/* USER MESSAGE */}
             {m.userQuery && (
-              <div className="bg-blue-200 text-right p-2 rounded mb-1">
+              <div className="user-msg">
                 <b>You:</b> {m.userQuery}
               </div>
             )}
 
             {/* AI MESSAGE */}
             {m.AiResponse && (
-              <div className="bg-green-200 text-left p-2 rounded">
+              <div className="ai-msg">
                 <b>AI:</b> {m.AiResponse}
               </div>
             )}
             {/* Show a loading indicator for messages that are sent but not yet answered */}
             {m.userQuery && !m.AiResponse && m.isPending && (
-              <div className="text-gray-500 text-sm text-right">Sending...</div>
+              <div className="pending-msg">Sending...</div>
             )}
           </div>
         ))}
       </div>
 
       {/* Ask input */}
-      <textarea
-        placeholder="Ask your question..."
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        className="border p-2 w-full mb-2 rounded"
-        // Allow pressing Enter to send if not loading
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey && !loading) {
-            e.preventDefault();
-            handleAsk();
-          }
-        }}
-      />
 
-      <button
-        onClick={handleAsk}
-        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
-        disabled={loading || !question} // Disable if no question is typed
-      >
-        {loading ? "Processing..." : "Ask AI"}
-      </button>
+      <div className="chat-input-area">
+        <textarea
+          placeholder="Ask your question..."
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          className="chat-input"
+          // Allow pressing Enter to send if not loading
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey && !loading) {
+              e.preventDefault();
+              handleAsk();
+            }
+          }}
+        />
+
+        <button
+          onClick={handleAsk}
+          className="chat-send-btn"
+          disabled={loading || !question} // Disable if no question is typed
+        >
+          {loading ? "Processing..." : "Ask AI"}
+        </button>
+      </div>
+
     </div>
   );
 }

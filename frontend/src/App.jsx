@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 
+// import FloatingChat from "./components/FloatingChat";
+
+
 import Login from "./components/Login";
 import ADCDashboard from "./pages/ADCDashboard";
 import BankDashboard from "./pages/BankDashboard";
@@ -11,6 +14,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Success from "./pages/Vendor/Success";
 import VendorMontyReport from "./pages/AdcAdmin/VendorMontyReport.jsx";
 import BothLogins from './components/BothLogins';
+
 
 
 
@@ -91,6 +95,8 @@ export default function App() {
 
         <Route path="*" element={<Navigate to={redirectRole()} />} />
       </Routes>
+        {/* Floating Chat for logged-in Google users */}
+      {/* <FloatingChat /> */}
     </BrowserRouter>
   );
 }
