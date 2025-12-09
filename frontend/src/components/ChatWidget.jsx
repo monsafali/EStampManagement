@@ -17,7 +17,7 @@ export default function ChatWidget() {
         className="chat-widget-btn"
         onClick={() => setOpen(!open)}
       >
-        💬
+     💬 Need help?
       </button>
 
       {/* Popup Window */}

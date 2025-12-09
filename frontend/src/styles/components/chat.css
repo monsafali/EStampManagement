@@ -20,12 +20,15 @@
 /* Logout button */
 .chat-logout-btn {
     background: transparent;
-    color: var(--danger);
+    background-color: var(--danger);
     padding: 6px 10px;
     font-weight: 600;
     font-size: 13px;
+    color: var(--surface);
 }
-
+.chat-logout-btn:hover{
+    opacity: 0.8;
+}
 /* Chat window */
 .chat-window {
     flex: 1;
@@ -97,7 +100,7 @@
 .chat-input {
     width: 100%;
     border-radius: 14px;
-    border: 1px solid var(--chat-border);
+    border: 1.8px solid var(--border);
     background: var(--surface);
     padding: 12px 14px;
     font-size: 14px;
@@ -138,7 +141,8 @@
 .chat-widget-container {
     position: fixed;
     bottom: 20px;
-    left: 20px;
+    /* left: 20px; */
+    right: 20px;
     z-index: 9999;
 }
 
@@ -153,17 +157,16 @@
     overflow: hidden;
     position: absolute;
     bottom: 60px;
-    left: 0;
-    background-color: red;
-
+    right: 18%;
 }
 
 /* If user is logged in, float chat box */
 .chat-box {
     position: fixed;
     top: 20px;
-    bottom: 84px;
-left: 20px;
+    bottom: inherit;
+    margin-bottom: 2rem;
+    left: inherit;
     width: inherit;
     overflow: auto;
     flex: 1;
@@ -179,21 +182,24 @@ left: 20px;
 
 /* Round floating button */
 .chat-widget-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    /* width: 50px;
+    height: 50px; */
+    /* border-radius: 50%; */
     background: var(--color-primary);
     color: white;
-    font-size: 22px;
+    font-size: 18px;
     border: none;
     cursor: pointer;
+    padding: 8px 16px;
     box-shadow: var(--shadow-lg);
 }
+
 /* Active Click Effect */
 .login-with-google-btn:active {
     transform: translateY(0);
     box-shadow: var(--shadow-sm);
 }
+
 /* Add Google Icon Automatically */
 .login-with-google-btn::before {
     content: "";
@@ -201,4 +207,32 @@ left: 20px;
     height: 22px;
     background: url("https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg") no-repeat center;
     background-size: contain;
+}
+
+/* Floating Button Animation */
+.chat-widget-btn {
+  animation: pulse 2s infinite;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-widget-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.chat-widget-btn:active {
+  transform: scale(0.95);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(99, 102, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
 }
