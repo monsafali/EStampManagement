@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 
-// import FloatingChat from "./components/FloatingChat";
 
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 import Login from "./components/Login";
 import ADCDashboard from "./pages/ADCDashboard";
@@ -44,57 +45,65 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/login"
-          element={user ? <Navigate to={redirectRole()} /> : <BothLogins />}
-        />
+      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
 
-        <Route
-          path="/vendor"
-          element={
-            <ProtectedRoute allowedRoles={["vendor"]}>
-              <VendorDashboard />
-            </ProtectedRoute>
-          }
-        >
-          <Route path="payment-success" element={<Success />} />
-        </Route>
+        <Navbar />
+        <div style={{ flex: 1 }}>
+          <Routes>
+            <Route
+              path="/login"
+              element={user ? <Navigate to={redirectRole()} /> : <BothLogins />}
+            />
 
-        <Route
-          path="/bank"
-          element={
-            <ProtectedRoute allowedRoles={["bank"]}>
-              <BankDashboard />
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/vendor"
+              element={
+                <ProtectedRoute allowedRoles={["vendor"]}>
+                  <VendorDashboard />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="payment-success" element={<Success />} />
+            </Route>
 
-        <Route
-          path="/adc"
-          element={
-            <ProtectedRoute allowedRoles={["ADCAdmin"]}>
-              <ADCDashboard />
-            </ProtectedRoute>
-          }
-        >
-          <Route
-            path="monthly-report/:vendorId"
-            element={<VendorMontyReport />}
-          />
-        </Route>
+            <Route
+              path="/bank"
+              element={
+                <ProtectedRoute allowedRoles={["bank"]}>
+                  <BankDashboard />
+                </ProtectedRoute>
+              }
+            />
 
-        <Route
-          path="/superadmin"
-          element={
-            <ProtectedRoute allowedRoles={["super-admin"]}>
-              <SuperAdminDashboard />
-            </ProtectedRoute>
-          }
-        />
+            <Route
+              path="/adc"
+              element={
+                <ProtectedRoute allowedRoles={["ADCAdmin"]}>
+                  <ADCDashboard />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                path="monthly-report/:vendorId"
+                element={<VendorMontyReport />}
+              />
+            </Route>
 
-        <Route path="*" element={<Navigate to={redirectRole()} />} />
-      </Routes>
+            <Route
+              path="/superadmin"
+              element={
+                <ProtectedRoute allowedRoles={["super-admin"]}>
+                  <SuperAdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route path="*" element={<Navigate to={redirectRole()} />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+
     </BrowserRouter>
   );
 }

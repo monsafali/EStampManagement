@@ -1,0 +1,26 @@
+/* ================= Footer — E-Stamp Theme ================= */
+
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: 16px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.footer-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.footer-text span {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Soft elevate effect */
+.footer:hover {
+  box-shadow: var(--shadow-md);
+}

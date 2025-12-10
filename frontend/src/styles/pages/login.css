@@ -136,7 +136,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: calc(100vh - 114px); 
   padding: 1rem;
 }
 
@@ -172,4 +172,18 @@
   justify-content: center;
   gap: 10px;
   transition: all 0.2s ease;
+}
+
+/*  Card style improvement */
+.auth-combined-box {
+  border: 1px solid var(--border);
+}
+
+/*  Login button animation */
+.login-btn {
+  box-shadow: var(--shadow-sm);
+}
+.login-btn:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }

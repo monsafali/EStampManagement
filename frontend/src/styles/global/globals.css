@@ -48,7 +48,15 @@ img {
   max-width: 100%;
   display: block;
 }
-
+/* Logout button */
+.logout-btn {
+    background: transparent;
+    background-color: var(--danger);
+    padding: 6px 10px;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--surface);
+}
 a {
   text-decoration: none;
   color: inherit;

@@ -17,15 +17,7 @@
     color: var(--text-strong);
 }
 
-/* Logout button */
-.chat-logout-btn {
-    background: transparent;
-    background-color: var(--danger);
-    padding: 6px 10px;
-    font-weight: 600;
-    font-size: 13px;
-    color: var(--surface);
-}
+
 .chat-logout-btn:hover{
     opacity: 0.8;
 }

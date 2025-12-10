@@ -125,7 +125,7 @@ export default function ChatSupport() {
     <div className="chat-box">
       <div className="chat-header">
         <p>Welcome, {googleUser.name}</p>
-        <button className="chat-logout-btn" onClick={logout}>Logout</button>
+        <button className="logout-btn" onClick={logout}>Logout</button>
       </div>
       {/* Chat Window - Added ref for auto-scrolling */}
       <div

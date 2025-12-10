@@ -18,14 +18,11 @@ export default function SuperAdminDashboard() {
       <h1 className="text-3xl font-bold">
         Welcome {user?.username} to Super Admin Dashboard
       </h1>
-
-      <p className="mt-2 text-gray-600">Super Admin Dashboard Panel</p>
-
       {/* Logout Button */}
-      <LogoutButton />
+      {/* <LogoutButton /> */}
 
       {/* Change Password Section */}
-      <ChangePassword />
+      {/* <ChangePassword /> */}
       <CreateADCAdmin />
       <h1>Get All Adc Admin</h1>
       <ManageADCAdmins/>
