@@ -101,6 +101,7 @@ const CreateADCAdmin = () => {
 
   return (
     <div className="p-6 max-w-lg mx-auto">
+      <br /><br />
       <h1 className="text-2xl font-bold mb-4">Create ADC Admin</h1>
 
       {message && (
@@ -109,72 +110,87 @@ const CreateADCAdmin = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 border p-4 rounded shadow"
+        className="form-container"
       >
-        <input
-          type="text"
-          name="fullname"
-          placeholder="Full Name"
-          value={form.fullname}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
+        <div className="form-group">
+          <input
+            type="text"
+            name="fullname"
+            id="fullname"
+            placeholder=" "
+            value={form.fullname}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="fullname">Full Name</label>
+        </div>
+        <div className="form-group">
 
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder=" "
+            value={form.username}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="username">User Name</label>
+        </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
+        <div className="form-group">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder=" "
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="email">Email</label>
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder=" "
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="password">Password</label>
+        </div>
         {/* District Select */}
-        <select
-          name="districtId"
-          value={form.districtId}
-          onChange={handleDistrictChange}
-          className="w-full p-2 border rounded"
-          required
-        >
-          <option value="">Select District</option>
-          {districts.map((d) => (
-            <option key={d.districtId} value={d.districtId}>
-              {d.districtName}
-            </option>
-          ))}
-        </select>
+        <div className="form-group">
+          <select
+            name="districtId"
+            value={form.districtId}
+            onChange={handleDistrictChange}
+            required
+          >
+            <option value="">Select District</option>
+            {districts.map((d) => (
+              <option key={d.districtId} value={d.districtId}>
+                {d.districtName}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="districtId">District</label>
+        </div>
 
-        <input
-          type="file"
-          name="imageFile"
-          accept="image/*"
-          onChange={handleChange}
-          className="p-2 border rounded"
-          required
-        />
+        <div className="form-group">
+          <input
+            type="file"
+            name="imageFile"
+            id="imageFile"
+            accept="image/*"
+            onChange={handleChange}
+          placeholder=" "
+            required
+          />
+          <label htmlFor="imageFile">Upload Photo</label>
+        </div>
 
         <button
           disabled={loading}

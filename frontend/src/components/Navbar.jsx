@@ -10,19 +10,8 @@ export default function Navbar() {
   const { user } = useContext(AuthContext);
   const [openProfile, setOpenProfile] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const profileRef = useRef(null);
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setOpenProfile(false);
-        setShowEditForm(false);
-      }
-    }
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+
 
   return (
     <header className="navbar">
@@ -46,7 +35,7 @@ export default function Navbar() {
 
         {/*  Profile Dropdown */}
         {user && (
-          <div className="user-profile" ref={profileRef}>
+          <div className="user-profile" >
             <button
               className="user-btn"
               onClick={() => setOpenProfile(!openProfile)}
@@ -66,9 +55,13 @@ export default function Navbar() {
                 >
                   {showEditForm ? "Close" : "Edit Profile"}
                 </button>
+                {/* Show Change Password Panel (outside dropdown) */}
+                {showEditForm && (
+                  <div className="change-password-panel">
+                    <ChangePassword />
+                  </div>
+                )}
 
-                {/*  Show Change Password Form */}
-                {showEditForm && <ChangePassword />}
               </div>
             )}
           </div>

@@ -128,7 +128,9 @@
 .close-btn {
   background: var(--danger);
   color: var(--surface);
+
 }
+
 
 /* Both Login Container */
 .login-wrapper-both {
