@@ -6,6 +6,7 @@ import GetVendor from "./AdcAdmin/GetVendor";
 import CreateVendor from "./AdcAdmin/CreateVendor";
 import CreateBankUser from "./AdcAdmin/CreateBankUser";
 import { Outlet } from "react-router-dom";
+import "../styles/pages/ADCdashboard.css"
 
 export default function ADCDashboard() {
   const { user, loading } = useContext(AuthContext);
@@ -13,25 +14,32 @@ export default function ADCDashboard() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-3xl font-bold">
+    <div className="adc-dashboard">
+      <h1 className="dashboard-title">
         Welcome {user?.username} to ADC Dashboard
       </h1>
 
-      <p className="mt-2 text-gray-600">ADC Admin Panel</p>
+      <p className="dashboard-subtitle">ADC Admin Panel</p>
 
-      {/* Logout Button */}
-      <LogoutButton />
+ 
+      {/* Vendors Section */}
+      <div className="adc-section">
+        <h2>Vendors List</h2>
+        <GetVendor />
+      </div>
 
-      {/* Change Password Section */}
-      <ChangePassword />
-      <GetVendor />
+      {/* Create Vendor Section */}
+      <div className="adc-section">
+        <h2>Create Vendor</h2>
+        <CreateVendor districtId={user.districtId} districtName={user.district} />
+      </div>
 
-      <h1>create Vendor</h1>
-      <CreateVendor districtId={user.districtId} districtName={user.district} />
 
-      <h1>Create Bank User</h1>
-      <CreateBankUser />
+      {/* Create Bank User Section */}
+      <div className="adc-section">
+        <h2>Create Bank User</h2>
+        <CreateBankUser />
+      </div>
 
       <Outlet />
     </div>

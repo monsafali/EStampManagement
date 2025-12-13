@@ -11,8 +11,6 @@ export default function Navbar() {
   const [openProfile, setOpenProfile] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
-
-
   return (
     <header className="navbar">
       <div className="navbar-logo">E-Stamp System</div>
@@ -32,7 +30,6 @@ export default function Navbar() {
         {user?.role === "super-admin" && (
           <Link to="/superadmin" className="navbar-link">Super Admin</Link>
         )}
-
         {/*  Profile Dropdown */}
         {user && (
           <div className="user-profile" >
@@ -42,31 +39,28 @@ export default function Navbar() {
             >
               Profile ⌄
             </button>
-
             {openProfile && (
               <div className="user-dropdown">
                 <p><b>Name:</b> {user.username}</p>
                 <p><b>Email:</b> {user.email}</p>
                 <p><b>Role:</b> {user.role}</p>
-
                 <button
                   className="edit-profile-btn"
                   onClick={() => setShowEditForm(!showEditForm)}
                 >
-                  {showEditForm ? "Close" : "Edit Profile"}
+                  {showEditForm ? "Cansel" : "Change Password"}
                 </button>
                 {/* Show Change Password Panel (outside dropdown) */}
                 {showEditForm && (
                   <div className="change-password-panel">
                     <ChangePassword />
                   </div>
-                )}
-
+                )} 
               </div>
             )}
+         
           </div>
         )}
-
         {/* Logout button always visible (outside dropdown) */}
         {user && (
           <div className="logout-wrapper">

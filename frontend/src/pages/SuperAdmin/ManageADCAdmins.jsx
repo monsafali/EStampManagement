@@ -80,8 +80,6 @@ const handleChange = (e) => {
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Manage ADC Admins</h1>
-
       {message && (
         <p className="p-2 bg-blue-500 text-white mb-4 rounded">{message}</p>
       )}

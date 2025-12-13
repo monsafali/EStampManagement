@@ -1,0 +1,71 @@
+/* Main Container */
+.sa-dashboard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  /* background-color: red; */
+}
+
+/* Header */
+.sa-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+.sa-header p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* Action Buttons */
+.sa-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+/* */
+.sa-btn {
+  padding: 10px 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: 0.25s ease;
+}
+
+/* Content Card */
+.sa-card {
+  background: var(--surface);
+  padding: 25px;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.sa-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-strong);
+}
+
+.sa-btn.active {
+  box-shadow: 0 0 0 2px var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--surface);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sa-card {
+    padding:0;
+  }
+
+  .sa-actions {
+    flex-direction: column;
+  }
+
+  .sa-btn {
+    width: 100%;
+  }
+}

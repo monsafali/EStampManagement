@@ -1,9 +1,7 @@
 
-
-
-
 import PUNJAB from "../../utils/District";
 
+import "../../styles/pages/SuperAdmin/createADCAdmin.css"
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -39,7 +37,6 @@ const CreateADCAdmin = () => {
       setForm({ ...form, [e.target.name]: e.target.value });
     }
   };
-
   // Handle District Selection
   const handleDistrictChange = (e) => {
     const selected = districts.find(
@@ -99,108 +96,235 @@ const CreateADCAdmin = () => {
     }
   };
 
+  // return (
+
+  //   <div className="create-adc-wrapper">
+
+  //     <h1>Create ADC Admin</h1>
+
+  //     {message && (
+  //       <p className="create-adc-wrapper">{message}</p>
+  //     )}
+
+  //     <form
+  //       onSubmit={handleSubmit}
+  //       className="form-container"
+  //     >
+  //       <div className="form-group">
+  //         <input
+  //           type="text"
+  //           name="fullname"
+  //           id="fullname"
+  //           placeholder=" "
+  //           value={form.fullname}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //         <label htmlFor="fullname">Full Name</label>
+  //       </div>
+  //       <div className="form-group">
+
+  //         <input
+  //           type="text"
+  //           name="username"
+  //           id="username"
+  //           placeholder=" "
+  //           value={form.username}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //         <label htmlFor="username">User Name</label>
+  //       </div>
+
+  //       <div className="form-group">
+  //         <input
+  //           type="email"
+  //           name="email"
+  //           id="email"
+  //           placeholder=" "
+  //           value={form.email}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //         <label htmlFor="email">Email</label>
+  //       </div>
+  //       <div className="form-group">
+  //         <input
+  //           type="password"
+  //           name="password"
+  //           placeholder=" "
+  //           value={form.password}
+  //           onChange={handleChange}
+  //           required
+  //         />
+  //         <label htmlFor="password">Password</label>
+  //       </div>
+  //       {/* District Select */}
+  //       <div className="form-group">
+  //         <select
+  //           name="districtId"
+  //           value={form.districtId}
+  //           onChange={handleDistrictChange}
+  //           required
+  //         >
+  //           <option value="">Select District</option>
+  //           {districts.map((d) => (
+  //             <option key={d.districtId} value={d.districtId}>
+  //               {d.districtName}
+  //             </option>
+  //           ))}
+  //         </select>
+  //         <label htmlFor="districtId">District</label>
+  //       </div>
+
+  //       <div className="form-group">
+  //         <input
+  //           type="file"
+  //           name="imageFile"
+  //           id="imageFile"
+  //           accept="image/*"
+  //           onChange={handleChange}
+  //           placeholder=" "
+  //           required
+  //         />
+  //         <label htmlFor="imageFile">Upload Photo</label>
+  //       </div>
+
+  //       <button
+  //         disabled={loading}
+  //         className="form-btn"
+  //       >
+  //         {loading ? "Creating..." : "Create ADC Admin"}
+  //       </button>
+  //     </form>
+  //   </div>
+  // );
   return (
-    <div className="p-6 max-w-lg mx-auto">
-      <br /><br />
-      <h1 className="text-2xl font-bold mb-4">Create ADC Admin</h1>
+    <div className="create-adc-wrapper">
 
-      {message && (
-        <p className="mb-3 text-white p-2 rounded bg-blue-500">{message}</p>
-      )}
+      <div className="adc-two-columns">
+        {/* LEFT: FORM */}
+        <div className="adc-left">
+          <h1>Create ADC Admin</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="form-container"
-      >
-        <div className="form-group">
-          <input
-            type="text"
-            name="fullname"
-            id="fullname"
-            placeholder=" "
-            value={form.fullname}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="fullname">Full Name</label>
-        </div>
-        <div className="form-group">
+          {message && <p className="create-adc-message">{message}</p>}
 
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder=" "
-            value={form.username}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="username">User Name</label>
-        </div>
-
-        <div className="form-group">
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder=" "
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="email">Email</label>
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            name="password"
-            placeholder=" "
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-          <label htmlFor="password">Password</label>
-        </div>
-        {/* District Select */}
-        <div className="form-group">
-          <select
-            name="districtId"
-            value={form.districtId}
-            onChange={handleDistrictChange}
-            required
+          <form
+            onSubmit={handleSubmit}
+            className="form-container"
           >
-            <option value="">Select District</option>
-            {districts.map((d) => (
-              <option key={d.districtId} value={d.districtId}>
-                {d.districtName}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="districtId">District</label>
+            <div className="form-group">
+              <input
+                type="text"
+                name="fullname"
+                id="fullname"
+                placeholder=" "
+                value={form.fullname}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="fullname">Full Name</label>
+            </div>
+            <div className="form-group">
+
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder=" "
+                value={form.username}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="username">User Name</label>
+            </div>
+
+            <div className="form-group">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder=" "
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="email">Email</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                placeholder=" "
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            {/* District Select */}
+            <div className="form-group">
+              <select
+                name="districtId"
+                value={form.districtId}
+                onChange={handleDistrictChange}
+                required
+              >
+                <option value="">Select District</option>
+                {districts.map((d) => (
+                  <option key={d.districtId} value={d.districtId}>
+                    {d.districtName}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="districtId">District</label>
+            </div>
+
+            <div className="form-group">
+              <input
+                type="file"
+                name="imageFile"
+                id="imageFile"
+                accept="image/*"
+                onChange={handleChange}
+                placeholder=" "
+                required
+              />
+              <label htmlFor="imageFile">Upload Photo</label>
+            </div>
+
+            <button
+              disabled={loading}
+              className="form-btn"
+            >
+              {loading ? "Creating..." : "Create ADC Admin"}
+            </button>
+          </form>
         </div>
 
-        <div className="form-group">
-          <input
-            type="file"
-            name="imageFile"
-            id="imageFile"
-            accept="image/*"
-            onChange={handleChange}
-          placeholder=" "
-            required
-          />
-          <label htmlFor="imageFile">Upload Photo</label>
-        </div>
+        {/* RIGHT: INFO SECTION */}
+        <div className="adc-right">
+          <h2>Why Create an ADC Admin?</h2>
+          <p>
+            ADC Admins manage district-level operations for the E-Stamp
+            System. They are responsible for verifying vendors, monitoring
+            bank users, and ensuring smooth workflow within their assigned
+            district.
+          </p>
 
-        <button
-          disabled={loading}
-          className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700"
-        >
-          {loading ? "Creating..." : "Create ADC Admin"}
-        </button>
-      </form>
+          <h3>What they can do:</h3>
+          <ul>
+            <li>Manage Vendors</li>
+            <li>Manage Bank Users</li>
+            <li>View Reports</li>
+            <li>District-level Monitoring</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   );
+
 };
 
 export default CreateADCAdmin;

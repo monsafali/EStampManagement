@@ -66,7 +66,7 @@ export default function ChangePassword() {
           required
         />
 
-        <label>Old Password</label>
+        <label>Old Password </label>
         <span
           className="password-toggle"
           onClick={() => setShowOld(!showOld)}

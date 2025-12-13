@@ -1,0 +1,39 @@
+/* ManageADCAdmins Table Styling */
+.manage-adc-table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.manage-adc-table th,
+.manage-adc-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+
+}
+
+.manage-adc-table th {
+    background-color: var(--surface);
+    color: var(--text-strong);
+}
+
+.manage-adc-table tr:hover {
+    background-color: rgba(79, 70, 229, 0.05);
+}
+
+/* Update Form Styling */
+.update-adc-form {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.update-adc-form button {
+    align-self: flex-start;
+}
