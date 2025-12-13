@@ -6,6 +6,8 @@ import "../../styles/pages/SuperAdmin/ManageADCadmin.css"
 const ManageADCAdmins = () => {
   const [admins, setAdmins] = useState([]);
   const [editingAdmin, setEditingAdmin] = useState(null);
+  const [originalForm, setOriginalForm] = useState(null);
+
   const [form, setForm] = useState({
     fullname: "",
     username: "",
@@ -24,19 +26,46 @@ const ManageADCAdmins = () => {
 
   const startEditing = (admin) => {
     setEditingAdmin(admin);
-    setForm({
-      fullname: admin.fullname,
-      username: admin.username,
-      email: admin.email,
-      district: admin.district,
-    });
+    // setForm({
+    //   fullname: admin.fullname,
+    //   username: admin.username,
+    //   email: admin.email,
+    //   district: admin.district,
+    // });
+    // setOriginalForm(initialData);
+
+    const initialData = {
+      fullname: admin.fullname || "",
+      username: admin.username || "",
+      email: admin.email || "",
+      district: admin.district || "",
+
+    };
+
+    setForm({ ...initialData, imageFile: null });
+    setOriginalForm(initialData); //  store original value
+  };
+  const isFormChanged = () => {
+    if (!originalForm) return false;
+
+    return (
+      form.fullname !== originalForm.fullname ||
+      form.username !== originalForm.username ||
+      form.email !== originalForm.email ||
+      form.district !== originalForm.district ||
+      form.imageFile !== null
+    );
   };
 
   const updateAdmin = async (e) => {
     e.preventDefault();
 
     if (!editingAdmin) return;
-
+    //  STOP if no change
+    if (!isFormChanged()) {
+      setMessage("No changes detected.");
+      return;
+    }
     try {
       const fd = new FormData();
       // append only fields we have
@@ -100,6 +129,7 @@ const ManageADCAdmins = () => {
           handleChange={handleChange}
           updateAdmin={updateAdmin}
           editingAdmin={editingAdmin}
+          isFormChanged={isFormChanged()}
           cancelEdit={() => setEditingAdmin(null)}
         />
       )}

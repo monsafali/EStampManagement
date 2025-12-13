@@ -7,6 +7,7 @@ const UpdateADCAdmin = ({
   updateAdmin,
   editingAdmin,
   cancelEdit,
+  isFormChanged,
 }) => {
   if (!editingAdmin) return null;
 
@@ -34,7 +35,6 @@ const UpdateADCAdmin = ({
             placeholder="Username"
 
           />
-
           <input
             name="email"
             value={form.email}
@@ -42,7 +42,6 @@ const UpdateADCAdmin = ({
             placeholder="Email"
 
           />
-
           <input
             type="file"
             name="imageFile"
@@ -51,26 +50,25 @@ const UpdateADCAdmin = ({
 
           />
           <div className="update-actions">
-            <button type="submit" className="btn-primary">
+            <button type="submit"
+              className="btn-primary"
+              disabled={!isFormChanged}
+            >
               Update
             </button>
-
             <button
               type="button"
               className="btn-cancel"
+
               onClick={cancelEdit}
-            > 
+            >
               Cancel
             </button>
           </div>
         </form>
-
-
       </div>
     </div >
-
   );
-
 };
 
 export default UpdateADCAdmin;

@@ -97,6 +97,8 @@ button:hover {
   padding: 6px 10px;
   font-weight: 600;
   font-size: 13px;
+  outline: 1px solid var(--danger);
+    box-shadow: 0 0 0 3px var(--danger);
   color: var(--surface);
 }
 
