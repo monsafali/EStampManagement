@@ -1,39 +1,140 @@
-/* ManageADCAdmins Table Styling */
+/* Wrapper */
+.manage-adc-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Card */
+.manage-adc-card {
+    background: var(--surface);
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+}
+
+.manage-adc-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+/* Table */
 .manage-adc-table {
     width: 100%;
     border-collapse: collapse;
-
 }
 
 .manage-adc-table th,
 .manage-adc-table td {
-    padding: 12px 15px;
-    text-align: left;
+    padding: 14px;
     border-bottom: 1px solid var(--border);
-
 }
 
 .manage-adc-table th {
-    background-color: var(--surface);
+    background: var(--bg-2);
+    font-weight: 600;
     color: var(--text-strong);
 }
 
 .manage-adc-table tr:hover {
-    background-color: rgba(79, 70, 229, 0.05);
+    background: rgba(79, 70, 229, 0.04);
 }
 
-/* Update Form Styling */
-.update-adc-form {
-    background: var(--surface);
-    padding: 20px;
-    border-radius: 18px;
-    box-shadow: var(--shadow-md);
+/* Avatar */
+.adc-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Empty State */
+.adc-empty {
+    text-align: center;
+    padding: 30px;
+    color: var(--muted);
+}
+/* Update Panel */
+.update-adc-modal h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+.update-sub {
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+/* Actions */
+.update-actions {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 10px;
 }
 
-.update-adc-form button {
-    align-self: flex-start;
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 10px;
+}
+/* MODAL OVERLAY */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55); /* dark background */
+  backdrop-filter: blur(3px);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: fadeIn 0.25s ease;
+}
+
+/* CENTER MODAL */
+.update-adc-modal {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+
+  animation: scaleIn 0.25s ease;
+}
+
+.update-adc-modal h3 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.update-adc-modal input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+/* ANIMATIONS */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }

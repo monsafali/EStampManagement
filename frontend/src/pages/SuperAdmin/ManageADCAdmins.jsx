@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import GetADCAdmins from "./GetADCAdmins";
 import UpdateADCAdmin from "./UpdateADCAdmin";
-
+import "../../styles/pages/SuperAdmin/ManageADCadmin.css"
 const ManageADCAdmins = () => {
   const [admins, setAdmins] = useState([]);
   const [editingAdmin, setEditingAdmin] = useState(null);
@@ -32,73 +32,80 @@ const ManageADCAdmins = () => {
     });
   };
 
-const updateAdmin = async (e) => {
-  e.preventDefault();
+  const updateAdmin = async (e) => {
+    e.preventDefault();
 
-  if (!editingAdmin) return;
+    if (!editingAdmin) return;
 
-  try {
-    const fd = new FormData();
-    // append only fields we have
-    fd.append("fullname", form.fullname || "");
-    fd.append("username", form.username || "");
-    fd.append("email", form.email || "");
-    fd.append("district", form.district || "");
+    try {
+      const fd = new FormData();
+      // append only fields we have
+      fd.append("fullname", form.fullname || "");
+      fd.append("username", form.username || "");
+      fd.append("email", form.email || "");
+      fd.append("district", form.district || "");
 
-    if (form.imageFile) {
-      fd.append("imageFile", form.imageFile);
-    }
-
-    // DO NOT set Content-Type header manually — let axios set the boundary
-    const res = await axios.put(
-      `http://localhost:5000/api/admin/updateADCAdmin/${editingAdmin._id}`,
-      fd,
-      {
-        withCredentials: true,
-        // headers: { "Content-Type": "multipart/form-data" }  <-- remove this
+      if (form.imageFile) {
+        fd.append("imageFile", form.imageFile);
       }
-    );
 
-    setMessage(res.data.message || "Updated successfully");
-    await fetchAdmins();
-    setEditingAdmin(null);
-  } catch (err) {
-    console.error(err);
-    setMessage(err.response?.data?.message || "Update failed");
-  }
-};
+      // DO NOT set Content-Type header manually — let axios set the boundary
+      const res = await axios.put(
+        `http://localhost:5000/api/admin/updateADCAdmin/${editingAdmin._id}`,
+        fd,
+        {
+          withCredentials: true,
+          // headers: { "Content-Type": "multipart/form-data" }  <-- remove this
+        }
+      );
+
+      setMessage(res.data.message || "Updated successfully");
+      await fetchAdmins();
+      setEditingAdmin(null);
+    } catch (err) {
+      console.error(err);
+      setMessage(err.response?.data?.message || "Update failed");
+    }
+  };
 
 
 
-const handleChange = (e) => {
-  if (e.target.name === "imageFile") {
-    setForm({ ...form, imageFile: e.target.files[0] });
-  } else {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-};
+  const handleChange = (e) => {
+    if (e.target.name === "imageFile") {
+      setForm({ ...form, imageFile: e.target.files[0] });
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    }
+  };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
-      {message && (
-        <p className="p-2 bg-blue-500 text-white mb-4 rounded">{message}</p>
+    <div className="manage-adc-wrapper">
+      {message && <p className="create-adc-message">{message}</p>}
+
+      {/* TABLE CARD */}
+      <div className="manage-adc-card">
+        <h3 className="manage-adc-title">ADC Admins List</h3>
+
+        <GetADCAdmins
+          admins={admins}
+          fetchAdmins={fetchAdmins}
+          onEdit={startEditing}
+        />
+      </div>
+
+      {/* UPDATE PANEL */}
+      {editingAdmin && (
+        <UpdateADCAdmin
+          form={form}
+          handleChange={handleChange}
+          updateAdmin={updateAdmin}
+          editingAdmin={editingAdmin}
+          cancelEdit={() => setEditingAdmin(null)}
+        />
       )}
-
-      <GetADCAdmins
-        admins={admins}
-        fetchAdmins={fetchAdmins}
-        onEdit={startEditing}
-      />
-
-      <UpdateADCAdmin
-        form={form}
-        handleChange={handleChange}
-        updateAdmin={updateAdmin}
-        editingAdmin={editingAdmin}
-        cancelEdit={() => setEditingAdmin(null)}
-      />
     </div>
   );
+
 };
 
 export default ManageADCAdmins;

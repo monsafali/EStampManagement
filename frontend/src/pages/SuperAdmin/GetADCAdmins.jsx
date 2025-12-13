@@ -27,18 +27,18 @@ const GetADCAdmins = ({ admins, fetchAdmins, onEdit }) => {
                 <img
                   src={admin.imageUrl}
                   alt={admin.fullname}
-                  className="w-12 h-12 rounded-full"
+                  className="adc-avatar"
                 />
               </td>
-              <td className="border p-2">{admin.fullname}</td>
-              <td className="border p-2">{admin.username}</td>
-              <td className="border p-2">{admin.email}</td>
-              <td className="border p-2">{admin.district}</td>
+              <td>{admin.fullname}</td>
+              <td>{admin.username}</td>
+              <td>{admin.email}</td>
+              <td>{admin.district}</td>
 
-              <td className="border p-2">
+              <td>
                 <button
                   onClick={() => onEdit(admin)}
-                  className="px-3 py-1 bg-yellow-500 text-white rounded"
+                  className="btn-edit"
                 >
                   Edit
                 </button>
@@ -47,7 +47,7 @@ const GetADCAdmins = ({ admins, fetchAdmins, onEdit }) => {
           ))
         ) : (
           <tr>
-            <td className="border p-4 text-center" colSpan="6">
+            <td colSpan="6" className="adc-empty">
               No ADC Admins Found
             </td>
           </tr>
