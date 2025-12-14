@@ -8,6 +8,7 @@ const UpdateADCAdmin = ({
   editingAdmin,
   cancelEdit,
   isFormChanged,
+  isUpdating,
 }) => {
   if (!editingAdmin) return null;
 
@@ -50,16 +51,21 @@ const UpdateADCAdmin = ({
 
           />
           <div className="update-actions">
-            <button type="submit"
+            <button
+              type="submit"
               className="btn-primary"
-              disabled={!isFormChanged}
+              disabled={!isFormChanged || isUpdating}
             >
-              Update
+              {isUpdating ? (
+                <span className="btn-spinner"></span>
+              ) : (
+                "Update"
+              )}
             </button>
             <button
               type="button"
               className="btn-cancel"
-
+              disabled={isUpdating}
               onClick={cancelEdit}
             >
               Cancel

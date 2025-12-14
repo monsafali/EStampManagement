@@ -7,14 +7,21 @@ const ManageADCAdmins = () => {
   const [admins, setAdmins] = useState([]);
   const [editingAdmin, setEditingAdmin] = useState(null);
   const [originalForm, setOriginalForm] = useState(null);
-
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [message, setMessage] = useState("");
   const [form, setForm] = useState({
     fullname: "",
     username: "",
     email: "",
     district: "",
   });
-  const [message, setMessage] = useState("");
+
+
+  const autoClearMessage = () => {
+    setTimeout(() => {
+      setMessage("");
+    }, 3000); // 3 seconds
+  };
 
   const fetchAdmins = async () => {
     const res = await axios.get(
@@ -67,6 +74,7 @@ const ManageADCAdmins = () => {
       return;
     }
     try {
+      setIsUpdating(true);
       const fd = new FormData();
       // append only fields we have
       fd.append("fullname", form.fullname || "");
@@ -95,10 +103,10 @@ const ManageADCAdmins = () => {
       console.error(err);
       setMessage(err.response?.data?.message || "Update failed");
     }
+    finally {
+      setIsUpdating(false); //  STOP LOADING 
+    }
   };
-
-
-
   const handleChange = (e) => {
     if (e.target.name === "imageFile") {
       setForm({ ...form, imageFile: e.target.files[0] });
@@ -130,6 +138,7 @@ const ManageADCAdmins = () => {
           updateAdmin={updateAdmin}
           editingAdmin={editingAdmin}
           isFormChanged={isFormChanged()}
+          isUpdating={isUpdating}
           cancelEdit={() => setEditingAdmin(null)}
         />
       )}
