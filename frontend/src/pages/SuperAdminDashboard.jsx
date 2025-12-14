@@ -4,7 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthContext";
 import CreateADCAdmin from './SuperAdmin/CreateADCAdmin';
 import ManageADCAdmins from "./SuperAdmin/ManageADCAdmins";
-import "../styles/pages/SuperAdmin/SuperAdminDashboard.css";
+import UploadRagForm from '../components/UploadRagForm';
+
 
 export default function SuperAdminDashboard() {
   const { user, loading } = useContext(AuthContext);
@@ -15,42 +16,20 @@ export default function SuperAdminDashboard() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="sa-dashboard">
-      <div className="sa-header">
-        <h1>Super Admin Dashboard</h1>
-        <p>Welcome {user?.username}</p>
-      </div>
-      {/* ACTION BAR */}
+    <div className="p-6 space-y-4">
+      <h1 className="text-3xl font-bold">
+        Welcome {user?.username} to Super Admin Dashboard
+      </h1>
+      {/* Logout Button */}
+      {/* <LogoutButton /> */}
+      <UploadRagForm/>
     
-      <div className="sa-actions">
-        <button
-          className={`sa-btn outline ${activeSection === "create" ? "active" : ""}`}
-          onClick={() => setActiveSection("create")}
-        >
-          Create ADC Admin
-        </button>
+      {/* Change Password Section */}
+      {/* <ChangePassword /> */}
+      <CreateADCAdmin />
+      <h1>Get All Adc Admin</h1>
+      <ManageADCAdmins/>
 
-        <button
-          className={`sa-btn outline ${activeSection === "manage" ? "active" : ""}`}
-          onClick={() => setActiveSection("manage")}
-        >
-          View / Manage ADC Admins
-        </button>
-      </div>
-      {/* CONDITIONALLY RENDER */}
-      {activeSection === "create" && (
-        <div className="sa-card">
-          {/* <h2>Create ADC Admin</h2> */}
-          <CreateADCAdmin />
-        </div>
-      )}
-
-      {activeSection === "manage" && (
-        <div className="sa-card">
-          <h2>Manage ADC Admins</h2>
-          <ManageADCAdmins />
-        </div>
-      )}
     </div>
   );
 }

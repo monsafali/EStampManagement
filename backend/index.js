@@ -14,6 +14,8 @@ import stampRoutes from "./routes/stamp.routes.js";
 import bankRoutes from "./routes/bank.routes.js";
 import CitizenRoutes from "./routes/citizen.route.js";
 import aiRoutes from "./routes/Ai.routes.js";
+import uploadRoutes from "./routes/upload.routes.js";
+
 
 
 
@@ -51,8 +53,9 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/adc", adcRoutes);
 app.use("/api/stamp", stampRoutes);
 app.use("/api/bank", bankRoutes);
-app.use("/api/ai", aiRoutes);
 
+app.use("/api/ai", aiRoutes);
+app.use("/api/uploadrag", uploadRoutes);
 
 
 app.use(errorMiddleware);

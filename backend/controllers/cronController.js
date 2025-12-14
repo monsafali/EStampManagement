@@ -4,6 +4,7 @@ import moment from "moment";
 
 import Stamp from '../models/Stamp.model.js';
 import UserAuth from '../models/UserAuth.model.js';
+import Message from "../models/message.model.js";
 
 
 
@@ -49,5 +50,19 @@ export const blockInactiveVendors = async () => {
     );
   } catch (error) {
     console.error("❌ Error in blockInactiveVendors Cron:", error);
+  }
+};
+
+
+
+
+
+
+export const deleteMessagesEvery5Min = async () => {
+  try {
+    const result = await Message.deleteMany({});
+    console.log(`🧹 Cron: Deleted ${result.deletedCount} messages`);
+  } catch (error) {
+    console.error("❌ Cron delete error:", error.message);
   }
 };

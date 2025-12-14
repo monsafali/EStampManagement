@@ -1,5 +1,11 @@
+
 // ChatSupport.jsx
-import React, { useContext, useState, useEffect } from "react";
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import { GoogleAuthContext } from "../ GoogleAuthContext";
@@ -15,7 +21,10 @@ export default function ChatSupport() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Load previous chat messages from DB
+  // ✅ NEW: inline autocomplete text
+  const [autoComplete, setAutoComplete] = useState("");
+
+  // Load chat history
   useEffect(() => {
     const loadHistory = async () => {
       if (!googleUser?._id) return;
@@ -25,99 +34,124 @@ export default function ChatSupport() {
           `http://localhost:5000/api/ai/messages/${googleUser._id}`
         );
 
-        // Sort messages by creation time if they are not already sorted
-        const sortedMessages = (res.data.messages || []).sort(
+        const sorted = (res.data.messages || []).sort(
           (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
 
-        setMessages(sortedMessages);
+        setMessages(sorted);
       } catch (err) {
-        console.error("Failed to load chat history:", err);
+        console.error("History load error:", err);
       }
     };
 
     loadHistory();
   }, [googleUser]);
 
+  // Register socket
   useEffect(() => {
     if (googleUser?._id) {
       socket.emit("register", googleUser._id);
     }
   }, [googleUser]);
 
-  // Handles incoming messages from the server (usually the AI response)
+  // Socket listener
   useEffect(() => {
-    socket.on("newMessage", (newSavedMessage) => {
-      console.log("Socket Incoming Message:", newSavedMessage);
-
+    socket.on("newMessage", (savedMessage) => {
       setMessages((prev) => {
-        // 1. Check if this saved message is already in state (e.g., if it was
-        // optimistically added by the client side before saving/emission)
-        const isUserQueryAlreadyPresent = prev.some(
-          (m) => m.userQuery === newSavedMessage.userQuery && !m.AiResponse // Check for an unsanswered message
+        const pendingExists = prev.some(
+          (m) =>
+            m.userQuery === savedMessage.userQuery &&
+            m.isPending
         );
 
-        if (isUserQueryAlreadyPresent) {
-          // 2. If present, update the temporary message with the official message's data (including the AiResponse and DB-provided _id)
+        if (pendingExists) {
           return prev.map((m) =>
-            m.userQuery === newSavedMessage.userQuery && !m.AiResponse
-              ? newSavedMessage // Replace the temporary message with the final, complete one
+            m.userQuery === savedMessage.userQuery && m.isPending
+              ? savedMessage
               : m
           );
-        } else {
-          // 3. If not present (e.g., a message from another user in a different scenario), just add it.
-          return [...prev, newSavedMessage];
         }
+
+        return [...prev, savedMessage];
       });
     });
 
     return () => socket.off("newMessage");
   }, []);
 
+  // ✅ INLINE AUTOCOMPLETE (DEBOUNCED)
+  useEffect(() => {
+    if (!question || question.length < 3) {
+      setAutoComplete("");
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/api/ai/suggest",
+          { text: question }
+        );
+
+        const suggestion = res.data.suggestions?.[0] || "";
+
+        if (
+          suggestion &&
+          suggestion.toLowerCase().startsWith(question.toLowerCase())
+        ) {
+          setAutoComplete(suggestion.slice(question.length));
+        } else {
+          setAutoComplete("");
+        }
+      } catch {
+        setAutoComplete("");
+      }
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [question]);
+
   const handleAsk = async () => {
-    if (!question) return alert("Enter your question");
+    if (!question) return;
 
-    // Store the question locally before clearing the input
     const userQuestion = question;
-
-    // 1. Optimistically update the messages state with the user's query
     const tempId = Date.now();
-    const newUserMessage = {
+
+    const tempMessage = {
       _id: tempId,
       userQuery: userQuestion,
       AiResponse: null,
       userId: googleUser._id,
-      // Add a client-only flag for better handling if needed
       isPending: true,
     };
 
-    setMessages((prev) => [...prev, newUserMessage]);
-    setQuestion(""); // Clear input immediately for better UX
+    setMessages((prev) => [...prev, tempMessage]);
+    setQuestion("");
+    setAutoComplete("");
     setLoading(true);
 
     try {
-      // 2. Send the request to the backend
       await axios.post("http://localhost:5000/api/ai/ask", {
         question: userQuestion,
         userId: googleUser._id,
       });
-
-      // The backend will save the message and emit it via socket.io.
     } catch (err) {
-      console.error("Ask AI Error:", err);
-      // Remove the optimistically added message if the API call fails
-      setMessages((prev) => prev.filter((m) => m._id !== tempId));
+      setMessages((prev) =>
+        prev.filter((m) => m._id !== tempId)
+      );
     }
+
     setLoading(false);
   };
 
-  if (!googleUser) return <p>Please login with Google to use Chat Support.</p>;
+  if (!googleUser)
+    return <p>Please login with Google.</p>;
 
-  // Function to scroll chat window to the bottom whenever messages change
-  const chatWindowRef = React.useRef(null);
+  const chatWindowRef = useRef(null);
   useEffect(() => {
     if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+      chatWindowRef.current.scrollTop =
+        chatWindowRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -125,63 +159,73 @@ export default function ChatSupport() {
     <div className="chat-box">
       <div className="chat-header">
         <p>Welcome, {googleUser.name}</p>
-        <button className="logout-btn" onClick={logout}>Logout</button>
+        <button className="logout-btn" onClick={logout}>
+          Logout
+        </button>
       </div>
-      {/* Chat Window - Added ref for auto-scrolling */}
-      <div
-        ref={chatWindowRef}
-        className="chat-window"
-      >
+
+      <div ref={chatWindowRef} className="chat-window">
         {messages.map((m) => (
-          // Use m._id or a combination for a unique key
           <div key={m._id || m.userQuery} className="chat-message">
-            {/* USER MESSAGE */}
             {m.userQuery && (
-              <div className="user-msg">
-                <b></b> {m.userQuery}
-              </div>
+              <div className="user-msg">{m.userQuery}</div>
             )}
 
-            {/* AI MESSAGE */}
             {m.AiResponse && (
-              <div className="ai-msg">
-                <b></b> {m.AiResponse}
-              </div>
+              <div className="ai-msg">{m.AiResponse}</div>
             )}
-            {/* Show a loading indicator for messages that are sent but not yet answered */}
-            {m.userQuery && !m.AiResponse && m.isPending && (
+
+            {m.isPending && !m.AiResponse && (
               <div className="pending-msg">Sending...</div>
             )}
           </div>
         ))}
       </div>
 
-      {/* Ask input */}
-
+      {/* INPUT AREA */}
       <div className="chat-input-area">
-        <textarea
-          placeholder="Ask your question..."
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          className="chat-input"
-          // Allow pressing Enter to send if not loading
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey && !loading) {
-              e.preventDefault();
-              handleAsk();
-            }
-          }}
-        />
+        {/* 🔹 INLINE AUTOCOMPLETE WRAPPER */}
+        <div className="input-wrapper">
+          <div className="ghost-text">
+            <span>{question}</span>
+            <span className="ghost">{autoComplete}</span>
+          </div>
+
+          <textarea
+            className="chat-input"
+            placeholder="Ask your question..."
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            onKeyDown={(e) => {
+              // TAB → accept suggestion
+              if (e.key === "Tab" && autoComplete) {
+                e.preventDefault();
+                setQuestion(question + autoComplete);
+                setAutoComplete("");
+                return;
+              }
+
+              // ENTER → send
+              if (e.key === "Enter" && !e.shiftKey && !loading) {
+                e.preventDefault();
+                handleAsk();
+              }
+            }}
+          />
+        </div>
 
         <button
           onClick={handleAsk}
           className="chat-send-btn"
-          disabled={loading || !question} // Disable if no question is typed
+          disabled={loading || !question}
         >
           {loading ? "Processing..." : "Ask AI"}
         </button>
       </div>
-
     </div>
   );
 }
+
+
+
+

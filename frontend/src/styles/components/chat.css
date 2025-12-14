@@ -216,6 +216,39 @@
   transform: scale(0.95);
 }
 
+/* auto suggestion styulign */
+.input-wrapper {
+  position: relative;
+}
+
+.ghost-text {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  pointer-events: none;
+  font-size: 14px;
+  font-family: inherit;
+  white-space: pre-wrap;
+  color: transparent;
+}
+
+.ghost-text span {
+  color: transparent;
+}
+
+.ghost-text .ghost {
+  color: #aaa;
+}
+
+.chat-input {
+  position: relative;
+  background: transparent;
+  resize: none;
+}
+
+
+
+
 /* Pulse Animation */
 @keyframes pulse {
   0% {

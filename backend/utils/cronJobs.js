@@ -1,7 +1,9 @@
 // cron/cronJobs.js
 import cron from "node-cron";
-import { blockInactiveVendors } from "../controllers/cronController.js";
-
+import {
+  blockInactiveVendors,
+  deleteMessagesEvery5Min,
+} from "../controllers/cronController.js";
 
 
 
@@ -13,9 +15,12 @@ cron.schedule("0 0 1 * *", async () => {
 
 
 
-// cron.schedule("*/1 * * * *", async () => {
-//   await blockInactiveVendors();
-// });
+
+
+cron.schedule("*/30 * * * *", async () => {
+  console.log("⏰ Running message cleanup cron...");
+  await deleteMessagesEvery5Min();
+});
 
 
 
