@@ -67,13 +67,7 @@ export default function SuperAdminDashboard() {
           <UploadRagForm />
         </div>
       )}
-
-
     </div>
-
-
-
-
   );
 }
 

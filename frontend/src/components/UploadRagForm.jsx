@@ -50,7 +50,7 @@ export default function UploadRagForm() {
     <div className="upload-rag-card">
       <h3 className="upload-rag-title">Upload RAG Document</h3>
 
-      <form onSubmit={submit} className="upload-rag-form">
+      <form onSubmit={submit} className="form-container">
         {/* File Input */}
         <div>
           <label

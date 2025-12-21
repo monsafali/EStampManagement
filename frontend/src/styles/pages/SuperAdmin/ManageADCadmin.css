@@ -113,7 +113,6 @@
   padding: 28px;
   border-radius: 20px;
   box-shadow: var(--shadow-lg);
-
   animation: scaleIn 0.25s ease;
 }
 
@@ -159,5 +158,27 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+/* TABLE RESPONSIVE WRAPPER */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Prevent table from breaking */
+.manage-adc-table {
+  min-width: 700px;
+}
+@media (max-width: 768px) {
+  .manage-adc-table th,
+  .manage-adc-table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .adc-avatar {
+    width: 34px;
+    height: 34px;
   }
 }

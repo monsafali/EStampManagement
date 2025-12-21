@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GetADCAdmins from "./GetADCAdmins";
 import UpdateADCAdmin from "./UpdateADCAdmin";
@@ -16,6 +16,15 @@ const ManageADCAdmins = () => {
     district: "",
   });
 
+  useEffect(() => {
+    if (!message) return;
+
+    const timer = setTimeout(() => {
+      setMessage("");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [message]);
 
   const autoClearMessage = () => {
     setTimeout(() => {
