@@ -41,14 +41,13 @@ const UpdateADCAdmin = ({
             value={form.email}
             onChange={handleChange}
             placeholder="Email"
-
           />
+         
           <input
             type="file"
             name="imageFile"
             accept="image/*"
             onChange={handleChange}
-
           />
           <div className="update-actions">
             <button

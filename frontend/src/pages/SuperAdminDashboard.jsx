@@ -6,6 +6,9 @@ import ManageADCAdmins from "./SuperAdmin/ManageADCAdmins";
 import UploadRagForm from '../components/UploadRagForm';
 import "../styles/pages/SuperAdmin/SuperAdminDashboard.css";
 
+
+
+
 export default function SuperAdminDashboard() {
   const { user, loading } = useContext(AuthContext);
   // Track active section
@@ -19,9 +22,10 @@ export default function SuperAdminDashboard() {
         <h1>Super Admin Dashboard</h1>
         <p>Welcome {user?.username}</p>
       </div>
-      <div>
+      {/* UTILITIES */}
+      {/* <section className="sa-utilities">
         <UploadRagForm />
-      </div>
+      </section> */}
       <div className="sa-actions">
         <button
           className={`sa-btn outline ${activeSection === "create" ? "active" : ""}`}
@@ -36,6 +40,12 @@ export default function SuperAdminDashboard() {
         >
           View / Manage ADC Admins
         </button>
+        <button
+          className={`sa-btn outline ${activeSection === "upload" ? "active" : ""}`}
+          onClick={() => setActiveSection("upload")}
+        >
+          Upload RAG
+        </button>
       </div>
       {/* CONDITIONALLY RENDER */}
       {activeSection === "create" && (
@@ -49,6 +59,12 @@ export default function SuperAdminDashboard() {
         <div className="sa-card">
           <h2>Manage ADC Admins</h2>
           <ManageADCAdmins />
+        </div>
+      )}
+      {activeSection === "upload" && (
+        <div className="sa-card">
+          <h2>Upload RAG Files</h2>
+          <UploadRagForm />
         </div>
       )}
 

@@ -1,5 +1,7 @@
-
 import React, { useState } from "react";
+import "../styles/pages/SuperAdmin/uploadRagForm.css"
+
+
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
@@ -35,7 +37,7 @@ export default function UploadRagForm() {
         throw new Error(data?.message || "Upload failed");
       }
 
-      setStatus("File uploaded successfully ✅");
+      setStatus("File uploaded successfully ");
       setFile(null);
     } catch (err) {
       setStatus(`Upload failed: ${err.message}`);
@@ -45,12 +47,10 @@ export default function UploadRagForm() {
   }
 
   return (
-    <div className="max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-gray-800">
-        Upload Document
-      </h2>
+    <div className="upload-rag-card">
+      <h3 className="upload-rag-title">Upload RAG Document</h3>
 
-      <form onSubmit={submit} className="space-y-4">
+      <form onSubmit={submit} className="upload-rag-form">
         {/* File Input */}
         <div>
           <label
