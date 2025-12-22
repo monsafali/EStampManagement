@@ -28,13 +28,11 @@ const UpdateADCAdmin = ({
             placeholder="Full Name"
 
           />
-
           <input
             name="username"
             value={form.username}
             onChange={handleChange}
             placeholder="Username"
-
           />
           <input
             name="email"
@@ -42,7 +40,6 @@ const UpdateADCAdmin = ({
             onChange={handleChange}
             placeholder="Email"
           />
-         
           <input
             type="file"
             name="imageFile"

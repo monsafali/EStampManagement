@@ -65,13 +65,18 @@ color: var(--text-strong);
 
 /* Responsive */
 @media (max-width: 768px) {
+  .sa-dashboard{
+    padding: 12px;
+  }
   .sa-card {
     padding:0;
   }
 
   .sa-actions {
     flex-direction: column;
+    /* padding: 0; */
   }
+
 
   .sa-btn {
     width: 100%;

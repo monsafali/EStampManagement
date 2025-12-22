@@ -1,17 +1,12 @@
 /* Container */
 .create-adc-wrapper {
-    /* max-width: 600px; */
     width: 100%;
     margin: 50px auto;
     padding: 30px 20px;
     border-radius: 18px;
-    /* background: var(--surface); */
-    box-shadow: var(--shadow-md);
-    /* border: 1px solid var(--border); */
     animation: fadeIn 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-/* background-color: red; */
     justify-self: center;
     align-items: center;
 }
@@ -39,12 +34,6 @@
 }
 
 
-
-.create-adc-wrapper button:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-}
-
 .create-adc-wrapper button:disabled {
     background: var(--border);
     cursor: not-allowed;
@@ -52,23 +41,8 @@
     box-shadow: none;
 }
 
-/* File Input */
-.create-adc-wrapper input[type="file"] {
-    padding: 8px 14px;
-}
 
-/* FadeIn Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(6px);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 
 /* TWO COLUMN LAYOUT */
@@ -118,5 +92,16 @@
 @media (max-width: 768px) {
   .adc-two-columns {
     flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+  }
+  .create-adc-wrapper{
+    padding: 0;
+  }
+  .adc-right {
+    padding: 15px;
+  }
+  .adc-left{
+    width: 100%;
   }
 }

@@ -48,28 +48,21 @@ export default function UploadRagForm() {
 
   return (
     <div className="upload-rag-card">
-      <h3 className="upload-rag-title">Upload RAG Document</h3>
-
       <form onSubmit={submit} className="form-container">
         {/* File Input */}
-        <div>
-          <label
-            htmlFor="file"
-            className="mb-1 block text-sm font-medium text-gray-700"
-          >
-            Select file
-          </label>
+        <div className="form-group">
+
           <input
             id="file"
             type="file"
             accept=".txt,.pdf,.docx"
             onChange={(e) => setFile(e.target.files[0])}
-            className="block w-full cursor-pointer rounded-lg border border-gray-300 text-sm text-gray-700
-                       file:mr-4 file:rounded-md file:border-0
-                       file:bg-gray-100 file:px-4 file:py-2
-                       file:text-sm file:font-medium
-                       hover:file:bg-gray-200"
           />
+          <label
+            htmlFor="file"
+          >
+            Select file
+          </label>
           {file && (
             <p className="mt-1 text-xs text-gray-500">Selected: {file.name}</p>
           )}
@@ -79,8 +72,7 @@ export default function UploadRagForm() {
         <button
           type="submit"
           disabled={loading || !file}
-          className="w-full rounded-lg bg-red-500 px-4 py-2 text-white font-medium
-                     hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50"
+          className="form-btn"
         >
           {loading ? "Uploading..." : "Upload"}
         </button>

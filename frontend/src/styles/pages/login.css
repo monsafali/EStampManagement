@@ -79,17 +79,6 @@
   animation: popup 0.3s ease;
 }
 
-@keyframes popup {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 
 .otp-box h3 {
   font-size: 20px;
