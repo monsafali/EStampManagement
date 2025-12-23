@@ -71,6 +71,6 @@ const UpdateADCAdmin = ({
       </div>
     </div >
   );
-};
+}; 
 
 export default UpdateADCAdmin;

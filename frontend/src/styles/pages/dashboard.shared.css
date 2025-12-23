@@ -1,0 +1,72 @@
+/* ===== DASHBOARD LAYOUT ===== */
+.dashboard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* ===== HEADER ===== */
+.dashboard-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+.dashboard-header p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dashboard-btn {
+  color: var(--text-strong);
+}
+
+.dashboard-btn.active {
+  box-shadow: 0 0 0 3px var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--surface);
+}
+
+/* ===== CONTENT CARD ===== */
+.dashboard-card {
+  background: var(--surface);
+  padding: 25px;
+  border-radius: 18px;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.dashboard-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-strong);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 12px;
+  }
+
+  .dashboard-actions {
+    flex-direction: column;
+  }
+
+  .dashboard-btn {
+    width: 100%;
+  }
+
+  .dashboard-card {
+    padding: 15px;
+    padding: 0px;
+  }
+}
