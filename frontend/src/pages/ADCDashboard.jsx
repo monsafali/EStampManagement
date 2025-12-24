@@ -53,7 +53,7 @@ export default function ADCDashboard() {
 
       {activeSection === "createVendor" && (
         <div className="dashboard-card">
-          <h2>Create Vendor</h2>
+          {/* <h2>Create Vendor</h2> */}
           <CreateVendor
             districtId={user.districtId}
             districtName={user.district}

@@ -113,9 +113,7 @@ const GetVendor = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">All Vendors</h1>
-
-      <div className="border rounded overflow-hidden shadow">
+      <div className=" rounded overflow-hidden shadow">
         <table className="w-full border-collapse">
           <thead className="bg-gray-100">
             <tr className="text-center">

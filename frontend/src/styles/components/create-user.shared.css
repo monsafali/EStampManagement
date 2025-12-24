@@ -1,0 +1,93 @@
+/* ===== WRAPPER ===== */
+.create-user-wrapper {
+    width: 100%;
+    margin: 40px auto;
+    padding: 30px 20px;
+    border-radius: 18px;
+    animation: fadeIn 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ===== TITLE ===== */
+.create-user-wrapper h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-strong);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ===== MESSAGE ===== */
+.create-user-message {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 16px;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color-primary);
+}
+
+/* ===== TWO COLUMN LAYOUT ===== */
+.user-two-columns {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+
+/* LEFT: FORM */
+.user-left {
+    flex: 1;
+}
+
+/* RIGHT: INFO */
+.user-right {
+    flex: 1;
+    background: var(--bg-2);
+    border-radius: 18px;
+    padding: 25px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.user-right h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.user-right p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.user-right ul {
+    list-style: disc;
+    padding-left: 20px;
+    line-height: 1.6;
+}
+
+/* ===== BUTTON ===== */
+.form-btn:disabled {
+    background: var(--border);
+    cursor: not-allowed;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .user-two-columns {
+        flex-direction: column;
+    }
+
+    .create-user-wrapper {
+        padding: 0;
+    }
+
+    .user-right {
+        padding: 15px;
+    }
+}

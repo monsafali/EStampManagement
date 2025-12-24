@@ -1,7 +1,8 @@
 
 import PUNJAB from "../../utils/District";
 
-import "../../styles/pages/SuperAdmin/createADCAdmin.css"
+import "../../styles/components/create-user.shared.css";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -200,14 +201,14 @@ const CreateADCAdmin = () => {
   //   </div>
   // );
   return (
-    <div className="create-adc-wrapper">
+    <div className="create-user-wrapper">
 
-      <div className="adc-two-columns">
+      <div className="user-two-columns">
         {/* LEFT: FORM */}
-        <div className="adc-left">
+        <div className="user-left">
           <h1>Create ADC Admin</h1>
 
-          {message && <p className="create-adc-message">{message}</p>}
+          {message && <p className="create-user-message">{message}</p>}
 
           <form
             onSubmit={handleSubmit}
@@ -303,7 +304,7 @@ const CreateADCAdmin = () => {
         </div>
 
         {/* RIGHT: INFO SECTION */}
-        <div className="adc-right">
+        <div className="user-right">
           <h2>Why Create an ADC Admin?</h2>
           <p>
             ADC Admins manage district-level operations for the E-Stamp

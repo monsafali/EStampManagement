@@ -1,6 +1,8 @@
 import PUNJAB from "../../utils/District";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../../styles/components/create-user.shared.css";
+
 
 const CreateVendor = ({ districtName, districtId }) => {
   const [form, setForm] = useState({
@@ -136,131 +138,164 @@ const CreateVendor = ({ districtName, districtId }) => {
   };
 
   return (
-    <div className="p-6 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Create Vendor</h1>
+    <div className="create-user-wrapper">
+      <div className="user-two-columns">
+        {/* LEFT */}
+        <div className="user-left">
+          <h1>Create Vendor</h1>
+          {message && <p className="create-user-message">{message}</p>}
+          <form
+            onSubmit={handleSubmit}
+            className="form-container"
+          >
+            <div className="form-group">
+              <input
+                type="text"
+                name="fullname"
+                id="fullname"
+                placeholder=""
+                value={form.fullname}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="fullname">Full Name</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder=""
+                value={form.username}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="username">User Name</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder=""
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="email">Email</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder=""
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            <div className="form-group">
+              {/* Tehsil Dropdown */}
+              <select
+                name="tehsil"
+                value={form.tehsil}
+                onChange={handleChange}
+                required
+                disabled={!tehsils.length}
+              >
+                <option value="">Select Tehsil</option>
+                {tehsils.map((t) => (
+                  <option key={t.tehsilId} value={t.tehsilId}>
+                    {t.tehsilName}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="cnic"
+                placeholder=""
+                id="cnic"
+                value={form.cnic}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="cnic">CNIC</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="licenceNo"
+                placeholder=""
+                value={form.licenceNo}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="licence">Licence</label>
+            </div>
 
-      {message && (
-        <p className="mb-3 text-white p-2 rounded bg-blue-500">{message}</p>
-      )}
+            <div className="form-group">
+              <input
+                type="text"
+                name="address"
+                id="address"
+                placeholder=""
+                value={form.address}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="address">Address</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="contactno"
+                id="contactno"
+                placeholder=""
+                value={form.contactno}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="contactno">Contact No</label>
+            </div>
+            {/* Image Upload */}
+            <div className="form-group">
+              <input
+                type="file"
+                name="imageFile"
+                accept="image/*"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button
+              disabled={loading}
+              className="form-btn"
+            >
+              {loading ? "Creating..." : "Create Vendor"}
+            </button>
+          </form>
+        </div>
+        {/* RIGHT: INFO PANEL */}
+        <div className="user-right">
+          <h2>Why Create a Vendor?</h2>
+          <p>
+            Vendors are responsible for issuing e-stamps and handling
+            customer transactions within their assigned tehsil.
+          </p>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 border p-4 rounded shadow"
-      >
-        <input
-          type="text"
-          name="fullname"
-          placeholder="Full Name"
-          value={form.fullname}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        {/* Tehsil Dropdown */}
-        <select
-          name="tehsil"
-          value={form.tehsil}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-          disabled={!tehsils.length}
-        >
-          <option value="">Select Tehsil</option>
-          {tehsils.map((t) => (
-            <option key={t.tehsilId} value={t.tehsilId}>
-              {t.tehsilName}
-            </option>
-          ))}
-        </select>
-
-        <input
-          type="text"
-          name="cnic"
-          placeholder="CNIC"
-          value={form.cnic}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="text"
-          name="licenceNo"
-          placeholder="Licence No"
-          value={form.licenceNo}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={form.address}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="text"
-          name="contactno"
-          placeholder="Contact No"
-          value={form.contactno}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        {/* Image Upload */}
-        <input
-          type="file"
-          name="imageFile"
-          accept="image/*"
-          onChange={handleChange}
-          className="p-2 border rounded"
-          required
-        />
-
-        <button
-          disabled={loading}
-          className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700"
-        >
-          {loading ? "Creating..." : "Create Vendor"}
-        </button>
-      </form>
+          <h3>Vendor Responsibilities:</h3>
+          <ul>
+            <li>Issue E-Stamps</li>
+            <li>Verify Customers</li>
+            <li>Maintain Records</li>
+            <li>Report Transactions</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };

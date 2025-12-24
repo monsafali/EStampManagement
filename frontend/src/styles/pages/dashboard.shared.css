@@ -24,6 +24,9 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  /* flex-direction: column;
+  justify-content: flex-start;
+  align-items: start; */
 }
 
 .dashboard-btn {
