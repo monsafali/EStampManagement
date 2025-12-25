@@ -1,6 +1,41 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DataTable from "../../components/common/DataTable";
+
+const columns = [
+  {
+    key: "imageUrl",
+    label: "Image",
+    render: (row) => (
+      <img
+        src={row.imageUrl}
+        alt={row.fullname}
+        className="table-avatar"
+      />
+    ),
+  },
+  { key: "fullname", label: "Full Name" },
+  { key: "username", label: "Username" },
+  { key: "email", label: "Email" },
+  { key: "contactno", label: "Contact" },
+  { key: "tehsil", label: "Tehsil" },
+  {
+    key: "isActive",
+    label: "Status",
+    render: (row) =>
+      row.isActive ? (
+        <span style={{ color: "green", fontWeight: "600" }}>
+          Active
+        </span>
+      ) : (
+        <span style={{ color: "red", fontWeight: "600" }}>
+          Inactive
+        </span>
+      ),
+  },
+];
+
 
 const GetVendor = () => {
   const [admins, setAdmins] = useState([]);
@@ -113,7 +148,7 @@ const GetVendor = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <div className=" rounded overflow-hidden shadow">
+      {/* <div className=" rounded overflow-hidden shadow">
         <table className="w-full border-collapse">
           <thead className="bg-gray-100">
             <tr className="text-center">
@@ -205,7 +240,51 @@ const GetVendor = () => {
             )}
           </tbody>
         </table>
-      </div>
+      </div> */}
+      <DataTable
+        columns={columns}
+        data={admins}
+        renderActions={(vendor) => (
+          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            {vendor.isActive ? (
+              <button
+                className="btn btn-warning"
+                onClick={() => deactivateVendor(vendor._id)}
+              >
+                Deactivate
+              </button>
+            ) : (
+              <button
+                className="btn btn-success"
+                onClick={() => activateVendor(vendor._id)}
+              >
+                Activate
+              </button>
+            )}
+
+            <button
+              className="btn btn-danger"
+              onClick={() => deleteVendor(vendor._id)}
+            >
+              Delete
+            </button>
+
+            <button
+              className="btn btn-edit"
+              onClick={() => openPasswordModal(vendor._id)}
+            >
+              Update Password
+            </button>
+
+            <button
+              className="btn btn-edit"
+              onClick={() => onMonthlyReport(vendor._id)}
+            >
+              Monthly Report
+            </button>
+          </div>
+        )}
+      />
 
       {/* PASSWORD UPDATE MODAL */}
       {showModal && (

@@ -1,100 +1,38 @@
 /* Wrapper */
 .manage-adc-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-/* Card */
-.manage-adc-card {
-    background: var(--surface);
-    padding: 22px;
-    border-radius: 18px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border);
+.create-adc-message{
+  background-color: rgb(127, 225, 255);
 }
 
-.manage-adc-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 16px;
-}
-
-/* Table */
-.manage-adc-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.manage-adc-table th,
-.manage-adc-table td {
-    padding: 14px;
-    border-bottom: 1px solid var(--border);
-}
-
-.manage-adc-table th {
-    background: var(--bg-2);
-    font-weight: 600;
-    color: var(--text-strong);
-}
-
-.manage-adc-table tr:hover {
-    background: rgba(79, 70, 229, 0.04);
-}
-
-/* Avatar */
-.adc-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-/* Empty State */
-.adc-empty {
-    text-align: center;
-    padding: 30px;
-    color: var(--muted);
-}
 /* Update Panel */
 .update-adc-modal h3 {
-    font-size: 20px;
-    font-weight: 700;
+  font-size: 20px;
+  font-weight: 700;
 }
+
 .update-sub {
-    color: var(--muted);
-    margin-bottom: 16px;
+  color: var(--muted);
+  margin-bottom: 16px;
 }
 
-/* Actions */
-.update-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-}
 
-.btn-primary {
-    background: var(--color-primary);
-    color: white;
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: none;
-}
+ /* .btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  border-radius: 10px; 
+} */
 
-.btn-outline {
-    background: transparent;
-    border: 1px solid var(--border);
-    padding: 10px 18px;
-    border-radius: 10px;
-}
 /* MODAL OVERLAY */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.55); /* dark background */
+  background: rgba(15, 23, 42, 0.55);
+  /* dark background */
   backdrop-filter: blur(3px);
   z-index: 9999;
   display: flex;
@@ -103,6 +41,13 @@
   animation: fadeIn 0.25s ease;
 }
 
+/* Actions */
+.update-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+
+}
 
 /* CENTER MODAL */
 .update-adc-modal {
@@ -119,11 +64,17 @@
   font-size: 22px;
   font-weight: 700;
 }
-.btn-primary{
+
+.btn-primary {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.btn-primary:disabled {
+  /* opacity: 0.5; */
+  cursor: not-allowed;
+}
+
 .update-adc-modal input {
   width: 100%;
   padding: 10px 14px;
@@ -131,6 +82,7 @@
   border: 1px solid var(--border);
   margin-bottom: 12px;
 }
+
 .btn-spinner {
   width: 18px;
   height: 18px;
@@ -139,25 +91,4 @@
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   display: inline-block;
-}
-/* TABLE RESPONSIVE WRAPPER */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-}
-/* Prevent table from breaking */
-.manage-adc-table {
-  min-width: 700px;
-}
-@media (max-width: 768px) {
-  .manage-adc-table th,
-  .manage-adc-table td {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .adc-avatar {
-    width: 34px;
-    height: 34px;
-  }
 }

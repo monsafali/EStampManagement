@@ -127,18 +127,11 @@ const ManageADCAdmins = () => {
   return (
     <div className="manage-adc-wrapper">
       {message && <p className="create-adc-message">{message}</p>}
-
-      {/* TABLE CARD */}
-      <div className="manage-adc-card">
-        <h3 className="manage-adc-title">ADC Admins List</h3>
-
         <GetADCAdmins
           admins={admins}
           fetchAdmins={fetchAdmins}
           onEdit={startEditing}
         />
-      </div>
-
       {/* UPDATE PANEL */}
       {editingAdmin && (
         <UpdateADCAdmin
