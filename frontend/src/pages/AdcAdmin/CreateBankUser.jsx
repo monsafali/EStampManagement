@@ -1,8 +1,7 @@
-
-
-
 import React, { useState } from "react";
 import axios from "axios";
+import UserInfoPanel from "../../components/UserInfoPanel";
+import "../../styles/components/create-user.shared.css";
 
 const CreateBankUser = () => {
   const [form, setForm] = useState({
@@ -53,65 +52,88 @@ const CreateBankUser = () => {
   };
 
   return (
-    <div className="p-6 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Create Bank User</h1>
+    <div className="create-user-wrapper">
+      <div className="user-two-columns">
+        {/* LEFT: FORM */}
+        <div className="user-left">
+          <h1>Create Bank User</h1>
+          {message && (
+            <p className="create-user-message">{message}</p>
+          )}
+          <form
+            onSubmit={handleSubmit}
+            className="form-container"
+          >
+            <div className="form-group">
+              <input
+                type="text"
+                name="fullname"
+                id="fullname"
+                placeholder=""
+                value={form.fullname}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="fullname">Full Name</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder=""
+                value={form.username}
+                onChange={handleChange}
+                required
+              />
 
-      {message && (
-        <p className="mb-3 text-white p-2 rounded bg-blue-500">{message}</p>
-      )}
+              <label htmlFor="username">User Name</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder=""
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="email">Email</label>
+            </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 border p-4 rounded shadow"
-      >
-        <input
-          type="text"
-          name="fullname"
-          placeholder="Full Name"
-          value={form.fullname}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder=""
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="password">Password</label>
+            </div>
+            <button
+              disabled={loading}
+              className="form-btn"
+            >
+              {loading ? "Creating..." : "Create Bank User"}
+            </button>
+          </form>
+        </div>
+        {/* RIGHT: INFO PANEL */}
+        <UserInfoPanel
+          title="Why Create a Bank User?"
+          description="Bank users handle financial verification and payment approvals."
+          list={[
+            "Approve Stamp Payments",
+            "Verify Transactions",
+            "Generate Financial Reports",
+            "Coordinate with ADC Admin",
+          ]}
         />
-
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          className="w-full p-2 border rounded"
-          required
-        />
-
-
-        <button
-          disabled={loading}
-          className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700"
-        >
-          {loading ? "Creating..." : "Create Bank User"}
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

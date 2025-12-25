@@ -63,7 +63,7 @@ export default function ADCDashboard() {
 
       {activeSection === "bank" && (
         <div className="dashboard-card">
-          <h2>Create Bank User</h2>
+          {/* <h2>Create Bank User</h2> */}
           <CreateBankUser />
         </div>
       )}

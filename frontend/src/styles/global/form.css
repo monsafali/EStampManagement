@@ -24,7 +24,9 @@
    background-color: var(--surface);
    transition: 0.2s ease;
  }
-
+input[type="file"] {
+  cursor: pointer;
+}
  .form-group input:focus,
  .form-group select:focus {
    border-color: var(--color-primary);
@@ -75,6 +77,6 @@
    .form-container {
      padding: 12px;
      max-width: 100%;
-background-color: inherit;
+     background-color: inherit;
    }
  }

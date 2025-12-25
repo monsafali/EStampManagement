@@ -146,7 +146,7 @@ function Login() {
         <form onSubmit={handleSubmit} className="form-container">
           <h6 className="login-sm-title">Login in to E-Stamp</h6>
           {/* user name filed */}
-          <div className="form-group floating">
+          <div className="form-group">
             <input
               type="text"
               name="username"
@@ -160,7 +160,7 @@ function Login() {
             <label htmlFor="username">User Name</label>
           </div>
           {/* password filed */}
-          <div className="form-group floating">
+          <div className="form-group">
             <input
               type="password"
               name="password"
@@ -174,27 +174,25 @@ function Login() {
             <label htmlFor="pwd">Password</label>
           </div>
           {/* role filed */}
-          <div className="form-group floating">
+          <div className="form-group ">
             <select
-              id="role"
               name="role"
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value })}
             >
-              <option value="" disabled hidden></option>
+              <option value="" disabled hidden>Select</option>
               <option value="super-admin">Super Admin</option>
               <option value="ADCAdmin">ADC Admin</option>
               <option value="vendor">Vendor</option>
               <option value="bank">Bank</option>
             </select>
-            <label htmlFor="role">Role</label>
           </div>
 
-          {error && <p className="text-red-600">{error}</p>}
+          {error && <p className="error">{error}</p>}
 
           <button
             type="submit"
-            className="login-btn"
+            className="form-btn"
             disabled={loading}
           >
             {loading ? "Sending OTP..." : "Login"}

@@ -2,6 +2,7 @@
 import PUNJAB from "../../utils/District";
 
 import "../../styles/components/create-user.shared.css";
+import UserInfoPanel from "../../components/UserInfoPanel";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -96,113 +97,8 @@ const CreateADCAdmin = () => {
       setLoading(false);
     }
   };
-
-  // return (
-
-  //   <div className="create-adc-wrapper">
-
-  //     <h1>Create ADC Admin</h1>
-
-  //     {message && (
-  //       <p className="create-adc-wrapper">{message}</p>
-  //     )}
-
-  //     <form
-  //       onSubmit={handleSubmit}
-  //       className="form-container"
-  //     >
-  //       <div className="form-group">
-  //         <input
-  //           type="text"
-  //           name="fullname"
-  //           id="fullname"
-  //           placeholder=" "
-  //           value={form.fullname}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //         <label htmlFor="fullname">Full Name</label>
-  //       </div>
-  //       <div className="form-group">
-
-  //         <input
-  //           type="text"
-  //           name="username"
-  //           id="username"
-  //           placeholder=" "
-  //           value={form.username}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //         <label htmlFor="username">User Name</label>
-  //       </div>
-
-  //       <div className="form-group">
-  //         <input
-  //           type="email"
-  //           name="email"
-  //           id="email"
-  //           placeholder=" "
-  //           value={form.email}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //         <label htmlFor="email">Email</label>
-  //       </div>
-  //       <div className="form-group">
-  //         <input
-  //           type="password"
-  //           name="password"
-  //           placeholder=" "
-  //           value={form.password}
-  //           onChange={handleChange}
-  //           required
-  //         />
-  //         <label htmlFor="password">Password</label>
-  //       </div>
-  //       {/* District Select */}
-  //       <div className="form-group">
-  //         <select
-  //           name="districtId"
-  //           value={form.districtId}
-  //           onChange={handleDistrictChange}
-  //           required
-  //         >
-  //           <option value="">Select District</option>
-  //           {districts.map((d) => (
-  //             <option key={d.districtId} value={d.districtId}>
-  //               {d.districtName}
-  //             </option>
-  //           ))}
-  //         </select>
-  //         <label htmlFor="districtId">District</label>
-  //       </div>
-
-  //       <div className="form-group">
-  //         <input
-  //           type="file"
-  //           name="imageFile"
-  //           id="imageFile"
-  //           accept="image/*"
-  //           onChange={handleChange}
-  //           placeholder=" "
-  //           required
-  //         />
-  //         <label htmlFor="imageFile">Upload Photo</label>
-  //       </div>
-
-  //       <button
-  //         disabled={loading}
-  //         className="form-btn"
-  //       >
-  //         {loading ? "Creating..." : "Create ADC Admin"}
-  //       </button>
-  //     </form>
-  //   </div>
-  // );
   return (
     <div className="create-user-wrapper">
-
       <div className="user-two-columns">
         {/* LEFT: FORM */}
         <div className="user-left">
@@ -278,7 +174,6 @@ const CreateADCAdmin = () => {
                   </option>
                 ))}
               </select>
-              <label htmlFor="districtId">District</label>
             </div>
 
             <div className="form-group">
@@ -304,25 +199,17 @@ const CreateADCAdmin = () => {
         </div>
 
         {/* RIGHT: INFO SECTION */}
-        <div className="user-right">
-          <h2>Why Create an ADC Admin?</h2>
-          <p>
-            ADC Admins manage district-level operations for the E-Stamp
-            System. They are responsible for verifying vendors, monitoring
-            bank users, and ensuring smooth workflow within their assigned
-            district.
-          </p>
-
-          <h3>What they can do:</h3>
-          <ul>
-            <li>Manage Vendors</li>
-            <li>Manage Bank Users</li>
-            <li>View Reports</li>
-            <li>District-level Monitoring</li>
-          </ul>
-        </div>
+        <UserInfoPanel
+          title="Why Create an ADC Admin?"
+          description="ADC Admins manage district-level operations for the E-Stamp system."
+          list={[
+            "Manage Vendors",
+            "Manage Bank Users",
+            "View Reports",
+            "District-level Monitoring",
+          ]}
+        />
       </div>
-
     </div>
   );
 

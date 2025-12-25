@@ -2,6 +2,7 @@ import PUNJAB from "../../utils/District";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../styles/components/create-user.shared.css";
+import UserInfoPanel from "../../components/UserInfoPanel";
 
 
 const CreateVendor = ({ districtName, districtId }) => {
@@ -280,21 +281,17 @@ const CreateVendor = ({ districtName, districtId }) => {
           </form>
         </div>
         {/* RIGHT: INFO PANEL */}
-        <div className="user-right">
-          <h2>Why Create a Vendor?</h2>
-          <p>
-            Vendors are responsible for issuing e-stamps and handling
-            customer transactions within their assigned tehsil.
-          </p>
+        <UserInfoPanel
+          title="Why Create a Vendor?"
+          description="Vendors are authorized sellers responsible for issuing e-stamps to citizens."
+          list={[
+            "Sell E-Stamps",
+            "Verify Customer Identity",
+            "Maintain Sales Records",
+            "Coordinate with ADC Office",
+          ]}
+        />
 
-          <h3>Vendor Responsibilities:</h3>
-          <ul>
-            <li>Issue E-Stamps</li>
-            <li>Verify Customers</li>
-            <li>Maintain Records</li>
-            <li>Report Transactions</li>
-          </ul>
-        </div>
       </div>
     </div>
   );

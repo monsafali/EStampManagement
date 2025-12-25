@@ -64,7 +64,9 @@ export default function UploadRagForm() {
             Select file
           </label>
           {file && (
-            <p className="mt-1 text-xs text-gray-500">Selected: {file.name}</p>
+            <p className="file-name">
+              Selected: {file.name}
+            </p>
           )}
         </div>
 
@@ -77,9 +79,8 @@ export default function UploadRagForm() {
           {loading ? "Uploading..." : "Upload"}
         </button>
       </form>
-
       {/* Status */}
-      {status && <div className="mt-4 text-sm text-gray-700">{status}</div>}
+      {status && <div className="status-text">{status}</div>}
     </div>
   );
 }

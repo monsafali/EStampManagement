@@ -1,47 +1,70 @@
 /* ================= Real App Chat UI ================= */
+/* Google Login Button */
+.login-with-google-btn {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: none;
+  background: var(--surface);
+  color: var(--text-strong);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+/*  Card style improvement */
+.auth-combined-box {
+  border: 1px solid var(--border);
+}
 
 
 
 /* Header (Welcome + Logout button area) */
 .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--chat-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--chat-border);
 }
 
 .chat-header p {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-strong);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-strong);
 }
 
 
-.chat-logout-btn:hover{
-    opacity: 0.8;
+.chat-logout-btn:hover {
+  opacity: 0.8;
 }
+
 /* Chat window */
 .chat-window {
-    flex: 1;
-    /* height: 320px; */
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    background: var(--surface);
-    border-radius: 14px;
-    border: 1px solid var(--chat-border);
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03);
+  flex: 1;
+  /* height: 320px; */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background: var(--surface);
+  border-radius: 14px;
+  border: 1px solid var(--chat-border);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03);
 }
 
 /* Messages wrapper */
 .chat-message {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    /* width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  /* width: 100%;
   padding: 12px;
   background-color: orange; */
 
@@ -49,156 +72,156 @@
 
 /* User message */
 .user-msg {
-    align-self: flex-end;
-    background: var(--color-primary);
-    color: white;
-    padding: 10px 14px;
-    border-radius: 16px 16px 6px 16px;
-    font-size: 14px;
-    max-width: 80%;
-    word-wrap: break-word;
-    box-shadow: var(--shadow-sm);
+  align-self: flex-end;
+  background: var(--color-primary);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 16px 16px 6px 16px;
+  font-size: 14px;
+  max-width: 80%;
+  word-wrap: break-word;
+  box-shadow: var(--shadow-sm);
 }
 
 /* AI message */
 .ai-msg {
-    align-self: flex-start;
-    background: var(--chat-bg);
-    /* background-color: red; */
-    color: var(--text-strong);
-    border: 1px solid var(--chat-border);
-    padding: 10px 14px;
-    border-radius: 16px 16px 16px 6px;
-    font-size: 14px;
-    max-width: 80%;
-    word-wrap: break-word;
+  align-self: flex-start;
+  background: var(--chat-bg);
+  /* background-color: red; */
+  color: var(--text-strong);
+  border: 1px solid var(--chat-border);
+  padding: 10px 14px;
+  border-radius: 16px 16px 16px 6px;
+  font-size: 14px;
+  max-width: 80%;
+  word-wrap: break-word;
 }
 
 /* Sending status */
 .pending-msg {
-    font-size: 12px;
-    color: var(--muted);
-    align-self: flex-end;
+  font-size: 12px;
+  color: var(--muted);
+  align-self: flex-end;
 }
 
 /* Input area */
 .chat-input-area {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* Textarea */
 .chat-input {
-    width: 100%;
-    border-radius: 14px;
-    border: 1.8px solid var(--border);
-    background: var(--surface);
-    padding: 12px 14px;
-    font-size: 14px;
-    resize: none;
-    outline: none;
-    transition: 0.2s ease;
+  width: 100%;
+  border-radius: 14px;
+  border: 1.8px solid var(--border);
+  background: var(--surface);
+  padding: 12px 14px;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  transition: 0.2s ease;
 }
 
 .chat-input:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
 /* Send button */
 .chat-send-btn {
-    background: var(--color-primary);
-    color: white;
-    padding: 12px;
-    border-radius: 14px;
-    font-weight: 600;
-    font-size: 15px;
-    box-shadow: var(--shadow-sm);
+  background: var(--color-primary);
+  color: white;
+  padding: 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: var(--shadow-sm);
 }
 
 .chat-send-btn:hover {
-    background: var(--color-primary-600);
-    transform: translateY(-1px);
+  background: var(--color-primary-600);
+  transform: translateY(-1px);
 }
 
 .chat-send-btn:disabled {
-    background: var(--muted);
-    cursor: not-allowed;
-    box-shadow: none;
+  background: var(--muted);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 
 /* Floating chat widget container */
 .chat-widget-container {
-    position: fixed;
-    bottom: 20px;
-    /* left: 20px; */
-    right: 20px;
-    z-index: 9999;
+  position: fixed;
+  bottom: 20px;
+  /* left: 20px; */
+  right: 20px;
+  z-index: 9999;
 }
 
 /* Popup Chat Box */
 .chat-widget-box {
-    width: 320px;
-    margin-bottom: 10px;
-    background: var(--surface);
-    border-radius: 18px;
-    box-shadow: var(--shadow-lg);
-    padding: 10px;
-    overflow: hidden;
-    position: absolute;
-    bottom: 60px;
-    right: 18%;
+  width: 320px;
+  margin-bottom: 10px;
+  background: var(--surface);
+  border-radius: 18px;
+  box-shadow: var(--shadow-lg);
+  padding: 10px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 60px;
+  right: 18%;
 }
 
 /* If user is logged in, float chat box */
 .chat-box {
-    position: fixed;
-    top: 20px;
-    bottom: inherit;
-    margin-bottom: 2rem;
-    left: inherit;
-    width: inherit;
-    overflow: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: auto !important;
-    background: var(--chat-bg);
-    border: 1px solid var(--chat-border);
-    border-radius: 18px;
-    padding: 12px;
-    gap: 10px;
+  position: fixed;
+  top: 20px;
+  bottom: inherit;
+  margin-bottom: 2rem;
+  left: inherit;
+  width: inherit;
+  overflow: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto !important;
+  background: var(--chat-bg);
+  border: 1px solid var(--chat-border);
+  border-radius: 18px;
+  padding: 12px;
+  gap: 10px;
 }
 
 /* Round floating button */
 .chat-widget-btn {
-    /* width: 50px;
+  /* width: 50px;
     height: 50px; */
-    /* border-radius: 50%; */
-    background: var(--color-primary);
-    color: white;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    padding: 8px 16px;
-    box-shadow: var(--shadow-lg);
+  /* border-radius: 50%; */
+  background: var(--color-primary);
+  color: white;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  box-shadow: var(--shadow-lg);
 }
 
 /* Active Click Effect */
 .login-with-google-btn:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-sm);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Add Google Icon Automatically */
 .login-with-google-btn::before {
-    content: "";
-    width: 22px;
-    height: 22px;
-    background: url("https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg") no-repeat center;
-    background-size: contain;
+  content: "";
+  width: 22px;
+  height: 22px;
+  background: url("https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg") no-repeat center;
+  background-size: contain;
 }
 
 /* Floating Button Animation */
@@ -254,9 +277,11 @@
   0% {
     box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6);
   }
+
   70% {
     box-shadow: 0 0 0 15px rgba(99, 102, 241, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
   }

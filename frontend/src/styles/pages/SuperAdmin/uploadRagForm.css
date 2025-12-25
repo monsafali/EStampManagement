@@ -8,3 +8,16 @@
   animation: fadeIn 0.3s ease;
 }
 
+
+/* Selected file text */
+.file-name {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+/* Status text */
+.status-text {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #374151;
+}
