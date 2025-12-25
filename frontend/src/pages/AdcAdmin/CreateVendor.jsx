@@ -280,6 +280,7 @@ const CreateVendor = ({ districtName, districtId }) => {
             </button>
           </form>
         </div>
+      
         {/* RIGHT: INFO PANEL */}
         <UserInfoPanel
           title="Why Create a Vendor?"

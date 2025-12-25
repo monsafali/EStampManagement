@@ -147,105 +147,13 @@ const GetVendor = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      {/* <div className=" rounded overflow-hidden shadow">
-        <table className="w-full border-collapse">
-          <thead className="bg-gray-100">
-            <tr className="text-center">
-              <th className="border p-2">Image</th>
-              <th className="border p-2">F_Name</th>
-              <th className="border p-2">Username</th>
-              <th className="border p-2">Email</th>
-              <th className="border p-2">Contact</th>
-              <th className="border p-2">tehsil</th>
-              <th className="border p-2">Status</th>
-              <th className="border p-2">Actions</th>
-              <th className="border p-2">Report</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {admins.length > 0 ? (
-              admins.map((admin) => (
-                <tr key={admin._id} className="text-center">
-                  <td className="border p-2">
-                    <img
-                      src={admin.imageUrl}
-                      alt={admin.fullname}
-                      className="w-12 h-12 rounded-full"
-                    />
-                  </td>
-                  <td className="border p-2">{admin.fullname}</td>
-                  <td className="border p-2">{admin.username}</td>
-                  <td className="border p-2">{admin.email}</td>
-                  <td className="border p-2">{admin.contactno}</td>
-                  <td className="border p-2">{admin.tehsil}</td>
-
-                  <td className="border p-2 font-semibold">
-                    {admin.isActive ? (
-                      <span className="text-green-600">Active</span>
-                    ) : (
-                      <span className="text-red-600">Inactive</span>
-                    )}
-                  </td>
-
-                  <td className="border p-2 space-x-2">
-                    {admin.isActive ? (
-                      <button
-                        onClick={() => deactivateVendor(admin._id)}
-                        className="px-3 py-1 bg-yellow-500 text-white rounded"
-                      >
-                        Deactivate
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => activateVendor(admin._id)}
-                        className="px-3 py-1 bg-green-600 text-white rounded"
-                      >
-                        Activate
-                      </button>
-                    )}
-
-                    <button
-                      onClick={() => deleteVendor(admin._id)}
-                      className="px-3 py-1 bg-red-600 text-white rounded"
-                    >
-                      Delete
-                    </button>
-
-                    <button
-                      onClick={() => openPasswordModal(admin._id)}
-                      className="px-3 py-1 bg-blue-600 text-white rounded"
-                    >
-                      Update Password
-                    </button>
-                  </td>
-
-                  <td className="border p-2">
-                    <button
-                      onClick={() => onMonthlyReport(admin._id)}
-                      className="px-3 py-1 bg-blue-600 text-white rounded"
-                    >
-                      Monthly Report
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td className="border p-4 text-center" colSpan="7">
-                  No Vendors found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div> */}
+    <div>
+     
       <DataTable
         columns={columns}
         data={admins}
         renderActions={(vendor) => (
-          <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+           <div className="table-actions">
             {vendor.isActive ? (
               <button
                 className="btn btn-warning"

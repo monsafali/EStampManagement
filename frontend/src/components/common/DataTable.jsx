@@ -1,6 +1,7 @@
 import React from "react";
 import "../../styles/components/DataTable.css";
 
+
 const DataTable = ({ title, columns, data, renderActions }) => {
   return (
     <div className="manage-info-card">
@@ -37,8 +38,7 @@ const DataTable = ({ title, columns, data, renderActions }) => {
               <tr>
                 <td
                   colSpan={columns.length + 1}
-                  className="table-empty"
-                >
+                  className="table-empty" >
                   No Records Found
                 </td>
               </tr>
