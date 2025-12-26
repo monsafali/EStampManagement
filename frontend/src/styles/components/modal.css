@@ -1,0 +1,83 @@
+/* MODAL OVERLAY */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.25s ease;
+}
+
+/* CENTER MODAL */
+.update-adc-modal {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  animation: scaleIn 0.25s ease;
+}
+
+.update-adc-modal h3 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.update-sub {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* FORM INPUTS */
+.update-adc-modal input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+/* ACTIONS */
+.update-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* BUTTONS */
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 10px 18px;
+  border-radius: 10px;
+}
+
+.btn-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* LOADER */
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DataTable from "../../components/common/DataTable";
-
+import Modal from "../../components/common/Modal";
 const columns = [
   {
     key: "imageUrl",
@@ -148,12 +148,12 @@ const GetVendor = () => {
 
   return (
     <div>
-     
+
       <DataTable
         columns={columns}
         data={admins}
         renderActions={(vendor) => (
-           <div className="table-actions">
+          <div className="table-actions">
             {vendor.isActive ? (
               <button
                 className="btn btn-warning"
@@ -195,7 +195,7 @@ const GetVendor = () => {
       />
 
       {/* PASSWORD UPDATE MODAL */}
-      {showModal && (
+      {/* {showModal && (
         <div className="fixed inset-0 bg-opacity-40 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow-lg w-80">
             <h2 className="text-xl font-bold mb-4 text-center">
@@ -245,7 +245,7 @@ const GetVendor = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
