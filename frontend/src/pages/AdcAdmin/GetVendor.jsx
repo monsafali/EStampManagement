@@ -246,6 +246,51 @@ const GetVendor = () => {
           </div>
         </div>
       )} */}
+      {showModal && (
+        <Modal
+          title="Update Password"
+          onClose={() => setShowModal(false)}
+        >
+          <input
+            type="password"
+            placeholder="New Password"
+            value={passwordForm.newpassword}
+            onChange={(e) =>
+              setPasswordForm({
+                ...passwordForm,
+                newpassword: e.target.value,
+              })
+            }
+          />
+
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={passwordForm.confirmPassword}
+            onChange={(e) =>
+              setPasswordForm({
+                ...passwordForm,
+                confirmPassword: e.target.value,
+              })
+            }
+          />
+
+          <div className="update-actions">
+            <button
+              className="btn-primary"
+              onClick={updatePassword}
+            >
+              Update
+            </button>
+
+            <button
+              className="btn-cancel"
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        </Modal>)}
     </div>
   );
 };
