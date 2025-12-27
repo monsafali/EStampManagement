@@ -31,7 +31,7 @@ input[type="file"] {
  .form-group input:focus,
  .form-group select:focus {
    border-color: var(--color-primary);
-   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+
  }
 
  /* Floating Labels */

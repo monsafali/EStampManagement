@@ -26,22 +26,23 @@ export default function SuperAdminDashboard() {
       {/* <section className="sa-utilities">
         <UploadRagForm />
       </section> */}
+     
       <div className="dashboard-actions">
         <button
-          className={`dashboard-btn outline ${activeSection === "create" ? "active" : ""}`}
+          className={`dashboard-btn ${activeSection === "create" ? "active" : ""}`}
           onClick={() => setActiveSection("create")}
         >
           Create ADC Admin
         </button>
 
         <button
-          className={`dashboard-btn outline ${activeSection === "manage" ? "active" : ""}`}
+          className={`dashboard-btn ${activeSection === "manage" ? "active" : ""}`}
           onClick={() => setActiveSection("manage")}
         >
           View / Manage ADC Admins
         </button>
         <button
-          className={`dashboard-btn outline ${activeSection === "upload" ? "active" : ""}`}
+          className={`dashboard-btn  ${activeSection === "upload" ? "active" : ""}`}
           onClick={() => setActiveSection("upload")}
         >
           Upload RAG

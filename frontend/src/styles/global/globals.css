@@ -18,7 +18,7 @@
   --bg-2: #020617;
   --page-bg: #020617;
   --surface: #0f172a;
-
+  --h1-heading: #fff;
   --text-default: #e5e7eb;
   --text-strong: #f9fafb;
   --muted: #9ca3af;
@@ -38,15 +38,20 @@
   /* --color-primary: #4f46e5; */
   --color-primary: rgb(76, 29, 149);
   --color-primary-600: #4f46e5;
-  --color-logo:var(--color-primary);
+  --color-logo: var(--color-primary);
   --bg-1: #f0f4f8;
   --bg-2: #e6ecf3;
-  --page-bg: #f3f4f6;
-  --surface: #ffffff;
+  --page-bg: #eceef1;
+  /* --surface: #ffffff; */
+
+  --surface: hsl(240, 37%, 89%);
+  /* --surface: hsl(227, 45%, 83%); */
   --text-default: #1f2937;
   --text-strong: #0f172a;
   --muted: #6d747e;
-  --border: #d1d5db;
+  --border: hsl(240, 26%, 83%);
+
+  --h1-heading: #1E1A4D;
   --chat-bg: #f8fafc;
   --chat-border: #e5e7eb;
   --success: #22c55e;
@@ -57,6 +62,7 @@
   --shadow-lg: 0 25px 70px rgba(0, 0, 0, 0.08);
   --shadow-sm: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
+
 
 /* BASE HTML & BODY */
 html {
@@ -131,7 +137,7 @@ button:hover {
   font-size: 13px;
   outline: 1px solid var(--danger);
   box-shadow: 0 0 0 3px var(--danger);
-  color: var(--surface);
+  color: white;
 }
 
 /* update button */

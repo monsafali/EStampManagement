@@ -11,7 +11,7 @@
 .dashboard-header h1 {
   font-size: 30px;
   font-weight: 800;
-  color: var(--text-strong);
+  color: var(--h1-heading);
 }
 
 .dashboard-header p {
@@ -29,9 +29,10 @@
 
 .dashboard-btn {
   color: var(--text-strong);
+  border: 1px solid var(--color-primary);
 }
 .dashboard-btn.active {
-  box-shadow: 0 0 0 3px var(--color-primary);
+  /* box-shadow: 0 0 0 3px var(--color-primary); */
   background-color: var(--color-primary);
   /* color: var(--surface); */
   color: white;
@@ -49,7 +50,7 @@
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: var(--text-strong);
+color: var(--h1-heading);
 }
 
 /* ===== RESPONSIVE ===== */
