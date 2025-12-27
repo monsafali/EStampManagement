@@ -35,8 +35,6 @@ const columns = [
       ),
   },
 ];
-
-
 const GetVendor = () => {
   const [admins, setAdmins] = useState([]);
 
@@ -185,7 +183,7 @@ const GetVendor = () => {
             </button>
 
             <button
-              className="btn btn-edit"
+              className="btn btn-report"
               onClick={() => onMonthlyReport(vendor._id)}
             >
               Monthly Report
@@ -195,57 +193,7 @@ const GetVendor = () => {
       />
 
       {/* PASSWORD UPDATE MODAL */}
-      {/* {showModal && (
-        <div className="fixed inset-0 bg-opacity-40 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg w-80">
-            <h2 className="text-xl font-bold mb-4 text-center">
-              Update Password
-            </h2>
 
-            <input
-              type="password"
-              placeholder="New Password"
-              className="w-full border p-2 mb-2 rounded"
-              value={passwordForm.newpassword}
-              onChange={(e) =>
-                setPasswordForm({
-                  ...passwordForm,
-                  newpassword: e.target.value,
-                })
-              }
-            />
-
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              className="w-full border p-2 mb-4 rounded"
-              value={passwordForm.confirmPassword}
-              onChange={(e) =>
-                setPasswordForm({
-                  ...passwordForm,
-                  confirmPassword: e.target.value,
-                })
-              }
-            />
-
-            <div className="flex justify-between">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 bg-gray-400 text-white rounded"
-              >
-                Cancel
-              </button>
-
-              <button
-                onClick={updatePassword}
-                className="px-4 py-2 bg-green-600 text-white rounded"
-              >
-                Update
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
       {showModal && (
         <Modal
           title="Update Password"

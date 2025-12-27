@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  /* background-color: red; */
 }
 
 /* ===== HEADER ===== */
@@ -24,24 +25,21 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  /* flex-direction: column;
-  justify-content: flex-start;
-  align-items: start; */
 }
 
 .dashboard-btn {
   color: var(--text-strong);
 }
-
 .dashboard-btn.active {
   box-shadow: 0 0 0 3px var(--color-primary);
   background-color: var(--color-primary);
-  color: var(--surface);
+  /* color: var(--surface); */
+  color: white;
 }
 
 /* ===== CONTENT CARD ===== */
 .dashboard-card {
-  background: var(--surface);
+  /* background: var(--surface); */
   padding: 25px;
   border-radius: 18px;
   animation: fadeIn 0.25s ease-in-out;

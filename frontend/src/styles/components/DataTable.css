@@ -1,7 +1,7 @@
-
 /* Card */
 .manage-info-card {
   background: var(--surface);
+      background: var(--bg-2);
   padding: 22px;
   border-radius: 18px;
   box-shadow: var(--shadow-md);
@@ -12,12 +12,13 @@
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 16px;
-}  
+}
 
 .table-responsive {
   width: 100%;
   overflow-x: auto;
 }
+
 .data-table {
   width: 100%;
   min-width: 700px;
@@ -28,6 +29,7 @@
 .data-table thead {
   background: #f5f5f5;
 }
+
 .table-actions {
   display: flex;
   gap: 6px;
@@ -84,7 +86,7 @@
 }
 
 .btn-edit {
-  background: #2563eb;
+  background: #2563eb !important;
 }
 
 .btn-danger {
@@ -94,7 +96,9 @@
 .btn-success {
   background: #16a34a;
 }
-
+.btn-report {
+  background: #063016;
+}
 .btn-warning {
   background: #ca8a04;
 }
@@ -103,6 +107,7 @@
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
+
   .data-table th,
   .data-table td {
     padding: 10px;

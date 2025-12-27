@@ -1,11 +1,12 @@
  /* GLOBAL FORM STYLES */
  .form-container {
    background: var(--surface);
+   /* background-color: transparent; */
    border-radius: 18px;
    padding: 25px;
    width: 100%;
    max-width: 420px;
-   box-shadow: var(--shadow-md);
+   box-shadow: var(--shadow-sm);
  }
 
  .form-group {
@@ -77,6 +78,6 @@ input[type="file"] {
    .form-container {
      padding: 12px;
      max-width: 100%;
-     background-color: inherit;
+     /* background-color: inherit; */
    }
  }

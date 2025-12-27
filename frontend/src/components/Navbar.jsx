@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useState, useRef, useEffect } from "react";
+import { useTheme } from "../context/ThemeContext";
+
 import { AuthContext } from "../AuthContext";
 import LogoutButton from "./LogoutButton";
 import ChangePassword from "./ChangePassword";
@@ -8,6 +10,8 @@ import "../styles/components/Navbar.css";
 
 export default function Navbar() {
   const { user } = useContext(AuthContext);
+  const { theme, toggleTheme } = useTheme();
+
   const [openProfile, setOpenProfile] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -55,18 +59,27 @@ export default function Navbar() {
                   <div className="change-password-panel">
                     <ChangePassword />
                   </div>
-                )} 
+                )}
               </div>
             )}
-         
+
           </div>
         )}
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Toggle dark mode"
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
+
         {/* Logout button always visible (outside dropdown) */}
         {user && (
           <div className="logout-wrapper">
             <LogoutButton />
           </div>
         )}
+
       </nav>
     </header>
   );
