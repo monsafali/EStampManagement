@@ -48,8 +48,8 @@ export default function Stamp() {
           const { latitude, longitude } = position.coords;
           const baseUrl = import.meta.env.VITE_LOCATION_API;
           try {
-            const res = await fetch(   
-               `${baseUrl}&lat=${latitude}&lon=${longitude}`
+            const res = await fetch(
+              `${baseUrl}&lat=${latitude}&lon=${longitude}`
             );
             const data = await res.json();
             const address = data.address || {};
@@ -130,167 +130,151 @@ export default function Stamp() {
 
       {geoError && <p className="text-red-500 mb-2">{geoError}</p>}
 
-      <form onSubmit={handleDownload} className="space-y-4">
+      <form onSubmit={handleDownload} className="form-container">
+
         {/* Applicant */}
-        <div>
-          <label className="block mb-1 font-medium">Applicant</label>
+        <div className="form-group">
           <input
             name="Applicant"
+            id="application"
+            placeholder=" "
             value={formData.Applicant}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label htmlFor="application">Applicant</label>
         </div>
 
         {/* CNIC */}
-        <div>
-          <label className="block mb-1 font-medium">CNIC</label>
+        <div className="form-group">
           <input
             name="cnic"
+            id="cnic"
+            placeholder=" "
             value={formData.cnic}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label htmlFor="cnic">CNIC</label>
         </div>
 
         {/* Relation */}
-        <div>
-          <label className="block mb-1 font-medium">Relation</label>
+        <div className="form-group">
           <select
             name="Relation"
             value={formData.Relation}
             onChange={handleChange}
-            className="border p-2 w-full"
           >
+            <option value="">Select Relation</option>
             {relationOptions.map((r) => (
-              <option key={r} value={r}>
-                {r || "Select Relation"}
-              </option>
+              <option key={r} value={r}>{r}</option>
             ))}
           </select>
+          <label>Relation</label>
         </div>
 
         {/* Relation Name */}
-        <div>
-          <label className="block mb-1 font-medium">Relation Name</label>
+        <div className="form-group">
           <input
             name="Relation_Name"
+            placeholder=" "
             value={formData.Relation_Name}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label>Relation Name</label>
         </div>
 
         {/* Agent */}
-        <div>
-          <label className="block mb-1 font-medium">Agent</label>
+        <div className="form-group">
           <input
             name="agent"
+            placeholder=" "
             value={formData.agent}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label>Agent</label>
         </div>
 
         {/* Email */}
-        <div>
-          <label className="block mb-1 font-medium">Email</label>
+        <div className="form-group">
           <input
             name="email"
+            placeholder=" "
             value={formData.email}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label>Email</label>
         </div>
 
         {/* Phone */}
-        <div>
-          <label className="block mb-1 font-medium">Phone</label>
+        <div className="form-group">
           <input
             name="phone"
+            placeholder=" "
             value={formData.phone}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label>Phone</label>
         </div>
 
         {/* Address */}
-        <div>
-          <label className="block mb-1 font-medium">Address</label>
+        <div className="form-group">
           <input
             name="address"
+            placeholder=" "
             value={formData.address}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label>Address</label>
         </div>
 
         {/* Reason */}
-        <div>
-          <label className="block mb-1 font-medium">Reason</label>
+        <div className="form-group">
           <textarea
             name="reason"
+            placeholder=" "
             value={formData.reason}
             onChange={handleChange}
-            className="border p-2 w-full"
           />
+          <label>Reason</label>
         </div>
 
         {/* Description */}
-        <div>
-          <label className="block mb-1 font-medium">Description</label>
+        <div className="form-group">
           <select
             name="Description"
             value={formData.Description}
             onChange={handleChange}
-            className="border p-2 w-full"
           >
             <option value="">Select Description</option>
             {Object.keys(descriptionPrices).map((desc) => (
-              <option key={desc} value={desc}>
-                {desc}
-              </option>
+              <option key={desc} value={desc}>{desc}</option>
             ))}
           </select>
+          <label>Description</label>
         </div>
 
         {/* Stamp Amount */}
-        <div>
-          <label className="block mb-1 font-medium">Stamp Amount</label>
-          <input
-            readOnly
-            value={formData.StampAmount}
-            className="border p-2 w-full bg-gray-100"
-          />
+        <div className="form-group">
+          <input readOnly value={formData.StampAmount} />
+          <label>Stamp Amount</label>
         </div>
 
         {/* Stamp Type */}
-        <div>
-          <label className="block mb-1 font-medium">Stamp Type</label>
-          <input
-            readOnly
-            value={formData.Stamptype}
-            className="border p-2 w-full bg-gray-200"
-          />
+        <div className="form-group">
+          <input readOnly value={formData.Stamptype} />
+          <label>Stamp Type</label>
         </div>
 
         {/* Vendor Info */}
-        <div>
-          <label className="block mb-1 font-medium">Vendor Info</label>
-          <input
-            readOnly
-            value={formData.vendorInfo}
-            className="border p-2 w-full bg-gray-200"
-          />
+        <div className="form-group">
+          <input readOnly value={formData.vendorInfo} />
+          <label>Vendor Info</label>
         </div>
 
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
+        <button type="submit" className="primary-btn">
           Download Stamp PDF
         </button>
       </form>
+
     </div>
   );
 }

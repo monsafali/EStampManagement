@@ -1,9 +1,8 @@
 
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthContext";
-import ChangePassword from "../components/ChangePassword";
-import LogoutButton from "../components/LogoutButton";
+
 
 import { Outlet } from "react-router-dom";
 import Stamp from "./Vendor/Stamp";
@@ -12,46 +11,90 @@ import GetAllStamp from "./Vendor/GetAllStamp";
 import GetInventory from "./Vendor/GetInventory";
 import SearchStamp from "./Vendor/SearchStamp";
 
-
-
-
-
+import "../styles/pages/dashboard.shared.css";
 
 
 export default function VendorDashboard() {
   const { user, loading } = useContext(AuthContext);
+  const [activeSection, setActiveSection] = useState("stamp");
 
   if (loading) return <p>Loading...</p>;
-
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-3xl font-bold">
-        Welcome {user?.username} to Vendor Dashboard
-        on the tehsil {user.tehsil}
-      </h1>
+    <div className="dashboard">
 
-      <p className="mt-2 text-gray-600">Vendor Admin Panel</p>
+      {/* HEADER (same as others) */}
+      <div className="dashboard-header">
+        <h1>Vendor Dashboard</h1>
+        <p>
+          Welcome {user?.username} — Tehsil {user?.tehsil}
+        </p>
+      </div>
 
-      {/* Logout Button */}
-      <LogoutButton />
+      {/* ACTION BUTTONS */}
+      <div className="dashboard-actions">
+        <button
+          className={`dashboard-btn ${activeSection === "stamp" ? "active" : ""}`}
+          onClick={() => setActiveSection("stamp")}
+        >
+          Issue Stamp
+        </button>
 
-      {/* Change Password Section */}
-      <ChangePassword />
-      <Stamp />
+        <button
+          className={`dashboard-btn ${activeSection === "challan" ? "active" : ""}`}
+          onClick={() => setActiveSection("challan")}
+        >
+          Generate Challan
+        </button>
 
-      <h1 className="mt-6 text-2xl font-bold">Generate Challan</h1>
-      <GenerateChallan />
+        <button
+          className={`dashboard-btn ${activeSection === "inventory" ? "active" : ""}`}
+          onClick={() => setActiveSection("inventory")}
+        >
+          Inventory
+        </button>
+
+        <button
+          className={`dashboard-btn ${activeSection === "search" ? "active" : ""}`}
+          onClick={() => setActiveSection("search")}
+        >
+          Search Stamp
+        </button>
+      </div>
+
+      {/* CONTENT CARDS */}
+      {activeSection === "stamp" && (
+        <div className="dashboard-card">
+          <Stamp />
+        </div>
+      )}
+
+
+      {activeSection === "challan" && (
+        <div className="dashboard-card">
+          <GenerateChallan />
+        </div>
+      )}
+
+      {activeSection === "inventory" && (
+        <div className="dashboard-card">
+          <GetInventory />
+          <GetAllStamp />
+        </div>
+      )}
+
+      {activeSection === "search" && (
+        <div className="dashboard-card">
+          <SearchStamp />
+        </div>
+      )}
 
       <div className="mt-6">
         <Outlet />
       </div>
 
-      <GetAllStamp />
-      <h1>Get Inventory</h1>
-      <GetInventory />
-      <SearchStamp />
     </div>
   );
+
 }
 
 
