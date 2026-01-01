@@ -45,65 +45,65 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-
+      <div className="app-layout">
         <Navbar />
-        <div style={{ flex: 1 }}>
-          <Routes>
-            <Route
-              path="/login"
-              element={user ? <Navigate to={redirectRole()} /> : <BothLogins />}
-            />
-
-            <Route
-              path="/vendor"
-              element={
-                <ProtectedRoute allowedRoles={["vendor"]}>
-                  <VendorDashboard />
-                </ProtectedRoute>
-              }
-            >
-              <Route path="payment-success" element={<Success />} />
-            </Route>
-
-            <Route
-              path="/bank"
-              element={
-                <ProtectedRoute allowedRoles={["bank"]}>
-                  <BankDashboard />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/adc"
-              element={
-                <ProtectedRoute allowedRoles={["ADCAdmin"]}>
-                  <ADCDashboard />
-                </ProtectedRoute>
-              }
-            >
+        <main className="app-main">
+          <div className="main-container wide">
+            <Routes>
               <Route
-                path="monthly-report/:vendorId"
-                element={<VendorMontyReport />}
+                path="/login"
+                element={user ? <Navigate to={redirectRole()} /> : <BothLogins />}
               />
-            </Route>
 
-            <Route
-              path="/superadmin"
-              element={
-                <ProtectedRoute allowedRoles={["super-admin"]}>
-                  <SuperAdminDashboard />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/vendor"
+                element={
+                  <ProtectedRoute allowedRoles={["vendor"]}>
+                    <VendorDashboard />
+                  </ProtectedRoute>
+                }
+              >
+                <Route path="payment-success" element={<Success />} />
+              </Route>
 
-            <Route path="*" element={<Navigate to={redirectRole()} />} />
-          </Routes>
-        </div>
+              <Route
+                path="/bank"
+                element={
+                  <ProtectedRoute allowedRoles={["bank"]}>
+                    <BankDashboard />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/adc"
+                element={
+                  <ProtectedRoute allowedRoles={["ADCAdmin"]}>
+                    <ADCDashboard />
+                  </ProtectedRoute>
+                }
+              >
+                <Route
+                  path="monthly-report/:vendorId"
+                  element={<VendorMontyReport />}
+                />
+              </Route>
+
+              <Route
+                path="/superadmin"
+                element={
+                  <ProtectedRoute allowedRoles={["super-admin"]}>
+                    <SuperAdminDashboard />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route path="*" element={<Navigate to={redirectRole()} />} />
+            </Routes>
+          </div>
+        </main>
         <Footer />
       </div>
-
     </BrowserRouter>
   );
 }

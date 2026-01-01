@@ -24,9 +24,9 @@ createRoot(document.getElementById("root")).render(
     <ThemeProvider>
       <AuthProvider>
         <GoogleAuthProvider>
-          <div className="app-container">
+          {/* <div className="app-container"> */}
             <App />
-          </div>
+          {/* </div> */}
           <ToastContainer position="top-right"
             autoClose={3000}
             hideProgressBar={false}

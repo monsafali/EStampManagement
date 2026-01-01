@@ -4,9 +4,9 @@
   box-sizing: border-box;
 }
 
-/* =========================
-   DARK THEME VARIABLES
-   ========================= */
+
+   /* DARK THEME VARIABLES */
+
 .dark {
   /* --color-primary: rgb(95, 58, 158);  */
   --color-primary-600: rgb(167, 139, 250);
@@ -119,13 +119,6 @@ button:hover {
   opacity: 0.8;
 }
 
-/* Global Centered Container */
-.app-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-
-}
 
 /* buttons */
 /* Logout button */
@@ -168,4 +161,32 @@ button:hover {
 
 .btn-cancel:hover {
   background: #6b7280;
+}
+
+/* 
+   APP LAYOUT */
+
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main area grows to push footer down */
+.app-main {
+  flex: 1;
+}
+
+/* Centered content wrapper */
+.main-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/*  wider layout (tables, reports) */
+.main-container.wide {
+  max-width: 1400px;
 }
