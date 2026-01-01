@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
+import "../../src/styles/components/logout.css"
 
 export default function LogoutButton() {
   const { setUser } = useContext(AuthContext);

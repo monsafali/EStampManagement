@@ -1,0 +1,20 @@
+
+/* Logout button */
+.logout-btn {
+  background: transparent;
+  background-color: var(--danger);
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: 13px;
+  outline: 1px solid var(--danger);
+  box-shadow: 0 0 0 3px var(--danger);
+  color: white;
+
+}
+/* Mobile styles */
+@media (max-width: 768px) {
+.logout-btn{
+    width: 100%;
+}
+
+}

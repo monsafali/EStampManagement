@@ -85,7 +85,7 @@ export default function Navbar() {
               className="user-btn"
               onClick={() => setOpenProfile((prev) => !prev)}
             >
-              Profile ⌄
+            <span>Profile</span>  <span>⌄</span> 
             </button>
             {openProfile && (
               <div className="user-dropdown">
@@ -112,11 +112,9 @@ export default function Navbar() {
         )}
 
 
-        {/* Logout button always visible (outside dropdown) */}
+        {/* Logout button  */}
         {user && (
-          <div className="logout-wrapper">
             <LogoutButton />
-          </div>
         )}
 
       </nav>
