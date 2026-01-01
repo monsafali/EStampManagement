@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext, useState, useRef, useEffect } from "react";
+import { useContext, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 import { AuthContext } from "../AuthContext";
@@ -14,12 +14,14 @@ export default function Navbar() {
 
   const [openProfile, setOpenProfile] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
 
   return (
     <header className="navbar">
       <div className="navbar-logo">E-Stamp System</div>
 
-      <nav className="navbar-links">
+      <nav className={`navbar-links ${menuOpen ? "open" : ""}`}>
         {!user && <Link to="/login" className="navbar-link">Login</Link>}
 
         {user?.role === "vendor" && (
@@ -34,6 +36,15 @@ export default function Navbar() {
         {user?.role === "super-admin" && (
           <Link to="/superadmin" className="navbar-link">Super Admin</Link>
         )}
+
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Toggle dark mode"
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
+
         {/*  Profile Dropdown */}
         {user && (
           <div className="user-profile" >
@@ -50,28 +61,23 @@ export default function Navbar() {
                 <p><b>Role:</b> {user.role}</p>
                 <button
                   className="edit-profile-btn"
-                  onClick={() => setShowEditForm(!showEditForm)}
+                  onClick={() => setShowEditForm(true)}
                 >
-                  {showEditForm ? "Cansel" : "Change Password"}
+                  Change Password
                 </button>
                 {/* Show Change Password Panel (outside dropdown) */}
                 {showEditForm && (
                   <div className="change-password-panel">
-                    <ChangePassword />
+                    <ChangePassword onClose={() => setShowEditForm(false)} />
                   </div>
                 )}
+
               </div>
             )}
 
           </div>
         )}
-        <button
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label="Toggle dark mode"
-        >
-          {theme === "dark" ? "☀️" : "🌙"}
-        </button>
+
 
         {/* Logout button always visible (outside dropdown) */}
         {user && (
@@ -81,6 +87,13 @@ export default function Navbar() {
         )}
 
       </nav>
+      {/* Hamburger (mobile only) */}
+      <button
+        className="menu-toggle"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        ☰
+      </button>
     </header>
   );
 }

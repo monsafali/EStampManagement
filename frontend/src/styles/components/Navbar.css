@@ -13,7 +13,6 @@
   top: 0;
   z-index: 1000;
 }
-
 .navbar-logo {
   font-size: 18px;
   font-weight: 700;
@@ -40,7 +39,7 @@
   background: var(--chat-bg);
   color: var(--color-primary);
 }
-
+/* 
 .navbar-btn {
   background: linear-gradient(135deg, var(--color-primary), var(--color-primary-600));
   color: white;
@@ -49,12 +48,12 @@
   padding: 8px 16px;
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
-}
+} */
 
-.navbar-btn:hover {
+/* .navbar-btn:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
-}
+} */
 
 /* User Profile Dropdown */
 .user-profile {
@@ -86,6 +85,7 @@
   padding: 14px;
   z-index: 9999;
   animation: dropdownFade 0.2s ease;
+
 }
 
 .user-dropdown p {
@@ -93,23 +93,12 @@
   margin-bottom: 6px;
   color: var(--text-default);
 }
-
+/* 
 .dropdown-logout {
   margin-top: 10px;
   text-align: right;
-}
+} */
 
-@keyframes dropdownFade {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 
 
@@ -126,6 +115,58 @@
 
 
 
-.logout-wrapper {
+/* .logout-wrapper {
   margin-left: 10px;
+} */
+
+
+/* ================= Mobile Navbar ================= */
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  font-size: 22px;
+  color: var(--text-strong);
 }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: var(--surface);
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: 0.25s ease;
+  }
+
+  .navbar-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .user-dropdown {
+    position: fixed;
+    top: 154px;
+    left: 0;
+    width: 100%;
+    overflow-y: auto;
+  }
+}
+
+
+
+

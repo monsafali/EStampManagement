@@ -6,14 +6,16 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 
 
-export default function ChangePassword() {
+export default function ChangePassword({ onClose }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
-  // const [message, setMessage] = useState("");
+
   const [error, setError] = useState(false);
+
+
 
   const handlePasswordUpdate = async (e) => {
     e.preventDefault();
@@ -54,6 +56,15 @@ export default function ChangePassword() {
   return (
 
     <form onSubmit={handlePasswordUpdate} className="change-password-form">
+      <button
+  type="button"
+  className="close-password-btn"
+  onClick={onClose}
+  aria-label="Close"
+>
+  ✕
+</button>
+
       <h2 className="change-password-title">Change Password</h2>
 
       {/* Old Password */}
