@@ -1,20 +1,51 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
-import { useTheme } from "../context/ThemeContext";
+import { useContext, useState, useRef, useEffect } from "react";
 
+import { useTheme } from "../context/ThemeContext";
 import { AuthContext } from "../AuthContext";
 import LogoutButton from "./LogoutButton";
 import ChangePassword from "./ChangePassword";
+
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+
 import "../styles/components/Navbar.css";
 
 
 export default function Navbar() {
   const { user } = useContext(AuthContext);
   const { theme, toggleTheme } = useTheme();
+  const profileRef = useRef(null);
 
   const [openProfile, setOpenProfile] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
+        setOpenProfile(false);
+        setShowEditForm(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+// Close profile when mobile menu closes
+  useEffect(() => {
+    if (!menuOpen) {
+      setOpenProfile(false);
+      setShowEditForm(false);
+    }
+  }, [menuOpen]);
 
 
   return (
@@ -42,15 +73,17 @@ export default function Navbar() {
           onClick={toggleTheme}
           aria-label="Toggle dark mode"
         >
-          {theme === "dark" ? "☀️" : "🌙"}
+          {theme === "dark" ? <LightModeIcon /> : <DarkModeIcon sx={{ color: "#000" }} />
+          }
         </button>
+
 
         {/*  Profile Dropdown */}
         {user && (
-          <div className="user-profile" >
+          <div className="user-profile" ref={profileRef} >
             <button
               className="user-btn"
-              onClick={() => setOpenProfile(!openProfile)}
+              onClick={() => setOpenProfile((prev) => !prev)}
             >
               Profile ⌄
             </button>
@@ -91,9 +124,11 @@ export default function Navbar() {
       <button
         className="menu-toggle"
         onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle menu"
       >
-        ☰
+        {menuOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
+
     </header>
   );
 }

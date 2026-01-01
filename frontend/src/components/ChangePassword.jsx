@@ -3,7 +3,7 @@ import "../styles/components/change-password.css";
 import { toast } from "react-toastify";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export default function ChangePassword({ onClose }) {
@@ -57,13 +57,13 @@ export default function ChangePassword({ onClose }) {
 
     <form onSubmit={handlePasswordUpdate} className="change-password-form">
       <button
-  type="button"
-  className="close-password-btn"
-  onClick={onClose}
-  aria-label="Close"
->
-  ✕
-</button>
+        type="button"
+        className="close-password-btn"
+        onClick={onClose}
+        aria-label="Close"
+      >
+        <CloseIcon />
+      </button>
 
       <h2 className="change-password-title">Change Password</h2>
 
@@ -82,7 +82,7 @@ export default function ChangePassword({ onClose }) {
           className="password-toggle"
           onClick={() => setShowOld(!showOld)}
         >
-          {showOld ? <VisibilityOffIcon fontSize="small"/> : <VisibilityIcon fontSize="small"/>}
+          {showOld ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
         </span>
       </div>
 
@@ -100,7 +100,7 @@ export default function ChangePassword({ onClose }) {
           className="password-toggle"
           onClick={() => setShowNew(!showNew)}
         >
-          {showNew ? <VisibilityOffIcon  fontSize="small"/> : <VisibilityIcon fontSize="small"/>}
+          {showNew ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
         </span>
       </div>
 
