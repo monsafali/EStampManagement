@@ -135,12 +135,10 @@ function Login() {
     setLogoutLoading(false);
   };
 
-  // ---------------------------------------------------------
-  // UI PART
-  // ---------------------------------------------------------
+
   return (
     <div className="login-wrapper">
-      <div style={{ width: "100%" }}>
+      <div>
         <h2 className="login-title">E-Stamp</h2>
 
         <form onSubmit={handleSubmit} className="form-container">

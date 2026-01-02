@@ -1,10 +1,4 @@
-/* Main Container */
-.login-wrapper {
-  /* background: linear-gradient(135deg, var(--bg-1), var(--bg-2)); */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .login-wrapper form {
   box-shadow: none;
@@ -27,7 +21,7 @@
   color: var(--text-strong);
 }
 .error{
-  color: red;
+  color: var(--danger);
   font-size: 12px;
 }
 .logout-container {
@@ -106,12 +100,12 @@
 
 /* Both Login Container */
 .login-wrapper-both {
-  background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 114px); 
-  padding: 1rem;
+  padding: 0.66rem;
 }
 
 .auth-combined-box {

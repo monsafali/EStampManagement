@@ -18,10 +18,6 @@ import BothLogins from './components/BothLogins';
 
 
 
-
-
-
-
 export default function App() {
   const { user, loading } = useContext(AuthContext);
 
@@ -46,7 +42,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="app-layout">
-        <Navbar />
+        {/* <Navbar /> */}
+        {user && <Navbar />}
+
         <main className="app-main">
           <div className="main-container wide">
             <Routes>
@@ -102,7 +100,8 @@ export default function App() {
             </Routes>
           </div>
         </main>
-        <Footer />
+        {user && <Footer />}
+
       </div>
     </BrowserRouter>
   );
