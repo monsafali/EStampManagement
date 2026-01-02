@@ -20,12 +20,7 @@ export default function ADCDashboard() {
   const isMonthlyReportOpen = location.pathname.includes("monthly-report");
 
   return (
-    <div className="dashboard">
-      {/* HEADER */}
-      <div className="dashboard-header">
-        <h1>ADC Dashboard</h1>
-        <p>Welcome {user?.username}</p>
-      </div>
+    <div className="main-dashborad">
       {/* ACTION BUTTONS (AUTO HIDE) */}
       {!isMonthlyReportOpen && (
         <div className="dashboard-actions">
@@ -37,46 +32,55 @@ export default function ADCDashboard() {
           </button>
 
           <button
-            className={`dashboard-btn  ${activeSection === "createVendor" ? "active" : ""}`}
+            className={`dashboard-btn create-btn  ${activeSection === "createVendor" ? "active" : ""}`}
             onClick={() => setActiveSection("createVendor")}
           >
             Create Vendor
           </button>
 
           <button
-            className={`dashboard-btn  ${activeSection === "bank" ? "active" : ""}`}
+            className={`dashboard-btn create-btn ${activeSection === "bank" ? "active" : ""}`}
             onClick={() => setActiveSection("bank")}
           >
             Create Bank User
           </button>
         </div>
       )}
-
-      {/* DASHBOARD CONTENT (AUTO CLOSE) */}
-      {!isMonthlyReportOpen && activeSection === "vendors" && (
-        <div className="dashboard-card">
-          <GetVendor />
+      <div className="dashboard dashboard-wrapper container">
+        {/* HEADER */}
+        <div className="dashboard-header">
+          <h1>ADC Dashboard</h1>
+          <p>Welcome {user?.username}</p>
         </div>
-      )}
 
-      {!isMonthlyReportOpen && activeSection === "createVendor" && (
-        <div className="dashboard-card">
-          <CreateVendor
-            districtId={user.districtId}
-            districtName={user.district}
-          />
-        </div>
-      )}
 
-      {!isMonthlyReportOpen && activeSection === "bank" && (
-        <div className="dashboard-card">
-          <CreateBankUser />
-        </div>
-      )}
+        {/* DASHBOARD CONTENT (AUTO CLOSE) */}
+        {!isMonthlyReportOpen && activeSection === "vendors" && (
+          <div className="dashboard-card">
+            <GetVendor />
+          </div>
+        )}
 
-      {/* MONTHLY REPORT RENDERS HERE */}
-      <Outlet />
+        {!isMonthlyReportOpen && activeSection === "createVendor" && (
+          <div className="dashboard-card">
+            <CreateVendor
+              districtId={user.districtId}
+              districtName={user.district}
+            />
+          </div>
+        )}
 
+        {!isMonthlyReportOpen && activeSection === "bank" && (
+          <div className="dashboard-card">
+            <CreateBankUser />
+          </div>
+        )}
+
+        {/* MONTHLY REPORT RENDERS HERE */}
+        <Outlet />
+
+      </div>
     </div>
+
   );
 }

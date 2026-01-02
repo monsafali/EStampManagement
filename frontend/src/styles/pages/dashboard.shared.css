@@ -1,10 +1,23 @@
 /* ===== DASHBOARD LAYOUT ===== */
+.main-dashborad {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.dashboard-wrapper {
+  max-width: 1200px;
+}
+
 .dashboard {
+  /* padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; */
+  flex: 1;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 30px;
-  /* background-color: red; */
 }
 
 /* ===== HEADER ===== */
@@ -19,24 +32,45 @@
   color: var(--muted);
   font-size: 15px;
 }
-
-/* ===== ACTION BUTTONS ===== */
+/* action buttons */
 .dashboard-actions {
+  position: sticky;
+  top: 70px; /* height of navbar */
+  height: calc(100vh - 70px);
+
+  width: 280px;
+  min-width: 280px;
+
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 6px;
+
+  padding:6px;
+  background-color: var(--surface);
+  border-right: 1px solid var(--border);
 }
+
 
 .dashboard-btn {
+  width: 100%;
+  background-color: transparent;
   color: var(--text-strong);
-  border: 1px solid var(--color-primary);
+  text-align: left;
+  border-radius: 0;
+  padding: 12px 14px;
+  font-weight: 500;
+  background-color: var(--border);
 }
+
+.dashboard-btn:hover {
+  background-color: var(--border);
+}
+
 .dashboard-btn.active {
-  /* box-shadow: 0 0 0 3px var(--color-primary); */
   background-color: var(--color-primary);
-  /* color: var(--surface); */
   color: white;
 }
+
 
 /* ===== CONTENT CARD ===== */
 .dashboard-card {
@@ -50,7 +84,7 @@
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 20px;
-color: var(--h1-heading);
+  color: var(--h1-heading);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -72,3 +106,5 @@ color: var(--h1-heading);
     padding: 0px;
   }
 }
+
+

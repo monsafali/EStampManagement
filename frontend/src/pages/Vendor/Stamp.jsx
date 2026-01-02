@@ -20,7 +20,6 @@ export default function Stamp() {
     reason: "",
     vendorInfo: "",
   });
-
   const [geoTehsil, setGeoTehsil] = useState("");
   const [geoError, setGeoError] = useState("");
 
@@ -123,7 +122,7 @@ export default function Stamp() {
       console.error(err);
     }
   };
-
+  // yh
   return (
     <div className="p-6 max-w-xl mx-auto bg-white rounded-lg shadow">
       <h1 className="text-2xl font-bold mb-4">Generate Stamp</h1>
@@ -133,99 +132,104 @@ export default function Stamp() {
       <form onSubmit={handleDownload} className="form-container">
 
         {/* Applicant */}
-        <div className="form-group">
-          <input
-            name="Applicant"
-            id="application"
-            placeholder=" "
-            value={formData.Applicant}
-            onChange={handleChange}
-          />
-          <label htmlFor="application">Applicant</label>
+        <div className="input-group">
+          <div className="form-group">
+            <input
+              name="Applicant"
+              id="application"
+              placeholder=" "
+              value={formData.Applicant}
+              onChange={handleChange}
+            />
+            <label htmlFor="application">Applicant</label>
+          </div>
+          {/* CNIC */}
+          <div className="form-group">
+            <input
+              name="cnic"
+              id="cnic"
+              maxLength="13"
+              inputMode="numeric"
+              placeholder=" "
+              value={formData.cnic}
+              onChange={handleChange}
+            />
+            <label htmlFor="cnic">CNIC</label>
+          </div>
+        </div>
+        <div className="input-group ">
+          {/* Relation Name */}
+          <div className="form-group col-70">
+            <input
+              name="Relation_Name"
+              placeholder=" "
+              value={formData.Relation_Name}
+              onChange={handleChange}
+            />
+            <label>Relation Name</label>
+          </div>
+          {/* Relation */}
+          <div className="form-group col-30">
+            <select
+              name="Relation"
+              value={formData.Relation}
+              onChange={handleChange}
+            >
+              <option value="">Select Relation</option>
+              {relationOptions.map((r) => (
+                <option key={r} value={r}>{r}</option>
+              ))}
+            </select>
+
+          </div>
+        </div>
+        <div className="input-group">
+          {/* Agent */}
+          <div className="form-group">
+            <input
+              name="agent"
+              placeholder=" "
+              value={formData.agent}
+              onChange={handleChange}
+            />
+            <label>Agent</label>
+          </div>
+          {/* Email */}
+          <div className="form-group">
+            <input
+              name="email"
+              placeholder=" "
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <label>Email</label>
+          </div>
         </div>
 
-        {/* CNIC */}
-        <div className="form-group">
-          <input
-            name="cnic"
-            id="cnic"
-            placeholder=" "
-            value={formData.cnic}
-            onChange={handleChange}
-          />
-          <label htmlFor="cnic">CNIC</label>
-        </div>
+        <div className="input-group">
+          {/* Phone */}
+          <div className="form-group">
+            <input
+              name="phone"
+              placeholder=" "
+              inputMode="tel"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            <label>Phone</label>
+          </div>
 
-        {/* Relation */}
-        <div className="form-group">
-          <select
-            name="Relation"
-            value={formData.Relation}
-            onChange={handleChange}
-          >
-            <option value="">Select Relation</option>
-            {relationOptions.map((r) => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
-          <label>Relation</label>
+          {/* Address */}
+          <div className="form-group">
+            <input
+              name="address"
+              placeholder=" "
+              value={formData.address}
+              onChange={handleChange}
+            />
+            <label>Address</label>
+          </div>
         </div>
-
-        {/* Relation Name */}
-        <div className="form-group">
-          <input
-            name="Relation_Name"
-            placeholder=" "
-            value={formData.Relation_Name}
-            onChange={handleChange}
-          />
-          <label>Relation Name</label>
-        </div>
-
-        {/* Agent */}
-        <div className="form-group">
-          <input
-            name="agent"
-            placeholder=" "
-            value={formData.agent}
-            onChange={handleChange}
-          />
-          <label>Agent</label>
-        </div>
-
-        {/* Email */}
-        <div className="form-group">
-          <input
-            name="email"
-            placeholder=" "
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <label>Email</label>
-        </div>
-
-        {/* Phone */}
-        <div className="form-group">
-          <input
-            name="phone"
-            placeholder=" "
-            value={formData.phone}
-            onChange={handleChange}
-          />
-          <label>Phone</label>
-        </div>
-
-        {/* Address */}
-        <div className="form-group">
-          <input
-            name="address"
-            placeholder=" "
-            value={formData.address}
-            onChange={handleChange}
-          />
-          <label>Address</label>
-        </div>
-
         {/* Reason */}
         <div className="form-group">
           <textarea
@@ -236,32 +240,40 @@ export default function Stamp() {
           />
           <label>Reason</label>
         </div>
+        <div className="input-group">
 
-        {/* Description */}
-        <div className="form-group">
-          <select
-            name="Description"
-            value={formData.Description}
-            onChange={handleChange}
-          >
-            <option value="">Select Description</option>
-            {Object.keys(descriptionPrices).map((desc) => (
-              <option key={desc} value={desc}>{desc}</option>
-            ))}
-          </select>
-          <label>Description</label>
+          {/* Stamp Amount */}
+          <div className="form-group col-70">
+            <input readOnly
+              placeholder=" "
+              id="stamp-amount"
+              value={formData.StampAmount} />
+            <label htmlFor="stamp-amount">Stamp Amount</label>
+          </div>
+          {/* Description */}
+          <div className="form-group col-30">
+
+            <select
+              name="Description"
+              value={formData.Description}
+              onChange={handleChange}
+            >
+              <option value="">Select Description</option>
+              {Object.keys(descriptionPrices).map((desc) => (
+                <option key={desc} value={desc}>{desc}</option>
+              ))}
+            </select>
+
+          </div>
         </div>
 
-        {/* Stamp Amount */}
-        <div className="form-group">
-          <input readOnly value={formData.StampAmount} />
-          <label>Stamp Amount</label>
-        </div>
+
+
 
         {/* Stamp Type */}
         <div className="form-group">
           <input readOnly value={formData.Stamptype} />
-          <label>Stamp Type</label>
+          {/* <label>Stamp Type</label> */}
         </div>
 
         {/* Vendor Info */}
@@ -270,7 +282,7 @@ export default function Stamp() {
           <label>Vendor Info</label>
         </div>
 
-        <button type="submit" className="primary-btn">
+        <button type="submit" className="form-btn">
           Download Stamp PDF
         </button>
       </form>

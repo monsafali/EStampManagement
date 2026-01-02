@@ -14,22 +14,14 @@ import SearchStamp from "./Vendor/SearchStamp";
 import "../styles/pages/dashboard.shared.css";
 
 
+
 export default function VendorDashboard() {
   const { user, loading } = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState("stamp");
 
   if (loading) return <p>Loading...</p>;
   return (
-    <div className="dashboard">
-
-      {/* HEADER (same as others) */}
-      <div className="dashboard-header">
-        <h1>Vendor Dashboard</h1>
-        <p>
-          Welcome {user?.username} — Tehsil {user?.tehsil}
-        </p>
-      </div>
-
+    <div className="main-dashborad">
       {/* ACTION BUTTONS */}
       <div className="dashboard-actions">
         <button
@@ -60,39 +52,53 @@ export default function VendorDashboard() {
           Search Stamp
         </button>
       </div>
+      <div className="dashboard dashboard-wrapper container">
 
-      {/* CONTENT CARDS */}
-      {activeSection === "stamp" && (
-        <div className="dashboard-card">
-          <Stamp />
+        {/* HEADER (same as others) */}
+        <div className="dashboard-header">
+          <h1>Vendor Dashboard</h1>
+          <p>
+            Welcome {user?.username} — Tehsil {user?.tehsil}
+          </p>
         </div>
-      )}
 
 
-      {activeSection === "challan" && (
-        <div className="dashboard-card">
-          <GenerateChallan />
+
+        {/* CONTENT CARDS */}
+        {activeSection === "stamp" && (
+          <div className="dashboard-card">
+            <Stamp />
+
+          </div>
+        )}
+
+
+        {activeSection === "challan" && (
+          <div className="dashboard-card">
+            <GenerateChallan />
+          </div>
+        )}
+
+        {activeSection === "inventory" && (
+          <div className="dashboard-card">
+            <GetInventory />
+            <GetAllStamp />
+          </div>
+        )}
+
+        {activeSection === "search" && (
+          <div className="dashboard-card">
+            <SearchStamp />
+          </div>
+        )}
+
+        <div className="mt-6">
+          <Outlet />
         </div>
-      )}
 
-      {activeSection === "inventory" && (
-        <div className="dashboard-card">
-          <GetInventory />
-          <GetAllStamp />
-        </div>
-      )}
-
-      {activeSection === "search" && (
-        <div className="dashboard-card">
-          <SearchStamp />
-        </div>
-      )}
-
-      <div className="mt-6">
-        <Outlet />
       </div>
-
     </div>
+
   );
 
 }

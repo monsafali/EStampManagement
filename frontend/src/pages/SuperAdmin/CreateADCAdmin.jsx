@@ -110,7 +110,8 @@ const CreateADCAdmin = () => {
             onSubmit={handleSubmit}
             className="form-container"
           >
-            <div className="form-group">
+            <div className="input-group">
+   <div className="form-group">
               <input
                 type="text"
                 name="fullname"
@@ -123,7 +124,6 @@ const CreateADCAdmin = () => {
               <label htmlFor="fullname">Full Name</label>
             </div>
             <div className="form-group">
-
               <input
                 type="text"
                 name="username"
@@ -136,6 +136,8 @@ const CreateADCAdmin = () => {
               <label htmlFor="username">User Name</label>
             </div>
 
+            </div>
+         
             <div className="form-group">
               <input
                 type="email"
@@ -148,7 +150,8 @@ const CreateADCAdmin = () => {
               />
               <label htmlFor="email">Email</label>
             </div>
-            <div className="form-group">
+            <div className="input-group">
+  <div className="form-group col-70">
               <input
                 type="password"
                 name="password"
@@ -160,7 +163,7 @@ const CreateADCAdmin = () => {
               <label htmlFor="password">Password</label>
             </div>
             {/* District Select */}
-            <div className="form-group">
+            <div className="form-group col-30">
               <select
                 name="districtId"
                 value={form.districtId}
@@ -176,6 +179,8 @@ const CreateADCAdmin = () => {
               </select>
             </div>
 
+            </div>
+          
             <div className="form-group">
               <input
                 type="file"

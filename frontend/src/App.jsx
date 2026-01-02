@@ -46,7 +46,7 @@ export default function App() {
         {user && <Navbar />}
 
         <main className="app-main">
-          <div className="main-container wide">
+          {/* <div className="main-container wide"> */}
             <Routes>
               <Route
                 path="/login"
@@ -98,7 +98,7 @@ export default function App() {
 
               <Route path="*" element={<Navigate to={redirectRole()} />} />
             </Routes>
-          </div>
+          {/* </div> */}
         </main>
         {user && <Footer />}
 

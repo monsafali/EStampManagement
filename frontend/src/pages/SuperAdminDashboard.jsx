@@ -17,58 +17,62 @@ export default function SuperAdminDashboard() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="dashboard">
-      <div className="dashboard-header">
-        <h1>Super Admin Dashboard</h1>
-        <p>Welcome {user?.username}</p>
-      </div>
-      {/* UTILITIES */}
-      {/* <section className="sa-utilities">
+    <div className="main-dashborad">
+         <div className="dashboard-actions">
+          <button
+            className={`dashboard-btn create-btn ${activeSection === "create" ? "active" : ""}`}
+            onClick={() => setActiveSection("create")}
+          >
+            Create ADC Admin
+          </button>
+
+          <button
+            className={`dashboard-btn ${activeSection === "manage" ? "active" : ""}`}
+            onClick={() => setActiveSection("manage")}
+          >
+            View / Manage ADC Admins
+          </button>
+          <button
+            className={`dashboard-btn  ${activeSection === "upload" ? "active" : ""}`}
+            onClick={() => setActiveSection("upload")}
+          >
+            Upload RAG
+          </button>
+        </div>
+      <div className="dashboard dashboard-wrapper container">
+        <div className="dashboard-header">
+          <h1>Super Admin Dashboard</h1>
+          <p>Welcome {user?.username}</p>
+        </div>
+        {/* UTILITIES */}
+        {/* <section className="sa-utilities">
         <UploadRagForm />
       </section> */}
+
      
-      <div className="dashboard-actions">
-        <button
-          className={`dashboard-btn ${activeSection === "create" ? "active" : ""}`}
-          onClick={() => setActiveSection("create")}
-        >
-          Create ADC Admin
-        </button>
+        {/* CONDITIONALLY RENDER */}
+        {activeSection === "create" && (
+          <div className="dashboard-card">
+            {/* <h2>Create ADC Admin</h2> */}
+            <CreateADCAdmin />
+          </div>
+        )}
 
-        <button
-          className={`dashboard-btn ${activeSection === "manage" ? "active" : ""}`}
-          onClick={() => setActiveSection("manage")}
-        >
-          View / Manage ADC Admins
-        </button>
-        <button
-          className={`dashboard-btn  ${activeSection === "upload" ? "active" : ""}`}
-          onClick={() => setActiveSection("upload")}
-        >
-          Upload RAG
-        </button>
+        {activeSection === "manage" && (
+          <div className="dashboard-card">
+            <h2>Manage ADC Admins</h2>
+            <ManageADCAdmins />
+          </div>
+        )}
+        {activeSection === "upload" && (
+          <div className="sa-card">
+            <h2>Upload RAG Files</h2>
+            <UploadRagForm />
+          </div>
+        )}
       </div>
-      {/* CONDITIONALLY RENDER */}
-      {activeSection === "create" && (
-        <div className="dashboard-card">
-          {/* <h2>Create ADC Admin</h2> */}
-          <CreateADCAdmin />
-        </div>
-      )}
-
-      {activeSection === "manage" && (
-        <div className="dashboard-card">
-          <h2>Manage ADC Admins</h2>
-          <ManageADCAdmins />
-        </div>
-      )}
-      {activeSection === "upload" && (
-        <div className="sa-card">
-          <h2>Upload RAG Files</h2>
-          <UploadRagForm />
-        </div>
-      )}
     </div>
+
   );
 }
 

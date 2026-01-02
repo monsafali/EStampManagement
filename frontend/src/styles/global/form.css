@@ -3,7 +3,7 @@
    background: var(--surface);
    /* background-color: transparent; */
    border-radius: 18px;
-   padding: 25px;
+   padding: 20px;
    width: 100%;
    max-width: 420px;
    box-shadow: var(--shadow-sm);
@@ -11,13 +11,27 @@
 
  .form-group {
    position: relative;
-   margin-bottom: 22px;
+   margin-bottom: 20px;
+   flex: 1;
+ }
+
+ .input-group {
+   display: flex;
+   gap: 1rem;
+ }
+
+.col-70 {
+   flex: 2;
+ }
+
+ .col-30 {
+   flex: 1;
  }
 
  .form-group input,
  .form-group select {
    width: 100%;
-   padding: 12px;
+   padding: 12px 8px;
    border: 1.8px solid var(--border);
    border-radius: 8px;
    outline: none;
@@ -25,9 +39,19 @@
    background-color: var(--surface);
    transition: 0.2s ease;
  }
-input[type="file"] {
+
+.form-group select{
+  font-size: 12px;
+  height: 100%;
   cursor: pointer;
 }
+/* .form-group option{
+  font-size: 12px;
+} */
+ input[type="file"] {
+   cursor: pointer;
+ }
+
  .form-group input:focus,
  .form-group select:focus {
    border-color: var(--color-primary);
@@ -50,6 +74,31 @@ input[type="file"] {
  .form-group input:focus+label,
  .form-group input:not(:placeholder-shown)+label,
  .form-group select:focus+label {
+   top: -2px;
+   font-size: 12px;
+   color: var(--color-primary);
+ }
+
+ .form-group textarea {
+   width: 100%;
+   padding: 12px;
+   min-height: 100px;
+   resize: none;
+   border: 1.8px solid var(--border);
+   border-radius: 8px;
+   outline: none;
+   font-size: 15px;
+   background-color: var(--surface);
+   transition: 0.2s ease;
+
+ }
+
+ .form-group textarea:focus {
+   border-color: var(--color-primary);
+ }
+
+ .form-group textarea:focus+label,
+ .form-group textarea:not(:placeholder-shown)+label {
    top: -2px;
    font-size: 12px;
    color: var(--color-primary);
@@ -79,5 +128,17 @@ input[type="file"] {
      padding: 12px;
      max-width: 100%;
      /* background-color: inherit; */
+   }
+ 
+
+ }
+ @media (max-width:400px) {
+    .input-group {
+     flex-direction: column;
+     gap: 0;
+   }
+     .col-70,
+   .col-30 {
+     flex: 1;
    }
  }
