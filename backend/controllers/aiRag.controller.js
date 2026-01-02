@@ -169,6 +169,7 @@ if (!allowQuestion) {
     }
 
     // 6️⃣ Prompt
+
     const prompt = `
 You are a Stamp Vendor Support AI for Punjab Pakistan.
 
@@ -176,13 +177,9 @@ Rules:
 - Follow-up questions must be answered using context
 - Prefer DOCUMENT data for procedures
 - Prefer VENDOR data for location/vendor questions
-- If not found, generate answer
+- If user query is related to stamp but that answer is not have in the document data. generate a short answer
 - Max 4 short lines
-- Use bullet points
-- Use markdown
-- Simple language
-- Do not repeat question
-- If question is not related ${domainKeywords} respond with "I'm sorry, this question is not related to E-Stamp services. Please ask something relevant."
+
 
 --- PREVIOUS CONVERSATION ---
 ${conversationContext}
