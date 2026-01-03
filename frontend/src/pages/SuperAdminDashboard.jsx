@@ -18,27 +18,27 @@ export default function SuperAdminDashboard() {
 
   return (
     <div className="main-dashborad">
-         <div className="dashboard-actions">
-          <button
-            className={`dashboard-btn create-btn ${activeSection === "create" ? "active" : ""}`}
-            onClick={() => setActiveSection("create")}
-          >
-            Create ADC Admin
-          </button>
+      <div className="dashboard-actions">
+        <button
+          className={`dashboard-btn create-btn ${activeSection === "create" ? "active" : ""}`}
+          onClick={() => setActiveSection("create")}
+        >
+          Create ADC Admin
+        </button>
 
-          <button
-            className={`dashboard-btn ${activeSection === "manage" ? "active" : ""}`}
-            onClick={() => setActiveSection("manage")}
-          >
-            View / Manage ADC Admins
-          </button>
-          <button
-            className={`dashboard-btn  ${activeSection === "upload" ? "active" : ""}`}
-            onClick={() => setActiveSection("upload")}
-          >
-            Upload RAG
-          </button>
-        </div>
+        <button
+          className={`dashboard-btn ${activeSection === "manage" ? "active" : ""}`}
+          onClick={() => setActiveSection("manage")}
+        >
+          View / Manage ADC Admins
+        </button>
+        <button
+          className={`dashboard-btn  ${activeSection === "upload" ? "active" : ""}`}
+          onClick={() => setActiveSection("upload")}
+        >
+          Upload RAG
+        </button>
+      </div>
       <div className="dashboard dashboard-wrapper container">
         <div className="dashboard-header">
           <h1>Super Admin Dashboard</h1>
@@ -49,11 +49,16 @@ export default function SuperAdminDashboard() {
         <UploadRagForm />
       </section> */}
 
-     
+
         {/* CONDITIONALLY RENDER */}
         {activeSection === "create" && (
           <div className="dashboard-card">
             {/* <h2>Create ADC Admin</h2> */}
+            <CreateADCAdmin />
+            <CreateADCAdmin />
+            <CreateADCAdmin />
+            <CreateADCAdmin />
+            <CreateADCAdmin />
             <CreateADCAdmin />
           </div>
         )}
