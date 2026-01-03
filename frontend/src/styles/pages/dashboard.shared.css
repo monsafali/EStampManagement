@@ -93,14 +93,6 @@
     padding: 12px;
   }
 
-  .dashboard-actions {
-    flex-direction: column;
-  }
-
-  .dashboard-btn {
-    width: 100%;
-  }
-
   .dashboard-card {
     padding: 15px;
     padding: 0px;

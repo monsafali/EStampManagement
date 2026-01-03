@@ -78,7 +78,7 @@
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
     .user-two-columns {
         flex-direction: column;
     }
@@ -89,5 +89,13 @@
 
     .user-right {
         padding: 15px;
+        flex: 1;
+    }
+    .user-left{
+        /* width: 100% ; */
+     flex: 1;
+    }
+    .user-left form{
+    max-width:100% ;
     }
 }
