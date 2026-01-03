@@ -67,14 +67,15 @@ export default function VendorDashboard() {
         {/* CONTENT CARDS */}
         {activeSection === "stamp" && (
           <div className="dashboard-card">
+            <h2>Generate Stamp</h2>
             <Stamp />
-
           </div>
         )}
 
 
         {activeSection === "challan" && (
           <div className="dashboard-card">
+            <h2>Generate Challan</h2>
             <GenerateChallan />
           </div>
         )}

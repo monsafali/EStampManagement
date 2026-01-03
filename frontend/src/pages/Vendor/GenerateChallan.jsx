@@ -1,36 +1,49 @@
 // src/components/GenerateChallan.jsx
 import React, { useState } from "react";
 import axios from "axios";
+import DataTable from "../../components/common/DataTable";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
+import "../../styles/pages/vendor/generate-challan.css"
 const API_BASE = "http://localhost:5000/api/stamp";
-
+const columns = [
+  {
+    key: "type",
+    label: "Denomination (Rs)",
+  },
+  {
+    key: "quantity",
+    label: "Quantity",
+  },
+];
 const GenerateChallan = () => {
-  // single-entry inputs
-  const [denomination, setDenomination] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // list of added items
   const [items, setItems] = useState([]);
-
   const [loading, setLoading] = useState(false);
 
-  // Add current input values to items list
-  const handleAddItem = () => {
-    const type = Number(denomination);
-    const qty = Number(quantity);
+  const handleAddItem = (data) => {
+    const type = Number(data.denomination);
+    const qty = Number(data.quantity);
 
-    if (!type || type <= 0) {
-      alert("Enter a valid denomination (e.g. 100, 200, 300).");
-      return;
-    }
-    if (!qty || qty <= 0) {
-      alert("Enter a valid quantity (e.g. 10).");
-      return;
-    }
+    setItems((prev) => [
+      ...prev,
+      {
+        _id: Date.now(),
+        type,
+        quantity: qty,
+      },
+    ]);
 
-    setItems((prev) => [...prev, { type, quantity: qty }]);
-    setDenomination("");
-    setQuantity("");
+    toast.success("Item added successfully");
+    reset();
   };
 
   // Remove an item from the list
@@ -40,7 +53,11 @@ const GenerateChallan = () => {
 
   // Download PDF by calling your existing createChallan endpoint
   const handleGenerateChallan = async () => {
-    if (items.length === 0) return alert("Add at least one item first.");
+    if (items.length === 0) {
+      toast.error("Add at least one item first");
+      return;
+    }
+
 
     setLoading(true);
     try {
@@ -64,147 +81,152 @@ const GenerateChallan = () => {
       link.remove();
     } catch (err) {
       console.error("Generate challan error:", err);
-      alert("Error generating challan PDF. See console for details.");
+      toast.error("Error generating challan PDF. See console for details.");
+
     } finally {
       setLoading(false);
     }
   };
 
 
-    
-    const handleStripePay = async () => {
-      // Open blank tab immediately to avoid popup blocker
-      const newTab = window.open("", "_blank");
 
-      const cleanedItems = items.map((row) => ({
-        type: Number(row.type),
-        quantity: Number(row.quantity),
-      }));
+  const handleStripePay = async () => {
+    // Open blank tab immediately to avoid popup blocker
+    const newTab = window.open("", "_blank");
 
-      const res = await fetch(
-        "http://localhost:5000/api/stamp/pay-via-stripe",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({ items: cleanedItems }),
-        }
-      );
+    const cleanedItems = items.map((row) => ({
+      type: Number(row.type),
+      quantity: Number(row.quantity),
+    }));
 
-      const data = await res.json();
+    const res = await fetch(
+      "http://localhost:5000/api/stamp/pay-via-stripe",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ items: cleanedItems }),
+      }
+    );
 
-      // Redirect new tab to stripe checkout
-      newTab.location.href = data.url;
-    };
+    const data = await res.json();
+
+    // Redirect new tab to stripe checkout
+    newTab.location.href = data.url;
+  };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto bg-white rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">Generate Challan</h1>
+    <div className="challan-card">
+      {/* inputs */}
+      <form onSubmit={handleSubmit(handleAddItem)}>
+        <div className="input-group">
+          <div className="form-group">
+            <input
+              className={errors.denomination ? "error" : ""}
+              type="number"
+              min="1"
+              {...register("denomination", {
+                required: "Denomination is required",
+                min: { value: 1, message: "Must be greater than 0" },
+              })}
+            />
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Denomination (Rs)
-          </label>
-          <input
-            type="number"
-            value={denomination}
-            onChange={(e) => setDenomination(e.target.value)}
-            className="p-2 border rounded w-full"
-            placeholder="e.g. 100"
-            min="0"
-          />
+            <label>
+              Denomination (Rs)
+            </label>
+            {errors.denomination && (
+              <span className="input-error">
+                {errors.denomination.message}
+              </span>
+            )}
+          </div>
+          <div className="form-group">
+
+            <input
+              className={errors.quantity ? "error" : ""}
+              type="number"
+              min="1"
+              {...register("quantity", {
+                required: "Quantity is required",
+                min: { value: 1, message: "Must be greater than 0" },
+              })}
+            />
+
+            {/* e.g. 10 */}
+            <label>Quantity</label>
+            {errors.quantity && (
+              <span className="input-error">
+                {errors.quantity.message}
+              </span>
+            )}
+          </div>
         </div>
+        {/* Action buttons */}
+        <div className="challan-actions">
 
-        <div>
-          <label className="block text-sm font-medium mb-1">Quantity</label>
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            className="p-2 border rounded w-full"
-            placeholder="e.g. 10"
-            min="0"
-          />
+          <button type="submit" className="btn btn-success">
+            + Add
+          </button>
+
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => reset()}
+          >
+            Clear Inputs
+          </button>
+
         </div>
-      </div>
-
-      <div className="mb-6">
-        <button
-          onClick={handleAddItem}
-          className="bg-green-600 text-white px-4 py-2 rounded mr-2"
-        >
-          + Add
-        </button>
-
-        <button
-          onClick={() => {
-            setDenomination("");
-            setQuantity("");
-          }}
-          className="bg-gray-300 text-black px-4 py-2 rounded"
-        >
-          Clear Inputs
-        </button>
-      </div>
-
-      <div className="mb-6">
-        <h2 className="font-semibold mb-2">Added Items</h2>
+      </form>
+      {/* Items table */}
+      <div className="challan-table-section">
         {items.length === 0 ? (
-          <div className="text-sm text-gray-500">No items added yet.</div>
+          <div className="empty-text">No items added yet.</div>
         ) : (
-          <table className="w-full border mb-2">
-            <thead>
-              <tr className="bg-gray-100 border-b">
-                <th className="p-2 border">Denomination (Rs)</th>
-                <th className="p-2 border">Quantity</th>
-                <th className="p-2 border">Action</th>
-              </tr>
-            </thead>
+    
+          <DataTable
+            title="Added Items"
+            columns={columns}
+            data={items}
+            renderActions={(row) => (
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() =>
+                  removeItem(items.findIndex((i) => i._id === row._id))
+                }
+              >
+                Remove
+              </button>
+            )}
+          />
 
-            <tbody>
-              {items.map((row, index) => (
-                <tr key={index} className="border-b">
-                  <td className="p-2 border">{row.type}</td>
-                  <td className="p-2 border">{row.quantity}</td>
-                  <td className="p-2 border text-center">
-                    <button
-                      onClick={() => removeItem(index)}
-                      className="bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         )}
       </div>
 
-      <div className="flex gap-3">
+
+      {/* Footer buttons */}
+      <div className="challan-footer">
         <button
+          className="btn btn-primary"
           onClick={handleGenerateChallan}
           disabled={loading || items.length === 0}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
         >
           {loading ? "Processing..." : "Generate Bank Challan (PDF)"}
         </button>
 
         <button
+          className="btn btn-indigo"
           onClick={handleStripePay}
           disabled={loading || items.length === 0}
-          className="bg-indigo-600 text-white px-4 py-2 rounded"
         >
           {loading ? "Processing..." : "Pay with Stripe"}
         </button>
       </div>
 
-      <div className="mt-4 text-xs text-gray-500">
-        Tip: Add each denomination + quantity using the "+ Add" button. After
-        adding the rows, choose "Generate Bank Challan" to download PDF or "Pay
-        with Stripe" to create a challan and start Stripe checkout.
-      </div>
+      <p className="challan-hint">
+        Tip: Add each denomination + quantity, then generate a bank challan PDF or
+        proceed with Stripe payment.
+      </p>
     </div>
   );
 };

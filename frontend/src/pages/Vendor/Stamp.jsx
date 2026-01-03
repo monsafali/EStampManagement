@@ -124,13 +124,10 @@ export default function Stamp() {
   };
   // yh
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white rounded-lg shadow">
-      <h1 className="text-2xl font-bold mb-4">Generate Stamp</h1>
-
+  <div>
+     
       {geoError && <p className="text-red-500 mb-2">{geoError}</p>}
-
       <form onSubmit={handleDownload} className="form-container">
-
         {/* Applicant */}
         <div className="input-group">
           <div className="form-group">
