@@ -65,7 +65,7 @@ export default function SuperAdminDashboard() {
           </div>
         )}
         {activeSection === "upload" && (
-          <div className="sa-card">
+          <div className="dashboard-card">
             <h2>Upload RAG Files</h2>
             <UploadRagForm />
           </div>

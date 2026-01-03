@@ -21,4 +21,6 @@ const UserInfoPanel = ({ title, description, list }) => {
     );
 };
 
+
+
 export default UserInfoPanel;

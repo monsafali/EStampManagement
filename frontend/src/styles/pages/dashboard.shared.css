@@ -1,24 +1,37 @@
 /* ===== DASHBOARD LAYOUT ===== */
 .main-dashborad {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-.dashboard-wrapper {
-  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-areas: "sidebar dashboard";
+  min-height: 100vh;
+overflow-y: auto; 
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
-.dashboard {
-  /* padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px; */
-  flex: 1;
+
+.main-dashborad > * {
+  min-width: 0;
+}
+
+.dashboard-wrapper {
+  grid-area: dashboard;
+
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+    height: 100%;
+  min-height: 0;
 }
+
+
+
 
 /* ===== HEADER ===== */
 .dashboard-header h1 {
@@ -32,27 +45,33 @@
   color: var(--muted);
   font-size: 15px;
 }
+
 /* action buttons */
 .dashboard-actions {
-  position: sticky;
-  top: 70px; /* height of navbar */
-  height: calc(100vh - 70px);
-
-  width: 280px;
-  min-width: 280px;
+  grid-area: sidebar;
 
   display: flex;
   flex-direction: column;
   gap: 6px;
 
-  padding:6px;
+  padding: 6px;
   background-color: var(--surface);
   border-right: 1px solid var(--border);
+
+  max-width: 100%;
+
+
+
+    overflow: hidden;   /*  prevents scroll */
+  height: 100%;
+
 }
 
 
+
+
 .dashboard-btn {
-  width: 100%;
+  /* width: 100%; */
   background-color: transparent;
   color: var(--text-strong);
   text-align: left;
@@ -88,15 +107,40 @@
 }
 
 /* ===== RESPONSIVE ===== */
+
 @media (max-width: 768px) {
-  .dashboard {
+  .main-dashborad {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr; 
+    grid-template-areas:
+      "sidebar"
+      "dashboard";
+  }
+  /* Sidebar → top bar */
+  .dashboard-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    border-right: none;
+    /* border-bottom: 1px solid var(--border); */
+    height: fit-content;
+    background-color: inherit;
+    margin: 18px 0;
+  }
+
+  /* Buttons → horizontal */
+  .dashboard-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+
+  .dashboard-wrapper {
     padding: 12px;
   }
 
   .dashboard-card {
     padding: 15px;
-    padding: 0px;
   }
 }
-
-

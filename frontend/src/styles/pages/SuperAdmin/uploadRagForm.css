@@ -1,13 +1,3 @@
-.upload-rag-card {
-  margin: 30px auto;
-  background: var(--surface);
-  border-radius: 18px;
-  padding: 24px 26px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
-  animation: fadeIn 0.3s ease;
-}
-
 
 /* Selected file text */
 .file-name {

@@ -64,31 +64,34 @@ const CreateBankUser = () => {
             onSubmit={handleSubmit}
             className="form-container"
           >
-            <div className="form-group">
-              <input
-                type="text"
-                name="fullname"
-                id="fullname"
-                placeholder=""
-                value={form.fullname}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="fullname">Full Name</label>
-            </div>
-            <div className="form-group">
-              <input
-                type="text"
-                name="username"
-                id="username"
-                placeholder=""
-                value={form.username}
-                onChange={handleChange}
-                required
-              />
+            <div className="input-group">
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="fullname"
+                  id="fullname"
+                  placeholder=""
+                  value={form.fullname}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="fullname">Full Name</label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder=""
+                  value={form.username}
+                  onChange={handleChange}
+                  required
+                />
 
-              <label htmlFor="username">User Name</label>
+                <label htmlFor="username">User Name</label>
+              </div>
             </div>
+
             <div className="form-group">
               <input
                 type="email"
