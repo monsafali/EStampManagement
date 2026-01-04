@@ -13,6 +13,7 @@
    position: relative;
    margin-bottom: 20px;
    flex: 1;
+
  }
 
  .input-group {
@@ -31,26 +32,29 @@
  /* validation */
  .input-error {
    color: var(--danger);
+   font-size: 12px;
+   font-style: italic;
+
  }
+ /* input.error{
+  color: transparent;
+ } */
 
  .form-group input.error,
- .form-group input.error:focus {
+ .form-group textarea.error,
+ .form-group select.error,
+ .form-group textarea.error:focus,
+ .form-group input.error:focus,
+ .form-group select.error:focus {
    border-color: var(--danger);
- }
-
- .form-group input.error {
    animation: shake 0.3s;
  }
 
- /* Label when input has error */
- .form-group input.error+label {
-   color: var(--danger);
- }
-
- 
- .form-group input.error:focus+label {
-   color: var(--danger);
- }
+.form-group input,
+.form-group textarea,
+.form-group select {
+  color: var(--text-primary); 
+}
 
  /*  */
  .form-group input,
@@ -67,7 +71,8 @@
 
  .form-group select {
    font-size: 12px;
-   height: 100%;
+   height: auto;
+   /* height: 100%; */
    cursor: pointer;
  }
 
@@ -78,10 +83,10 @@
    cursor: pointer;
  }
 
+ .form-group textarea:focus,
  .form-group input:focus,
  .form-group select:focus {
    border-color: var(--color-primary);
-
  }
 
  /* Floating Labels */
@@ -96,7 +101,7 @@
    color: #6b7280;
    transition: 0.25s ease;
  }
-
+ 
  .form-group input:focus+label,
  .form-group input:not(:placeholder-shown)+label,
  .form-group select:focus+label {
@@ -104,7 +109,6 @@
    font-size: 12px;
    color: var(--color-primary);
  }
-
  .form-group textarea {
    width: 100%;
    padding: 12px;
@@ -117,10 +121,6 @@
    background-color: var(--surface);
    transition: 0.2s ease;
 
- }
-
- .form-group textarea:focus {
-   border-color: var(--color-primary);
  }
 
  .form-group textarea:focus+label,

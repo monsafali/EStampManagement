@@ -116,6 +116,7 @@
       "sidebar"
       "dashboard";
   }
+
   /* Sidebar → top bar */
   .dashboard-actions {
     flex-direction: row;

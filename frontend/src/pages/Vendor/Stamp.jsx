@@ -1,27 +1,56 @@
-
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../AuthContext";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function Stamp() {
-  const { user, loading } = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    Stamptype: "Low Denomination",
-    StampAmount: "",
-    Description: "",
-    Applicant: "",
-    cnic: "",
-    Relation: "",
-    Relation_Name: "",
-    agent: "",
-    email: "",
-    phone: "",
-    address: "",
-    reason: "",
-    vendorInfo: "",
-  });
+
+  const { user } = useContext(AuthContext);
   const [geoTehsil, setGeoTehsil] = useState("");
   const [geoError, setGeoError] = useState("");
+
+  // const [formData, setFormData] = useState({
+  //   Stamptype: "Low Denomination",
+  //   StampAmount: "",
+  //   Description: "",
+  //   Applicant: "",
+  //   cnic: "",
+  //   Relation: "",
+  //   Relation_Name: "",
+  //   agent: "",
+  //   email: "",
+  //   phone: "",
+  //   address: "",
+  //   reason: "",
+  //   vendorInfo: "",
+  // });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      Stamptype: "Low Denomination",
+      StampAmount: "",
+      Description: "",
+      Applicant: "",
+      cnic: "",
+      Relation: "",
+      Relation_Name: "",
+      agent: "",
+      email: "",
+      phone: "",
+      address: "",
+      reason: "",
+      vendorInfo: "",
+    },
+  });
+
+
 
   const descriptionPrices = {
     "AGREEMENT OR MEMORANDUM OF AN AGREEMENT - 5(ccc)": 100,
@@ -34,81 +63,67 @@ export default function Stamp() {
   };
 
   const relationOptions = ["", "S/O", "D/O", "W/O", "F/O", "Widow/Of"];
-
-  // Fetch vendor info
+  const selectedDescription = watch("Description");
+  // auto update stamp amount
   useEffect(() => {
-    const vendorInfoString = `${user.fullname} | ${user.licenceNo} | ${user.address}`;
-    setFormData((prev) => ({ ...prev, vendorInfo: vendorInfoString }));
+    setValue("StampAmount", descriptionPrices[selectedDescription] || "");
+  }, [selectedDescription, setValue]);
+  // vendor info + geolocation
+  useEffect(() => {
+    setValue(
+      "vendorInfo",
+      `${user.fullname} | ${user.licenceNo} | ${user.address}`
+    );
 
-    // Auto-fetch current location on component load
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
+    if (!navigator.geolocation) {
+      setGeoError("Geolocation not supported.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
           const { latitude, longitude } = position.coords;
           const baseUrl = import.meta.env.VITE_LOCATION_API;
-          try {
-            const res = await fetch(
-              `${baseUrl}&lat=${latitude}&lon=${longitude}`
-            );
-            const data = await res.json();
-            const address = data.address || {};
-            const tehsil =
-              address.county ||
-              address.city ||
-              address.town ||
-              address.village ||
-              "";
-            setGeoTehsil(tehsil);
-          } catch (err) {
-            setGeoError("Failed to fetch location.");
-          }
-        },
-        (error) => setGeoError(error.message)
-      );
-    } else {
-      setGeoError("Geolocation not supported.");
-    }
-  }, []);
+          const res = await fetch(`${baseUrl}&lat=${latitude}&lon=${longitude}`);
+          const data = await res.json();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+          const address = data.address || {};
+          const tehsil =
+            address.county ||
+            address.city ||
+            address.town ||
+            address.village ||
+            "";
 
-    if (name === "Description") {
-      setFormData({
-        ...formData,
-        Description: value,
-        StampAmount: descriptionPrices[value] || "",
-      });
-      return;
-    }
+          setGeoTehsil(tehsil);
+        } catch {
+          setGeoError("Failed to fetch location.");
+        }
+      },
+      (err) => setGeoError(err.message)
+    );
+  }, [setValue, user]);
 
-    setFormData({ ...formData, [name]: value });
-  };
 
-  const handleDownload = async (e) => {
-    e.preventDefault();
 
-    // Check if vendor is in correct Tehsil
+  const onSubmit = async (data) => {
     if (!geoTehsil) {
-      alert("Unable to determine your location. Please try again.");
+      toast.error("Unable to determine your location.");
       return;
     }
-
 
     if (geoTehsil.toUpperCase() !== user.tehsil.toUpperCase()) {
-      alert(
-        `You are out of your assigned Tehsil (${user.tehsil}). Current Tehsil: ${geoTehsil}. You cannot issue stamps!`
+      toast.error(
+        `Out of Tehsil! Assigned: ${user.tehsil}, Current: ${geoTehsil}`
       );
       return;
     }
-
-    // Send form to backend
-    const bodyToSend = { ...formData };
 
     try {
       const res = await axios.post(
         "http://localhost:5000/api/stamp/generate-pdf",
-        bodyToSend,
+        data,
         { responseType: "blob", withCredentials: true }
       );
 
@@ -117,167 +132,219 @@ export default function Stamp() {
       link.href = URL.createObjectURL(file);
       link.download = "stamp.pdf";
       link.click();
+
+      toast.success("Stamp PDF generated successfully");
     } catch (err) {
-      alert("Error generating PDF");
       console.error(err);
+      toast.error("Error generating PDF");
     }
   };
+
+
+
+
   // yh
   return (
-  <div>
-     
-      {geoError && <p className="text-red-500 mb-2">{geoError}</p>}
-      <form onSubmit={handleDownload} className="form-container">
+    <div>
+
+      {geoError && <p className="error">{geoError}</p>}
+      <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         {/* Applicant */}
         <div className="input-group">
           <div className="form-group">
             <input
-              name="Applicant"
-              id="application"
+              className={errors.Applicant ? "error" : ""}
+              {...register("Applicant", { required: "Applicant is required" })}
               placeholder=" "
-              value={formData.Applicant}
-              onChange={handleChange}
             />
-            <label htmlFor="application">Applicant</label>
+            <label>Applicant</label>
+            {errors.Applicant && (
+              <span className="input-error">{errors.Applicant.message}</span>
+            )}
           </div>
           {/* CNIC */}
           <div className="form-group">
             <input
-              name="cnic"
-              id="cnic"
               maxLength="13"
               inputMode="numeric"
+              className={errors.cnic ? "error" : ""}
+              {...register("cnic", {
+                required: "CNIC is required",
+                pattern: {
+                  value: /^[0-9]{13}$/,
+                  message: "CNIC must be exactly 13 digits",
+                },
+              })}
               placeholder=" "
-              value={formData.cnic}
-              onChange={handleChange}
             />
-            <label htmlFor="cnic">CNIC</label>
+            <label>CNIC</label>
+            {errors.cnic && (
+              <span className="input-error">{errors.cnic.message}</span>
+            )}
           </div>
         </div>
+        {/* Relation Name */}
         <div className="input-group ">
-          {/* Relation Name */}
           <div className="form-group col-70">
             <input
-              name="Relation_Name"
+              className={errors.Relation_Name ? "error" : ""}
+              {...register("Relation_Name", {
+                required: "Relation name required",
+              })}
               placeholder=" "
-              value={formData.Relation_Name}
-              onChange={handleChange}
             />
             <label>Relation Name</label>
+            {errors.Relation_Name && (
+              <span className="input-error">
+                {errors.Relation_Name.message}
+              </span>
+            )}
           </div>
           {/* Relation */}
           <div className="form-group col-30">
             <select
-              name="Relation"
-              value={formData.Relation}
-              onChange={handleChange}
+              className={errors.Relation ? "error" : ""}
+              {...register("Relation", {
+                required: "Relation is required",
+              })}
             >
               <option value="">Select Relation</option>
               {relationOptions.map((r) => (
-                <option key={r} value={r}>{r}</option>
+                <option key={r} value={r}>
+                  {r}
+                </option>
               ))}
             </select>
-
+            {errors.Relation && (
+              <span className="input-error">{errors.Relation.message}</span>
+            )}
           </div>
         </div>
+        {/* Agent + Email */}
         <div className="input-group">
-          {/* Agent */}
           <div className="form-group">
             <input
-              name="agent"
+              className={errors.agent ? "error" : ""}
+              {...register("agent", {
+                required: "Agent name is required",
+                minLength: {
+                  value: 3,
+                  message: "Agent name must be at least 3 characters",
+                },
+              })}
               placeholder=" "
-              value={formData.agent}
-              onChange={handleChange}
             />
-            <label>Agent</label>
+            <label className={errors.agent ? "label-error" : ""}>
+              Agent
+            </label>
+            {errors.agent && (
+              <span className="input-error">{errors.agent.message}</span>
+            )}
           </div>
-          {/* Email */}
           <div className="form-group">
             <input
-              name="email"
+              className={errors.email ? "error" : ""}
+              {...register("email",
+                {
+                  required: "emai number is required",
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Invalid email",
+                  },
+                })}
               placeholder=" "
-              value={formData.email}
-              onChange={handleChange}
             />
             <label>Email</label>
+            {errors.email && (
+              <span className="input-error">{errors.email.message}</span>
+            )}
           </div>
         </div>
 
         <div className="input-group">
           {/* Phone */}
-          <div className="form-group">
-            <input
-              name="phone"
-              placeholder=" "
-              inputMode="tel"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-            <label>Phone</label>
-          </div>
-
           {/* Address */}
           <div className="form-group">
             <input
-              name="address"
-              placeholder=" "
-              value={formData.address}
-              onChange={handleChange}
-            />
+              className={errors.phone ? "error" : ""}
+              {...register("phone", {
+                required: "Phone number is required",
+              })} placeholder=" " />
+            <label>Phone</label>
+            {errors.phone && (
+              <span className="input-error">{errors.phone.message}</span>
+            )}
+          </div>
+
+          <div className="form-group">
+            <input
+              className={errors.address ? "error" : ""}
+              {...register("address", {
+                required: "Address is required",
+                minLength: {
+                  value: 10,
+                  message: "Address is too short",
+                },
+              })}
+              placeholder=" " />
             <label>Address</label>
+            {errors.address && (
+              <span className="input-error">{errors.address.message}</span>
+            )}
           </div>
         </div>
+
         {/* Reason */}
         <div className="form-group">
           <textarea
-            name="reason"
+            className={errors.reason ? "error" : ""}
+            {...register("reason", { required: "Reason is required" })}
             placeholder=" "
-            value={formData.reason}
-            onChange={handleChange}
           />
           <label>Reason</label>
+          {errors.reason && (
+            <span className="input-error">{errors.reason.message}</span>
+          )}
         </div>
+
+        {/*Stamp Amount + Description */}
         <div className="input-group">
-
-          {/* Stamp Amount */}
           <div className="form-group col-70">
-            <input readOnly
-              placeholder=" "
-              id="stamp-amount"
-              value={formData.StampAmount} />
-            <label htmlFor="stamp-amount">Stamp Amount</label>
+            <input readOnly {...register("StampAmount")} placeholder=" " />
+            <label>Stamp Amount</label>
           </div>
-          {/* Description */}
-          <div className="form-group col-30">
 
+          <div className="form-group col-30">
             <select
-              name="Description"
-              value={formData.Description}
-              onChange={handleChange}
+              className={errors.Description ? "error" : ""}
+              {...register("Description", {
+                required: "Description required",
+              })}
             >
               <option value="">Select Description</option>
-              {Object.keys(descriptionPrices).map((desc) => (
-                <option key={desc} value={desc}>{desc}</option>
+              {Object.keys(descriptionPrices).map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
               ))}
             </select>
-
           </div>
         </div>
-
-
 
 
         {/* Stamp Type */}
         <div className="form-group">
-          <input readOnly value={formData.Stamptype} />
-          {/* <label>Stamp Type</label> */}
+          <input readOnly {...register("Stamptype")} />
+          <label>Stamp Type</label>
         </div>
+
 
         {/* Vendor Info */}
         <div className="form-group">
-          <input readOnly value={formData.vendorInfo} />
+          <input readOnly {...register("vendorInfo")} />
           <label>Vendor Info</label>
         </div>
+
 
         <button type="submit" className="form-btn">
           Download Stamp PDF

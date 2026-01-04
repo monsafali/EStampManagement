@@ -55,11 +55,6 @@ export default function SuperAdminDashboard() {
           <div className="dashboard-card">
             {/* <h2>Create ADC Admin</h2> */}
             <CreateADCAdmin />
-            <CreateADCAdmin />
-            <CreateADCAdmin />
-            <CreateADCAdmin />
-            <CreateADCAdmin />
-            <CreateADCAdmin />
           </div>
         )}
 
