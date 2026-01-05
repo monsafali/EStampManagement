@@ -11,6 +11,7 @@ const SearchStamp = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [results, setResults] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
 
 
   const columns = [
@@ -46,6 +47,7 @@ const SearchStamp = () => {
       );
 
       setResults(res.data.results || []);
+      setHasSearched(true);
     } catch (error) {
       console.error("Search error:", error);
       toast.error("Search failed");
@@ -84,7 +86,7 @@ const SearchStamp = () => {
       <h1 className="search-title">Search Issued Stamps</h1>
 
       {/* Search Inputs */}
-      <div className="search-grid">
+      <div className="search-section">
         <div className="search-group">
           <label>Search by CNIC</label>
           <input value={cnic} onChange={(e) => setCnic(e.target.value)} />
@@ -116,13 +118,19 @@ const SearchStamp = () => {
         )}
       </div>
       {/* Results Table */}
-
-      <DataTable
-        title="Search Results"
-        columns={columns}
-        data={results}
-      />
-
+      {hasSearched && (
+        results.length > 0 ? (
+          <DataTable
+            title="Search Results"
+            columns={columns}
+            data={results}
+          />
+        ) : (
+          <div className="empty-text">
+            No records found for the given criteria.
+          </div>
+        )
+      )}
     </div>
   );
 };

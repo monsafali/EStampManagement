@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from "../../components/common/DataTable";
 
+
 const GetInventory = () => {
   const [stock, setStock] = useState({});
 
@@ -9,6 +10,9 @@ const GetInventory = () => {
     fetchInventory();
   }, []);
 
+
+
+  
   const fetchInventory = async () => {
     try {
       const res = await axios.get(
@@ -51,13 +55,22 @@ const GetInventory = () => {
     { key: "stampType", label: "Stamp Type" },
     { key: "availableStock", label: "Available Stock" },
   ];
-  return (
+  const hasStock = tableData.length > 0;
 
-    <DataTable
-        title="Available Inventory Stock"
-        columns={columns}
-        data={tableData}
-      />
+   return (
+    <>
+      {hasStock ? (
+        <DataTable
+          title="Available Inventory Stock"
+          columns={columns}
+          data={tableData}
+        />
+      ) : (
+        <div className="empty-text">
+          No inventory available at the moment.
+        </div>
+      )}
+    </>
   );
 };
 
