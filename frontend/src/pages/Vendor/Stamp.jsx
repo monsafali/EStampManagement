@@ -10,7 +10,7 @@ export default function Stamp() {
   const [geoTehsil, setGeoTehsil] = useState("");
   const [geoError, setGeoError] = useState("");
 
-  // const [formData, setFormData] = useState({
+
   //   Stamptype: "Low Denomination",
   //   StampAmount: "",
   //   Description: "",

@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/components/DataTable.css";
 
 
+
 const DataTable = ({ title, columns, data, renderActions }) => {
   return (
     <div className="manage-info-card">

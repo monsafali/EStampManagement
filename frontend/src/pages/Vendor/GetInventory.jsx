@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import DataTable from "../../components/common/DataTable";
 
 const GetInventory = () => {
   const [stock, setStock] = useState({});
@@ -39,28 +40,24 @@ const GetInventory = () => {
     }
   };
 
+  /*  Convert SAME stock object for DataTable */
+  const tableData = Object.keys(stock).map((type, index) => ({
+    _id: index,
+    stampType: `${type} Rupees`,
+    availableStock: stock[type],
+  }));
+
+  const columns = [
+    { key: "stampType", label: "Stamp Type" },
+    { key: "availableStock", label: "Available Stock" },
+  ];
   return (
-    <div className="p-5">
-      <h1 className="text-xl font-bold mb-4">Available Inventory Stock</h1>
 
-      <table className="w-full border-collapse border">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border p-2">Stamp Type</th>
-            <th className="border p-2">Available Stock</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {Object.keys(stock).map((type) => (
-            <tr key={type} className="text-center">
-              <td className="border p-2">{type} Rupees</td>
-              <td className="border p-2">{stock[type]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <DataTable
+        title="Available Inventory Stock"
+        columns={columns}
+        data={tableData}
+      />
   );
 };
 

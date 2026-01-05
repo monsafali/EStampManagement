@@ -1,0 +1,50 @@
+.search-container {
+  padding: 24px;
+}
+
+.search-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Search grid */
+.search-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.search-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.search-group input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Date inputs */
+.date-range {
+  display: flex;
+  gap: 8px;
+}
+/* Buttons */
+.search-actions {
+  margin-bottom: 20px;
+}
+.btn-search {
+  background-color: #15803d;
+  color: white;
+}
+.btn-export {
+  background-color: #1d4ed8;
+  color: white;
+  margin-left: 10px;
+}
+
