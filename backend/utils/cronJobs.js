@@ -17,7 +17,7 @@ cron.schedule("0 0 1 * *", async () => {
 
 
 
-cron.schedule("*/1 * * * *", async () => {
+cron.schedule("*/30 * * * *", async () => {
   console.log("⏰ Running message cleanup cron...");
   await deleteMessagesEvery5Min();
 });

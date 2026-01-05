@@ -1,0 +1,36 @@
+post
+http://localhost:5000/api/auth/login
+
+
+{
+  "username": "kamal", 
+  "password": "Jutt@272",
+  "role": "super-admin"
+}
+
+
+post
+http://localhost:5000/api/auth/verifyotp
+
+
+{
+  "username": "kamal", 
+  "otp": "931632"
+}
+
+
+
+
+
+get request
+http://localhost:5000/api/auth/Getme
+post request
+http://localhost:5000/api/auth/logout
+put request
+http://localhost:5000/api/auth/updatePassword
+
+
+{
+  "oldPassword": "kamal", 
+  "newPassword": "931632"
+}
