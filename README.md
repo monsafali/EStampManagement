@@ -118,8 +118,11 @@ SUPER_ADMIN_EMAIL=your admin email
 ```
 
 Create a `.env` file in the `frontend` directory:
+```
 VITE_GOOGLE_CLIENT_ID=your google client id
-VITE_LOCATION_API=location api
+VITE_LOCATION_API= add location api```
+```
+
 
 ---
 
@@ -150,18 +153,6 @@ npm run dev
 
 ---
 
-## 🔄 API Highlights
-
-- `POST /api/auth/login`
-- `POST /api/auth/google`
-- `POST /api/auth/verifyotp`
-- `POST /api/vendor/register`
-- `POST /api/payment/stripe`
-- `GET /api/analytics/dashboard`
-- `POST /api/chat/message`
-- `POST /api/rag/query`
-
----
 
 ## 🔐 Security Measures
 
