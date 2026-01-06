@@ -138,39 +138,37 @@ const CreateVendor = ({ districtName, districtId }) => {
   return (
 
     <>
-      
-        {message && <p className="create-user-message">{message}</p>}
-        <form
-          onSubmit={handleSubmit}
-          className="form-container"
-        >
-          <div className="input-group">
-            <div className="form-group">
-              <input
-                type="text"
-                name="fullname"
-                id="fullname"
-                placeholder=""
-                value={form.fullname}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="fullname">Full Name</label>
-            </div>
-            <div className="form-group">
-              <input
-                type="text"
-                name="username"
-                id="username"
-                placeholder=""
-                value={form.username}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="username">User Name</label>
-            </div>
-          </div>
 
+      {message && <p className="create-user-message">{message}</p>}
+      <form
+        onSubmit={handleSubmit}
+        className="form-container"
+      >
+        <div className="input-group">
+          <div className="form-group">
+            <input
+              type="text"
+              name="fullname"
+              id="fullname"
+              placeholder=""
+              value={form.fullname}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="fullname">Full Name</label>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder=""
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="username">User Name</label>
+          </div>
           <div className="form-group">
             <input
               type="email"
@@ -183,39 +181,42 @@ const CreateVendor = ({ districtName, districtId }) => {
             />
             <label htmlFor="email">Email</label>
           </div>
-          <div className="input-group">
-            <div className="form-group col-70">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder=""
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
+        </div>
 
-              <label htmlFor="password">Password</label>
-            </div>
-            <div className="form-group col-30">
-              {/* Tehsil Dropdown */}
-              <select
-                name="tehsil"
-                value={form.tehsil}
-                onChange={handleChange}
-                required
-                disabled={!tehsils.length}
-              >
-                <option value="">Select Tehsil</option>
-                {tehsils.map((t) => (
-                  <option key={t.tehsilId} value={t.tehsilId}>
-                    {t.tehsilName}
-                  </option>
-                ))}
-              </select>
-            </div>
+
+        <div className="input-group">
+          <div className="form-group col-70">
+            <input
+              type="text"
+              name="address"
+              id="address"
+              placeholder=""
+              value={form.address}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="address">Address</label>
           </div>
 
+          <div className="form-group col-30">
+            {/* Tehsil Dropdown */}
+            <select
+              name="tehsil"
+              value={form.tehsil}
+              onChange={handleChange}
+              required
+              disabled={!tehsils.length}
+            >
+              <option value="">Select Tehsil</option>
+              {tehsils.map((t) => (
+                <option key={t.tehsilId} value={t.tehsilId}>
+                  {t.tehsilName}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="input-group">
           <div className="form-group">
             <input
               type="text"
@@ -228,66 +229,69 @@ const CreateVendor = ({ districtName, districtId }) => {
             />
             <label htmlFor="cnic">CNIC</label>
           </div>
+          <div className="form-group ">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder=""
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+
+            <label htmlFor="password">Password</label>
+          </div>
+        </div>
 
 
+
+        <div className="input-group">
           <div className="form-group">
             <input
               type="text"
-              name="address"
-              id="address"
+              name="licenceNo"
               placeholder=""
-              value={form.address}
+              value={form.licenceNo}
               onChange={handleChange}
               required
             />
-            <label htmlFor="address">Address</label>
+            <label htmlFor="licence">Licence</label>
           </div>
-          <div className="input-group">
-            <div className="form-group">
-              <input
-                type="text"
-                name="licenceNo"
-                placeholder=""
-                value={form.licenceNo}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="licence">Licence</label>
-            </div>
-            <div className="form-group">
-              <input
-                type="text"
-                name="contactno"
-                id="contactno"
-                placeholder=""
-                value={form.contactno}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="contactno">Contact No</label>
-            </div>
-          </div>
-
-          {/* Image Upload */}
           <div className="form-group">
             <input
-              type="file"
-              name="imageFile"
-              accept="image/*"
+              type="text"
+              name="contactno"
+              id="contactno"
+              placeholder=""
+              value={form.contactno}
               onChange={handleChange}
               required
             />
+            <label htmlFor="contactno">Contact No</label>
           </div>
-          <button
-            disabled={loading}
-            className="form-btn"
-          >
-            {loading ? "Creating..." : "Create Vendor"}
-          </button>
-        </form>
-  
+        </div>
 
-   
+        {/* Image Upload */}
+        <div className="form-group">
+          <input
+            type="file"
+            name="imageFile"
+            accept="image/*"
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button
+          disabled={loading}
+          className="form-btn"
+        >
+          {loading ? "Creating..." : "Create Vendor"}
+        </button>
+      </form>
+
+
+
 
     </>
   );

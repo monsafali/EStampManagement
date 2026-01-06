@@ -12,7 +12,7 @@ const GetInventory = () => {
 
 
 
-  
+
   const fetchInventory = async () => {
     try {
       const res = await axios.get(
@@ -57,7 +57,7 @@ const GetInventory = () => {
   ];
   const hasStock = tableData.length > 0;
 
-   return (
+  return (
     <>
       {hasStock ? (
         <DataTable
@@ -66,7 +66,7 @@ const GetInventory = () => {
           data={tableData}
         />
       ) : (
-        <div className="empty-text">
+        <div className="empty-state">
           No inventory available at the moment.
         </div>
       )}

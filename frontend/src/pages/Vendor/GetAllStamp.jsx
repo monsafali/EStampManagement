@@ -84,77 +84,77 @@ const GetAllStamp = () => {
 
   return (
     <div className="issued-stamp-page">
-        <div className="issued-header">
-          <h2>All Issued Stamps</h2>
-          <button className="btn-primary" onClick={exportToCSV}>
-            Export CSV
-          </button>
-        </div>
-
-
-        {hasData ? (
-          <>
-            {/* Show Entries Dropdown */}
-            <div className="entries-control">
-              <label>
-                Show
-                <select
-                  value={entriesPerPage}
-                  onChange={(e) => {
-                    setEntriesPerPage(Number(e.target.value));
-                    setCurrentPage(1);
-                  }}
-                >
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-                entries
-              </label>
-            </div>
-
-            {/* TABLE */}
-            <DataTable
-              columns={columns}
-              data={currentStamps}
-            />
-
-            {/* PAGINATION */}
-            {totalPages > 1 && (
-              <div className="pagination">
-                <button
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage((p) => p - 1)}
-                >
-                  Prev
-                </button>
-
-                {[...Array(totalPages)].map((_, i) => (
-                  <button
-                    key={i}
-                    className={currentPage === i + 1 ? "active" : ""}
-                    onClick={() => setCurrentPage(i + 1)}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-
-                <button
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage((p) => p + 1)}
-                >
-                  Next
-                </button>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="empty-text">
-            No issued stamps found.
-          </div>
-        )}
+      <div className="issued-header">
+        <h2>All Issued Stamps</h2>
+        <button className="btn-primary" onClick={exportToCSV}>
+          Export CSV
+        </button>
       </div>
+
+
+      {hasData ? (
+        <>
+          {/* Show Entries Dropdown */}
+          <div className="entries-control">
+            <label>
+              Show
+              <select
+                value={entriesPerPage}
+                onChange={(e) => {
+                  setEntriesPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+              >
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+              entries
+            </label>
+          </div>
+
+          {/* TABLE */}
+          <DataTable
+            columns={columns}
+            data={currentStamps}
+          />
+
+          {/* PAGINATION */}
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage((p) => p - 1)}
+              >
+                Prev
+              </button>
+
+              {[...Array(totalPages)].map((_, i) => (
+                <button
+                  key={i}
+                  className={currentPage === i + 1 ? "active" : ""}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage((p) => p + 1)}
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="empty-state">
+          No issued stamps found.
+        </div>
+      )}
+    </div>
   );
 };
 

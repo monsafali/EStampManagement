@@ -181,7 +181,7 @@ const GenerateChallan = () => {
       {/* Items table */}
       <div className="challan-table-section">
         {items.length === 0 ? (
-          <div className="empty-text">No items added yet.</div>
+          <div className="empty-state">No items added yet.</div>
         ) : (
     
           <DataTable

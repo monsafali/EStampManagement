@@ -37,12 +37,16 @@ const columns = [
         </span>
       ),
   },
+
 ];
 const GetVendor = () => {
-  const [admins, setAdmins] = useState([]);
-
+  // const [admins, setAdmins] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState(null);
+  const [vendors, setVendors] = useState([]);
+  const [selectedTehsil, setSelectedTehsil] = useState("");
+
+
   const [passwordForm, setPasswordForm] = useState({
     newpassword: "",
     confirmPassword: "",
@@ -54,22 +58,27 @@ const GetVendor = () => {
     navigate(`/adc/monthly-report/${vendorId}`);
   };
 
-  const fetchAdmins = async () => {
+  const fetchVendors = async () => {
     try {
       const res = await axios.get(
         "http://localhost:5000/api/adc/getallvendor",
         { withCredentials: true }
       );
-      setAdmins(res.data.vendors || []);
+      setVendors(res.data.vendors || []);
     } catch (err) {
       console.log("Error fetching vendors:", err);
     }
   };
-
   useEffect(() => {
-    fetchAdmins();
+    fetchVendors();
   }, []);
 
+  const tehsils = [...new Set(vendors.map(v => v.tehsil))];
+  const filteredVendors = selectedTehsil
+    ? vendors.filter(v => v.tehsil === selectedTehsil)
+    : vendors;
+  const hasVendors = vendors.length > 0;
+  const hasFilteredVendors = filteredVendors.length > 0;
   const deactivateVendor = async (id) => {
     try {
       await axios.put(
@@ -77,7 +86,7 @@ const GetVendor = () => {
         {},
         { withCredentials: true }
       );
-      fetchAdmins();
+      fetchVendors();
     } catch (err) {
       console.log("Error deactivating vendor:", err);
     }
@@ -150,52 +159,89 @@ const GetVendor = () => {
   return (
     <div>
 
-      <DataTable
-        columns={columns}
-        data={admins}
-        renderActions={(vendor) => (
-          <div className="table-actions">
-            {vendor.isActive ? (
-              <button
-                className="btn btn-warning"
-                onClick={() => deactivateVendor(vendor._id)}
-              >
-                Deactivate
-              </button>
-            ) : (
-              <button
-                className="btn btn-success"
-                onClick={() => activateVendor(vendor._id)}
-              >
-                Activate
-              </button>
-            )}
+      {/* ---------- NO VENDORS AT ALL ---------- */}
+      {!hasVendors && (
+        <div className="empty-state">
+          <p>No vendors found for this ADC.</p>
+        </div>
+      )}
 
-
-            <button
-              className="btn btn-danger"
-              onClick={() => deleteVendor(vendor._id)}
+      {/* ---------- VENDORS EXIST ---------- */}
+      {hasVendors && (
+        <>
+          {/* Dropdown */}
+          <div className="form-group select-group">
+            <select
+              className="form-select"
+              value={selectedTehsil}
+              onChange={(e) => setSelectedTehsil(e.target.value)}
             >
-              < DeleteIcon />
-            </button>
+              <option value="">All Tehsils</option>
 
-            <button
-              className="btn btn-edit"
-              onClick={() => openPasswordModal(vendor._id)}
-            >
-              Update Pwd
-            </button>
-
-            <button
-              className="btn btn-report"
-              onClick={() => onMonthlyReport(vendor._id)}
-            >
-              <ReportIcon />
-            </button>
+              {tehsils.map((t, index) => (
+                <option key={index} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
           </div>
-        )}
-      />
 
+          {/* ---------- NO DATA AFTER FILTER ---------- */}
+          {!hasFilteredVendors && (
+            <div className="empty-state">
+              <p>No vendors found for selected tehsil.</p>
+            </div>
+          )}
+
+          {/* ---------- TABLE ---------- */}
+          {hasFilteredVendors && (
+            <DataTable
+              columns={columns}
+              data={filteredVendors}
+              renderActions={(vendor) => (
+                <div className="table-actions">
+                  {vendor.isActive ? (
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => deactivateVendor(vendor._id)}
+                    >
+                      Deactivate
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-success"
+                      onClick={() => activateVendor(vendor._id)}
+                    >
+                      Activate
+                    </button>
+                  )}
+
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteVendor(vendor._id)}
+                  >
+                    <DeleteIcon />
+                  </button>
+
+                  <button
+                    className="btn btn-edit"
+                    onClick={() => openPasswordModal(vendor._id)}
+                  >
+                    Update Pwd
+                  </button>
+
+                  <button
+                    className="btn btn-report"
+                    onClick={() => onMonthlyReport(vendor._id)}
+                  >
+                    <ReportIcon />
+                  </button>
+                </div>
+              )}
+            />
+          )}
+        </>
+      )}
       {/* PASSWORD UPDATE MODAL */}
 
       {showModal && (

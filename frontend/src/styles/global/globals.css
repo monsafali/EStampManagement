@@ -179,7 +179,10 @@ button:hover {
   max-width: 1200px;
   margin: 0 auto;
 }
-
+.empty-state{
+font-size: 13px;
+    color: #777;
+}
 
 @media (max-width: 768px) {
   .container {

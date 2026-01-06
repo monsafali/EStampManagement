@@ -32,14 +32,14 @@ export default function ADCDashboard() {
           </button>
 
           <button
-            className={`dashboard-btn create-btn  ${activeSection === "createVendor" ? "active" : ""}`}
+            className={`dashboard-btn   ${activeSection === "createVendor" ? "active" : ""}`}
             onClick={() => setActiveSection("createVendor")}
           >
             Create Vendor
           </button>
 
           <button
-            className={`dashboard-btn create-btn ${activeSection === "bank" ? "active" : ""}`}
+            className={`dashboard-btn  ${activeSection === "bank" ? "active" : ""}`}
             onClick={() => setActiveSection("bank")}
           >
             Create Bank User

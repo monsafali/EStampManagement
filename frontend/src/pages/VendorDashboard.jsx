@@ -42,6 +42,13 @@ export default function VendorDashboard() {
           Inventory
         </button>
 
+
+        <button
+          className={`dashboard-btn ${activeSection === "AllStamp" ? "active" : ""}`}
+          onClick={() => setActiveSection("AllStamp")}
+        >
+          AllStamp
+        </button>
         <button
           className={`dashboard-btn ${activeSection === "search" ? "active" : ""}`}
           onClick={() => setActiveSection("search")}
@@ -58,8 +65,6 @@ export default function VendorDashboard() {
             Welcome {user?.username} — Tehsil {user?.tehsil}
           </p>
         </div>
-
-
 
         {/* CONTENT CARDS */}
         {activeSection === "stamp" && (
@@ -80,9 +85,15 @@ export default function VendorDashboard() {
         {activeSection === "inventory" && (
           <div className="dashboard-card">
             <GetInventory />
+            {/* <GetAllStamp /> */}
+          </div>
+        )}
+        {activeSection === "AllStamp" && (
+          <div className="dashboard-card">
             <GetAllStamp />
           </div>
         )}
+
 
         {activeSection === "search" && (
           <div className="dashboard-card">
