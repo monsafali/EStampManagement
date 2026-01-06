@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import SearchIcon from '@mui/icons-material/Search';
 import "../../styles/pages/vendor/search-stamp.css"
 import DataTable from "../../components/common/DataTable";
 
@@ -89,12 +90,26 @@ const SearchStamp = () => {
       <div className="search-section">
         <div className="search-group">
           <label>Search by CNIC</label>
-          <input value={cnic} onChange={(e) => setCnic(e.target.value)} />
+          <div className="input-with-icon">
+            <SearchIcon className="input-icon" />
+            <input
+              value={cnic}
+              onChange={(e) => setCnic(e.target.value)}
+              placeholder="Enter CNIC"
+            />
+          </div>
         </div>
 
         <div className="search-group">
           <label>Search by Stamp ID</label>
-          <input value={stampId} onChange={(e) => setStampId(e.target.value)} />
+          <div className="input-with-icon">
+            <SearchIcon className="input-icon" />
+            <input
+              value={stampId}
+              onChange={(e) => setStampId(e.target.value)}
+              placeholder="Enter Stamp ID"
+            />
+          </div>
         </div>
 
         <div className="search-group">

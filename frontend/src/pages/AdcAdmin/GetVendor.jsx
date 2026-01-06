@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 import DataTable from "../../components/common/DataTable";
+import ReportIcon from '@mui/icons-material/Report';
 import Modal from "../../components/common/Modal";
+
 const columns = [
   {
     key: "imageUrl",
@@ -168,25 +171,26 @@ const GetVendor = () => {
               </button>
             )}
 
+
             <button
               className="btn btn-danger"
               onClick={() => deleteVendor(vendor._id)}
             >
-              Delete
+              < DeleteIcon />
             </button>
 
             <button
               className="btn btn-edit"
               onClick={() => openPasswordModal(vendor._id)}
             >
-              Update Password
+              Update Pwd
             </button>
 
             <button
               className="btn btn-report"
               onClick={() => onMonthlyReport(vendor._id)}
             >
-              Monthly Report
+              <ReportIcon />
             </button>
           </div>
         )}

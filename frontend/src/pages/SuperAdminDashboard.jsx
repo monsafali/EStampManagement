@@ -44,16 +44,10 @@ export default function SuperAdminDashboard() {
           <h1>Super Admin Dashboard</h1>
           <p>Welcome {user?.username}</p>
         </div>
-        {/* UTILITIES */}
-        {/* <section className="sa-utilities">
-        <UploadRagForm />
-      </section> */}
-
-
         {/* CONDITIONALLY RENDER */}
         {activeSection === "create" && (
           <div className="dashboard-card">
-            {/* <h2>Create ADC Admin</h2> */}
+            <h2>Create ADC Admin</h2>
             <CreateADCAdmin />
           </div>
         )}

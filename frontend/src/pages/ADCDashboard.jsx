@@ -63,6 +63,7 @@ export default function ADCDashboard() {
 
         {!isMonthlyReportOpen && activeSection === "createVendor" && (
           <div className="dashboard-card">
+            <h2>Create Vendor</h2>
             <CreateVendor
               districtId={user.districtId}
               districtName={user.district}
@@ -72,8 +73,9 @@ export default function ADCDashboard() {
 
         {!isMonthlyReportOpen && activeSection === "bank" && (
           <div className="dashboard-card">
+            <h2>Create Bank User</h2>
             <CreateBankUser />
-            
+
           </div>
         )}
 

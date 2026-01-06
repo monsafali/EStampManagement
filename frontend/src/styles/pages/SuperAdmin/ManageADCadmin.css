@@ -1,9 +1,0 @@
-/* Wrapper */
-.manage-adc-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-.create-adc-message{
-  background-color: rgb(127, 225, 255);
-}

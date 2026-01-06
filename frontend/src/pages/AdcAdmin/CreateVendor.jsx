@@ -1,9 +1,6 @@
 import PUNJAB from "../../utils/District";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../../styles/components/create-user.shared.css";
-import UserInfoPanel from "../../components/UserInfoPanel";
-
 
 const CreateVendor = ({ districtName, districtId }) => {
   const [form, setForm] = useState({
@@ -139,173 +136,160 @@ const CreateVendor = ({ districtName, districtId }) => {
   };
 
   return (
-    <div className="create-user-wrapper">
-      <div className="user-two-columns">
-        {/* LEFT */}
-        <div className="user-left">
-          <h1>Create Vendor</h1>
-          {message && <p className="create-user-message">{message}</p>}
-          <form
-            onSubmit={handleSubmit}
-            className="form-container"
+
+    <>
+      
+        {message && <p className="create-user-message">{message}</p>}
+        <form
+          onSubmit={handleSubmit}
+          className="form-container"
+        >
+          <div className="input-group">
+            <div className="form-group">
+              <input
+                type="text"
+                name="fullname"
+                id="fullname"
+                placeholder=""
+                value={form.fullname}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="fullname">Full Name</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder=""
+                value={form.username}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="username">User Name</label>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder=""
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="email">Email</label>
+          </div>
+          <div className="input-group">
+            <div className="form-group col-70">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder=""
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+
+              <label htmlFor="password">Password</label>
+            </div>
+            <div className="form-group col-30">
+              {/* Tehsil Dropdown */}
+              <select
+                name="tehsil"
+                value={form.tehsil}
+                onChange={handleChange}
+                required
+                disabled={!tehsils.length}
+              >
+                <option value="">Select Tehsil</option>
+                {tehsils.map((t) => (
+                  <option key={t.tehsilId} value={t.tehsilId}>
+                    {t.tehsilName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <input
+              type="text"
+              name="cnic"
+              placeholder=""
+              id="cnic"
+              value={form.cnic}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="cnic">CNIC</label>
+          </div>
+
+
+          <div className="form-group">
+            <input
+              type="text"
+              name="address"
+              id="address"
+              placeholder=""
+              value={form.address}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="address">Address</label>
+          </div>
+          <div className="input-group">
+            <div className="form-group">
+              <input
+                type="text"
+                name="licenceNo"
+                placeholder=""
+                value={form.licenceNo}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="licence">Licence</label>
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                name="contactno"
+                id="contactno"
+                placeholder=""
+                value={form.contactno}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="contactno">Contact No</label>
+            </div>
+          </div>
+
+          {/* Image Upload */}
+          <div className="form-group">
+            <input
+              type="file"
+              name="imageFile"
+              accept="image/*"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button
+            disabled={loading}
+            className="form-btn"
           >
-            <div className="input-group">
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="fullname"
-                  id="fullname"
-                  placeholder=""
-                  value={form.fullname}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="fullname">Full Name</label>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder=""
-                  value={form.username}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="username">User Name</label>
-              </div>
-            </div>
+            {loading ? "Creating..." : "Create Vendor"}
+          </button>
+        </form>
+  
 
-            <div className="form-group">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder=""
-                value={form.email}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="email">Email</label>
-            </div>
-            <div className="input-group">
-              <div className="form-group col-70">
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder=""
-                  value={form.password}
-                  onChange={handleChange}
-                  required
-                />
+   
 
-                <label htmlFor="password">Password</label>
-              </div>
-              <div className="form-group col-30">
-                {/* Tehsil Dropdown */}
-                <select
-                  name="tehsil"
-                  value={form.tehsil}
-                  onChange={handleChange}
-                  required
-                  disabled={!tehsils.length}
-                >
-                  <option value="">Select Tehsil</option>
-                  {tehsils.map((t) => (
-                    <option key={t.tehsilId} value={t.tehsilId}>
-                      {t.tehsilName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <input
-                type="text"
-                name="cnic"
-                placeholder=""
-                id="cnic"
-                value={form.cnic}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="cnic">CNIC</label>
-            </div>
-
-
-            <div className="form-group">
-              <input
-                type="text"
-                name="address"
-                id="address"
-                placeholder=""
-                value={form.address}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="address">Address</label>
-            </div>
-            <div className="input-group">
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="licenceNo"
-                  placeholder=""
-                  value={form.licenceNo}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="licence">Licence</label>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="contactno"
-                  id="contactno"
-                  placeholder=""
-                  value={form.contactno}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="contactno">Contact No</label>
-              </div>
-            </div>
-
-            {/* Image Upload */}
-            <div className="form-group">
-              <input
-                type="file"
-                name="imageFile"
-                accept="image/*"
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button
-              disabled={loading}
-              className="form-btn"
-            >
-              {loading ? "Creating..." : "Create Vendor"}
-            </button>
-          </form>
-        </div>
-
-        {/* RIGHT: INFO PANEL */}
-        <UserInfoPanel
-          title="Why Create a Vendor?"
-          description="Vendors are authorized sellers responsible for issuing e-stamps to citizens."
-          list={[
-            "Sell E-Stamps",
-            "Verify Customer Identity",
-            "Maintain Sales Records",
-            "Coordinate with ADC Office",
-          ]}
-        />
-
-      </div>
-    </div>
+    </>
   );
 };
 

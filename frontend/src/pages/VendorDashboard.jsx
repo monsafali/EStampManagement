@@ -1,8 +1,5 @@
-
-
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthContext";
-
 
 import { Outlet } from "react-router-dom";
 import Stamp from "./Vendor/Stamp";
@@ -25,7 +22,7 @@ export default function VendorDashboard() {
       {/* ACTION BUTTONS */}
       <div className="dashboard-actions">
         <button
-          className={`dashboard-btn ${activeSection === "stamp" ? "active" : ""}`}
+          className={`dashboard-btn  ${activeSection === "stamp" ? "active" : ""}`}
           onClick={() => setActiveSection("stamp")}
         >
           Issue Stamp

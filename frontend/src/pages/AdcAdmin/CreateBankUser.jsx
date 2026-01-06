@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import UserInfoPanel from "../../components/UserInfoPanel";
-import "../../styles/components/create-user.shared.css";
+
 
 const CreateBankUser = () => {
   const [form, setForm] = useState({
@@ -52,92 +51,78 @@ const CreateBankUser = () => {
   };
 
   return (
-    <div className="create-user-wrapper">
-      <div className="user-two-columns">
-        {/* LEFT: FORM */}
-        <div className="user-left">
-          <h1>Create Bank User</h1>
-          {message && (
-            <p className="create-user-message">{message}</p>
-          )}
-          <form
-            onSubmit={handleSubmit}
-            className="form-container"
-          >
-            <div className="input-group">
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="fullname"
-                  id="fullname"
-                  placeholder=""
-                  value={form.fullname}
-                  onChange={handleChange}
-                  required
-                />
-                <label htmlFor="fullname">Full Name</label>
-              </div>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder=""
-                  value={form.username}
-                  onChange={handleChange}
-                  required
-                />
+    <>
 
-                <label htmlFor="username">User Name</label>
-              </div>
-            </div>
+      {
+        message && (
+          <p className="create-user-message">{message}</p>
+        )
+      }
+      <form
+        onSubmit={handleSubmit}
+        className="form-container"
+      >
+        <div className="input-group">
+          <div className="form-group">
+            <input
+              type="text"
+              name="fullname"
+              id="fullname"
+              placeholder=""
+              value={form.fullname}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="fullname">Full Name</label>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder=""
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
 
-            <div className="form-group">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder=""
-                value={form.email}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="email">Email</label>
-            </div>
-
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder=""
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="password">Password</label>
-            </div>
-            <button
-              disabled={loading}
-              className="form-btn"
-            >
-              {loading ? "Creating..." : "Create Bank User"}
-            </button>
-          </form>
+            <label htmlFor="username">User Name</label>
+          </div>
         </div>
-        {/* RIGHT: INFO PANEL */}
-        <UserInfoPanel
-          title="Why Create a Bank User?"
-          description="Bank users handle financial verification and payment approvals."
-          list={[
-            "Approve Stamp Payments",
-            "Verify Transactions",
-            "Generate Financial Reports",
-            "Coordinate with ADC Admin",
-          ]}
-        />
-      </div>
-    </div>
+
+        <div className="form-group">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder=""
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="email">Email</label>
+        </div>
+
+        <div className="form-group">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder=""
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="password">Password</label>
+        </div>
+        <button
+          disabled={loading}
+          className="form-btn"
+        >
+          {loading ? "Creating..." : "Create Bank User"}
+        </button>
+      </form>
+    </>
   );
 };
 

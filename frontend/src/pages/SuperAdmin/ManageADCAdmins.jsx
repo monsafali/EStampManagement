@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GetADCAdmins from "./GetADCAdmins";
 import UpdateADCAdmin from "./UpdateADCAdmin";
-import "../../styles/pages/SuperAdmin/ManageADCadmin.css"
+
+
+
 const ManageADCAdmins = () => {
   const [admins, setAdmins] = useState([]);
   const [editingAdmin, setEditingAdmin] = useState(null);
@@ -125,8 +127,8 @@ const ManageADCAdmins = () => {
   };
 
   return (
-    <div className="manage-adc-wrapper">
-      {message && <p className="create-adc-message">{message}</p>}
+    <>
+      {message && <p>{message}</p>}
         <GetADCAdmins
           admins={admins}
           fetchAdmins={fetchAdmins}
@@ -144,7 +146,7 @@ const ManageADCAdmins = () => {
           cancelEdit={() => setEditingAdmin(null)}
         />
       )}
-    </div>
+    </>
   );
 
 };

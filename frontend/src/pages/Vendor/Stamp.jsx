@@ -145,7 +145,7 @@ export default function Stamp() {
 
   // yh
   return (
-    <div>
+    <>
 
       {geoError && <p className="error">{geoError}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
@@ -182,10 +182,9 @@ export default function Stamp() {
               <span className="input-error">{errors.cnic.message}</span>
             )}
           </div>
-        </div>
-        {/* Relation Name */}
-        <div className="input-group ">
-          <div className="form-group col-70">
+          {/* Relation Name */}
+
+          <div className="form-group">
             <input
               className={errors.Relation_Name ? "error" : ""}
               {...register("Relation_Name", {
@@ -201,7 +200,7 @@ export default function Stamp() {
             )}
           </div>
           {/* Relation */}
-          <div className="form-group col-30">
+          <div className="form-group ">
             <select
               className={errors.Relation ? "error" : ""}
               {...register("Relation", {
@@ -219,7 +218,9 @@ export default function Stamp() {
               <span className="input-error">{errors.Relation.message}</span>
             )}
           </div>
+
         </div>
+
         {/* Agent + Email */}
         <div className="input-group">
           <div className="form-group">
@@ -259,9 +260,7 @@ export default function Stamp() {
               <span className="input-error">{errors.email.message}</span>
             )}
           </div>
-        </div>
 
-        <div className="input-group">
           {/* Phone */}
           {/* Address */}
           <div className="form-group">
@@ -330,20 +329,22 @@ export default function Stamp() {
             </select>
           </div>
         </div>
+        <div className="input-group">
+          {/* Stamp Type */}
+          <div className="form-group">
+            <input readOnly {...register("Stamptype")} />
+            <label>Stamp Type</label>
+          </div>
 
 
-        {/* Stamp Type */}
-        <div className="form-group">
-          <input readOnly {...register("Stamptype")} />
-          <label>Stamp Type</label>
+          {/* Vendor Info */}
+          <div className="form-group">
+            <input readOnly {...register("vendorInfo")} />
+            <label>Vendor Info</label>
+          </div>
         </div>
 
 
-        {/* Vendor Info */}
-        <div className="form-group">
-          <input readOnly {...register("vendorInfo")} />
-          <label>Vendor Info</label>
-        </div>
 
 
         <button type="submit" className="form-btn">
@@ -351,7 +352,7 @@ export default function Stamp() {
         </button>
       </form>
 
-    </div>
+    </>
   );
 }
 

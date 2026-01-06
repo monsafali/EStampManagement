@@ -33,8 +33,8 @@
 .table-actions {
   display: flex;
   gap: 6px;
-  flex-wrap: wrap;
-align-items: center;
+  /* flex-wrap: wrap; */
+align-items: flex-end;
 justify-content: center;
 /* background-color: red; */
 }
@@ -79,29 +79,14 @@ justify-content: center;
    BUTTONS
 ========================= */
 .btn {
-  padding: 6px 8px;
+  padding: 6px 8px !important;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 12px !important;
+  font-weight: normal !important;
   color: #fff;
 }
 
-.btn-edit {
-  background: #2563eb !important;
-}
 
-.btn-danger {
-  background: #dc2626;
-}
-
-.btn-success {
-  background: #16a34a;
-}
-.btn-report {
-  background: #063016;
-}
-.btn-warning {
-  background: #ca8a04;
-}
 
 /* =========================
    RESPONSIVE

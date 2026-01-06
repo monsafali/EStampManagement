@@ -4,21 +4,21 @@
    /* background-color: transparent; */
    border-radius: 18px;
    padding: 20px;
-   width: 100%;
-   max-width: 420px;
+  max-width: 720px; 
+  /* margin: 0 auto;  */
    box-shadow: var(--shadow-sm);
  }
 
  .form-group {
    position: relative;
-   margin-bottom: 20px;
+   margin-bottom: 12px;
    flex: 1;
 
  }
 
  .input-group {
    display: flex;
-   gap: 1rem;
+   gap: 12px;
  }
 
  .col-70 {
@@ -60,7 +60,7 @@
  .form-group input,
  .form-group select {
    width: 100%;
-   padding: 12px 8px;
+   padding: 8px ;
    border: 1.8px solid var(--border);
    border-radius: 8px;
    outline: none;
@@ -111,8 +111,8 @@
  }
  .form-group textarea {
    width: 100%;
-   padding: 12px;
-   min-height: 100px;
+   padding: 8px;
+   min-height: 70px;
    resize: none;
    border: 1.8px solid var(--border);
    border-radius: 8px;

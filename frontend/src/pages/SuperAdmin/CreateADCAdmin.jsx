@@ -1,9 +1,5 @@
 
 import PUNJAB from "../../utils/District";
-
-import "../../styles/components/create-user.shared.css";
-import UserInfoPanel from "../../components/UserInfoPanel";
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -98,124 +94,104 @@ const CreateADCAdmin = () => {
     }
   };
   return (
-    <div className="create-user-wrapper">
-      <div className="user-two-columns">
-        {/* LEFT: FORM */}
-        <div className="user-left">
-          <h1>Create ADC Admin</h1>
-
-          {message && <p className="create-user-message">{message}</p>}
-
-          <form
-            onSubmit={handleSubmit}
-            className="form-container"
-          >
-            <div className="input-group">
-   <div className="form-group">
-              <input
-                type="text"
-                name="fullname"
-                id="fullname"
-                placeholder=" "
-                value={form.fullname}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="fullname">Full Name</label>
-            </div>
-            <div className="form-group">
-              <input
-                type="text"
-                name="username"
-                id="username"
-                placeholder=" "
-                value={form.username}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="username">User Name</label>
-            </div>
-
-            </div>
-         
-            <div className="form-group">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder=" "
-                value={form.email}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="email">Email</label>
-            </div>
-            <div className="input-group">
-  <div className="form-group col-70">
-              <input
-                type="password"
-                name="password"
-                placeholder=" "
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor="password">Password</label>
-            </div>
-            {/* District Select */}
-            <div className="form-group col-30">
-              <select
-                name="districtId"
-                value={form.districtId}
-                onChange={handleDistrictChange}
-                required
-              >
-                <option value="">Select District</option>
-                {districts.map((d) => (
-                  <option key={d.districtId} value={d.districtId}>
-                    {d.districtName}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            </div>
-          
-            <div className="form-group">
-              <input
-                type="file"
-                name="imageFile"
-                id="imageFile"
-                accept="image/*"
-                onChange={handleChange}
-                placeholder=" "
-                required
-              />
-              <label htmlFor="imageFile">Upload Photo</label>
-            </div>
-
-            <button
-              disabled={loading}
-              className="form-btn"
-            >
-              {loading ? "Creating..." : "Create ADC Admin"}
-            </button>
-          </form>
+    <>
+      {message && <p className="create-user-message">{message}</p>}
+      <form
+        onSubmit={handleSubmit}
+        className="form-container"
+      >
+        <div className="input-group">
+          <div className="form-group">
+            <input
+              type="text"
+              name="fullname"
+              id="fullname"
+              placeholder=" "
+              value={form.fullname}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="fullname">Full Name</label>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder=" "
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="username">User Name</label>
+          </div>
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder=" "
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="email">Email</label>
+          </div>
         </div>
 
-        {/* RIGHT: INFO SECTION */}
-        <UserInfoPanel
-          title="Why Create an ADC Admin?"
-          description="ADC Admins manage district-level operations for the E-Stamp system."
-          list={[
-            "Manage Vendors",
-            "Manage Bank Users",
-            "View Reports",
-            "District-level Monitoring",
-          ]}
-        />
-      </div>
-    </div>
+
+        <div className="input-group">
+          <div className="form-group col-70">
+            <input
+              type="password"
+              name="password"
+              placeholder=" "
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="password">Password</label>
+          </div>
+          {/* District Select */}
+          <div className="form-group col-30">
+            <select
+              name="districtId"
+              value={form.districtId}
+              onChange={handleDistrictChange}
+              required
+            >
+              <option value="">Select District</option>
+              {districts.map((d) => (
+                <option key={d.districtId} value={d.districtId}>
+                  {d.districtName}
+                </option>
+              ))}
+            </select>
+          </div>
+
+        </div>
+
+        <div className="form-group">
+          <input
+            type="file"
+            name="imageFile"
+            id="imageFile"
+            accept="image/*"
+            onChange={handleChange}
+            placeholder=" "
+            required
+          />
+          <label htmlFor="imageFile">Upload Photo</label>
+        </div>
+
+        <button
+          disabled={loading}
+          className="form-btn"
+        >
+          {loading ? "Creating..." : "Create ADC Admin"}
+        </button>
+      </form>
+    </>
   );
 
 };
