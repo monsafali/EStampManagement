@@ -84,6 +84,7 @@ const SearchStamp = () => {
 
   return (
     <div className="search-container">
+      
       <h1 className="search-title">Search Issued Stamps</h1>
 
       {/* Search Inputs */}
@@ -120,6 +121,7 @@ const SearchStamp = () => {
           </div>
         </div>
       </div>
+      
       {/* search actions */}
       <div className="search-actions">
         <button className="btn btn-search" onClick={handleSearch}>

@@ -4,8 +4,8 @@
    /* background-color: transparent; */
    border-radius: 18px;
    padding: 20px;
-  max-width: 720px; 
-  /* margin: 0 auto;  */
+   max-width: 720px;
+   /* margin: 0 auto;  */
    box-shadow: var(--shadow-sm);
  }
 
@@ -31,14 +31,18 @@
 
  /* validation */
  .input-error {
+
+   display: block;
+   min-height: 14px;
+   /* reserve space */
+   margin-top: 2px;
    color: var(--danger);
    font-size: 12px;
    font-style: italic;
 
  }
- /* input.error{
-  color: transparent;
- } */
+
+
 
  .form-group input.error,
  .form-group textarea.error,
@@ -50,17 +54,17 @@
    animation: shake 0.3s;
  }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
-  color: var(--text-primary); 
-}
+ .form-group input,
+ .form-group textarea,
+ .form-group select {
+   color: var(--text-primary);
+ }
 
  /*  */
  .form-group input,
  .form-group select {
    width: 100%;
-   padding: 8px ;
+   padding: 8px;
    border: 1.8px solid var(--border);
    border-radius: 8px;
    outline: none;
@@ -101,14 +105,16 @@
    color: #6b7280;
    transition: 0.25s ease;
  }
- 
+
  .form-group input:focus+label,
  .form-group input:not(:placeholder-shown)+label,
  .form-group select:focus+label {
    top: -2px;
    font-size: 12px;
+
    color: var(--color-primary);
  }
+
  .form-group textarea {
    width: 100%;
    padding: 8px;
@@ -121,6 +127,15 @@
    background-color: var(--surface);
    transition: 0.2s ease;
 
+ }
+
+ /* keep label floated when error */
+ .form-group input.error+label,
+ .form-group textarea.error+label,
+ .form-group select.error+label {
+   top: -2px;
+   font-size: 12px;
+   color: var(--danger);
  }
 
  .form-group textarea:focus+label,
@@ -167,6 +182,7 @@
      flex: 1;
    }
  }
- .form-select{
-  max-width: 200px;
+
+ .form-select {
+   max-width: 200px;
  }

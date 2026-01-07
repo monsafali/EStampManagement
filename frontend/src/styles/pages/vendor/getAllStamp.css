@@ -6,6 +6,18 @@
   padding: 20px;
   box-shadow: var(--shadow-sm);
 }
+.table-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
 
 .issued-header {
   display: flex;

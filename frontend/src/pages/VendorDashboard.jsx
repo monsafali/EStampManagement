@@ -7,7 +7,7 @@ import GenerateChallan from './Vendor/GenerateChallan';
 import GetAllStamp from "./Vendor/GetAllStamp";
 import GetInventory from "./Vendor/GetInventory";
 import SearchStamp from "./Vendor/SearchStamp";
-
+import IssuedStamps from "./Vendor/IssuedStamps";
 import "../styles/pages/dashboard.shared.css";
 
 
@@ -42,19 +42,19 @@ export default function VendorDashboard() {
           Inventory
         </button>
 
-
         <button
           className={`dashboard-btn ${activeSection === "AllStamp" ? "active" : ""}`}
           onClick={() => setActiveSection("AllStamp")}
         >
+        
           AllStamp
         </button>
-        <button
+        {/* <button
           className={`dashboard-btn ${activeSection === "search" ? "active" : ""}`}
           onClick={() => setActiveSection("search")}
         >
           Search Stamp
-        </button>
+        </button> */}
       </div>
       <div className="dashboard dashboard-wrapper container">
 
@@ -73,8 +73,6 @@ export default function VendorDashboard() {
             <Stamp />
           </div>
         )}
-
-
         {activeSection === "challan" && (
           <div className="dashboard-card">
             <h2>Generate Challan</h2>
@@ -85,21 +83,19 @@ export default function VendorDashboard() {
         {activeSection === "inventory" && (
           <div className="dashboard-card">
             <GetInventory />
-            {/* <GetAllStamp /> */}
           </div>
         )}
         {activeSection === "AllStamp" && (
           <div className="dashboard-card">
-            <GetAllStamp />
+            {/* <GetAllStamp /> */}
+            <IssuedStamps/>
           </div>
         )}
-
-
-        {activeSection === "search" && (
+        {/* {activeSection === "search" && (
           <div className="dashboard-card">
             <SearchStamp />
           </div>
-        )}
+        )} */}
 
         <div className="mt-6">
           <Outlet />

@@ -62,7 +62,7 @@ export default function Stamp() {
     Divorced: 300,
   };
 
-  const relationOptions = ["", "S/O", "D/O", "W/O", "F/O", "Widow/Of"];
+  const relationOptions = ["S/O", "D/O", "W/O", "F/O", "Widow/Of"];
   const selectedDescription = watch("Description");
   // auto update stamp amount
   useEffect(() => {
