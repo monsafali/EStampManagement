@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "../../components/common/DataTable";
-import { useRef } from "react";
 
-import "../../styles/pages/vendor/search-stamp.css";
 import "../../styles/pages/vendor/getAllStamp.css";
-
+import "../../styles/pages/vendor/search-stamp.css";
 
 const IssuedStamps = () => {
   const [allStamps, setAllStamps] = useState([]);
@@ -28,16 +26,8 @@ const IssuedStamps = () => {
   // -----------------------------
   // FETCH ALL DATA ONCE
   // -----------------------------
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
-        setShowSearch(false);
-      }
-    };
+ 
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   useEffect(() => {
     fetchAllStamps();
@@ -151,70 +141,78 @@ const IssuedStamps = () => {
   return (
 
     <div className="issued-stamp-page">
-      <button
-        className="floating-search-btn"
-        onClick={() => setShowSearch(prev => !prev)}
-      >
-        <SearchIcon />
-        Search
-      </button>
+      <div>
+        <button
+          className="floating-search-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowSearch(prev => !prev);
+          }} >
+          <SearchIcon />
+          Search
+        </button>
+        {showSearch && (
+          <div className="search-overlay" onClick={() => setShowSearch(false)}  >
+            <div className="search-section floating-search"
+              ref={searchRef}
+              onClick={(e) => e.stopPropagation()}>
 
-      {showSearch && (
-        <div className="search-overlay">
-          <div className="search-section floating-search" ref={searchRef}>
 
-            <div className="search-fields">
-              <div className="input-group">
-                <div className="search-group">
-                  <label>Search by CNIC</label>
-                  <div className="input-with-icon">
-                    <SearchIcon className="input-icon" />
-                    <input
-                      value={cnic}
-                      onChange={(e) => setCnic(e.target.value)}
-                      placeholder="Enter CNIC"
-                    />
+              <div className="search-fields">
+                <div className="input-group">
+                  <div className="search-group">
+                    <label>Search by CNIC</label>
+                    <div className="input-with-icon">
+                      <SearchIcon className="input-icon" />
+                      <input
+                        value={cnic}
+                        onChange={(e) => setCnic(e.target.value)}
+                        placeholder="Enter CNIC"
+                      />
+                    </div>
+                  </div>
+                  <div className="search-group">
+                    <label>Search by Stamp ID</label>
+                    <div className="input-with-icon">
+                      <SearchIcon className="input-icon" />
+                      <input
+                        value={stampId}
+                        onChange={(e) => setStampId(e.target.value)}
+                        placeholder="Enter Stamp ID"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="search-group">
-                  <label>Search by Stamp ID</label>
-                  <div className="input-with-icon">
-                    <SearchIcon className="input-icon" />
-                    <input
-                      value={stampId}
-                      onChange={(e) => setStampId(e.target.value)}
-                      placeholder="Enter Stamp ID"
-                    />
+                  <label>Search by Date Range</label>
+                  <div className="date-range">
+                    <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
+                    <input type="date" value={to} onChange={(e) => setTo(e.target.value)} />
                   </div>
                 </div>
               </div>
-              <div className="search-group">
-                <label>Search by Date Range</label>
-                <div className="date-range">
-                  <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
-                  <input type="date" value={to} onChange={(e) => setTo(e.target.value)} />
-                </div>
+
+
+              {/* search actions */}
+              <div className="search-actions">
+                <button className="btn btn-search" onClick={handleSearch}>
+                  Search
+                </button>
+                <button className="btn btn-reset" onClick={resetSearch}>
+                  All Stamps
+                </button>
+                <button className="btn btn-export" onClick={exportToCSV}>
+                  Export CSV
+                </button>
               </div>
             </div>
-
-
-            {/* search actions */}
-            <div className="search-actions">
-              <button className="btn btn-search" onClick={handleSearch}>
-                Search
-              </button>
-              <button className="btn btn-reset" onClick={resetSearch}>
-                All Stamps
-              </button>
-              <button className="btn btn-export" onClick={exportToCSV}>
-                Export CSV
-              </button>
-            </div>
-
-
           </div>
-        </div>
-      )}
+        )}
+      </div>
+
+
+
+
 
       {/* SEARCH UI (UNCHANGED STRUCTURE) */}
 
@@ -279,6 +277,7 @@ const IssuedStamps = () => {
           No issued stamps found.
         </div>
       )}
+
     </div>
   );
 };
