@@ -3,7 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import DataTable from "../../components/common/DataTable";
+// import Tooltip from "@mui/material/Tooltip";
+import Tooltip from "../../components/common/Tooltip";
+
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ReportIcon from '@mui/icons-material/Report';
+import EditIcon from '@mui/icons-material/Edit';
 import Modal from "../../components/common/Modal";
 
 const columns = [
@@ -201,41 +207,51 @@ const GetVendor = () => {
               renderActions={(vendor) => (
                 <div className="table-actions">
                   {vendor.isActive ? (
-                    <button
-                      className="btn btn-warning"
-                      onClick={() => deactivateVendor(vendor._id)}
-                    >
-                      Deactivate
-                    </button>
+                    <Tooltip text="Deactivate Vendor">
+                      <button
+                        className="btn btn-warning"
+                        onClick={() => deactivateVendor(vendor._id)}
+                      >
+                        <ToggleOffIcon />
+                      </button>
+                    </Tooltip>
                   ) : (
-                    <button
-                      className="btn btn-success"
-                      onClick={() => activateVendor(vendor._id)}
-                    >
-                      Activate
-                    </button>
+                    <Tooltip text="Activate Vendor">
+                      <button
+                        className="btn btn-success"
+                        onClick={() => activateVendor(vendor._id)}
+                      >
+                        <ToggleOnIcon />
+                      </button>
+                    </Tooltip>
                   )}
 
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => deleteVendor(vendor._id)}
-                  >
-                    <DeleteIcon />
-                  </button>
+                  <Tooltip text="Delete Vendor">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteVendor(vendor._id)}
+                    >
+                      <DeleteIcon />
+                    </button>
+                  </Tooltip>
 
-                  <button
-                    className="btn btn-edit"
-                    onClick={() => openPasswordModal(vendor._id)}
-                  >
-                    Update Pwd
-                  </button>
+                  <Tooltip text="Update Password">
+                    <button
+                      className="btn btn-edit"
+                      onClick={() => openPasswordModal(vendor._id)}
+                    >
+                      <EditIcon />
+                    </button>
+                  </Tooltip>
 
-                  <button
-                    className="btn btn-report"
-                    onClick={() => onMonthlyReport(vendor._id)}
-                  >
-                    <ReportIcon />
-                  </button>
+                  <Tooltip text="View Monthly Report">
+                    <button
+                      className="btn btn-report"
+                      onClick={() => onMonthlyReport(vendor._id)}
+                    >
+                      <ReportIcon />
+                    </button>
+                  </Tooltip>
                 </div>
               )}
             />

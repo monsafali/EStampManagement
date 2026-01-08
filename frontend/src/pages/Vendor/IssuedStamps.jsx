@@ -26,7 +26,7 @@ const IssuedStamps = () => {
   // -----------------------------
   // FETCH ALL DATA ONCE
   // -----------------------------
- 
+
 
 
   useEffect(() => {
@@ -139,7 +139,6 @@ const IssuedStamps = () => {
   ];
 
   return (
-
     <div className="issued-stamp-page">
       <div>
         <button
@@ -195,13 +194,13 @@ const IssuedStamps = () => {
 
               {/* search actions */}
               <div className="search-actions">
-                <button className="btn btn-search" onClick={handleSearch}>
+                <button className="btn create-btn" onClick={handleSearch}>
                   Search
                 </button>
                 <button className="btn btn-reset" onClick={resetSearch}>
                   All Stamps
                 </button>
-                <button className="btn btn-export" onClick={exportToCSV}>
+                <button className="btn btn-edit" onClick={exportToCSV}>
                   Export CSV
                 </button>
               </div>

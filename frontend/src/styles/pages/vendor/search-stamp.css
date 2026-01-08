@@ -4,15 +4,15 @@
   margin-bottom: 16px;
 }
 
-/* Buttons */
-.search-actions {
-  margin-bottom: 20px;
+.search-section .input-group {
+  margin-bottom: 10px;
 }
 
 .search-group label {
   display: block;
   font-weight: 500;
   margin-bottom: 6px;
+  font-size: 12px;
 
 }
 
@@ -22,7 +22,9 @@
   display: flex;
   align-items: center;
 }
-
+.btn-reset{
+  background-color: red;
+}
 /* Icon */
 .input-icon {
   position: absolute;
@@ -47,11 +49,11 @@
 
 .search-group input {
   width: 100%;
-  padding: 12px 8px;
+  padding: 8px;
   border: 1.8px solid var(--border);
   border-radius: 8px;
   outline: none;
-  font-size: 15px;
+  font-size: 12px;
   transition: 0.2s ease;
 }
 
@@ -70,18 +72,6 @@
   .date-range {
     flex-direction: row;
   }
-}
-
-
-.btn-search {
-  background-color: #15803d;
-  color: white;
-}
-
-.btn-export {
-  background-color: #1d4ed8;
-  color: white;
-  margin-left: 10px;
 }
 
 @media (max-width:907px) {
@@ -128,6 +118,12 @@
   max-width: 400px;
 }
 
+.click-me {
+  background-color: red !important;
+  position: fixed;
+  top: -23px;
+}
+
 .floating-search-btn {
   position: fixed !important;
   top: 90px;
@@ -142,13 +138,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  
+
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 .floating-search-btn:hover {
   transform: translateY(-2px);
 }
+
 /* ============================ */
 /* ANIMATION */
 /* ============================ */

@@ -14,5 +14,7 @@ span {
   margin: 0;
   padding: 2px 0; /* small padding only */
 }
-
+.floating-search-btn{
+  position: fixed;
+}
 
