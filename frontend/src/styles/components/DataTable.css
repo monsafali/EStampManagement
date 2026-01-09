@@ -1,29 +1,25 @@
 /* Card */
 .manage-info-card {
-  background: var(--surface);
-      background: var(--bg-2);
+  background: var(--bg-2);
   padding: 22px;
   border-radius: 18px;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border);
 }
-
 .manage-info-title {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 16px;
-}
 
+}
 .table-responsive {
   width: 100%;
   overflow-x: auto;
 }
-
 .data-table {
   width: 100%;
   min-width: 700px;
-  border-collapse: collapse;
-      background: var(--bg-2);
+  background: var(--bg-2);
 }
 
 .data-table thead {
@@ -33,10 +29,8 @@
 .table-actions {
   display: flex;
   gap: 6px;
-  /* flex-wrap: wrap; */
-align-items: flex-end;
-justify-content: center;
-/* background-color: red; */
+  justify-content: center;
+
 }
 
 .data-table th,
