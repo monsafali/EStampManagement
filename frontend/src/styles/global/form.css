@@ -41,9 +41,6 @@
    font-style: italic;
 
  }
-
-
-
  .form-group input.error,
  .form-group textarea.error,
  .form-group select.error,
@@ -76,13 +73,13 @@
  .form-group select {
    font-size: 12px;
    height: auto;
-   /* height: 100%; */
    cursor: pointer;
  }
+.form-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
- /* .form-group option{
-  font-size: 12px;
-} */
  input[type="file"] {
    cursor: pointer;
  }

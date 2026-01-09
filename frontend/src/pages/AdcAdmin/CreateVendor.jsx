@@ -1,135 +1,128 @@
-import PUNJAB from "../../utils/District";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import PUNJAB from "../../utils/District";
 const CreateVendor = ({ districtName, districtId }) => {
-  const [form, setForm] = useState({
-    fullname: "",
-    username: "",
-    email: "",
-    password: "",
-    district: districtName || "",
-    districtId: districtId || "",
-    tehsil: "", // will store tehsilId
-    tehsilName: "", // will store tehsilName
-    cnic: "",
-    licenceNo: "",
-    address: "",
-    contactno: "",
-    imageFile: null,
-  });
 
-  const [tehsils, setTehsils] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  // Update district when districtName changes
-  useEffect(() => {
-    setForm((prev) => ({
-      ...prev,
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    setError,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      fullname: "",
+      username: "",
+      email: "",
+      password: "",
       district: districtName || "",
       districtId: districtId || "",
-    }));
-  }, [districtName, districtId]);
+      tehsil: "", // will store tehsilId
+      tehsilName: "", // will store tehsilName
+      cnic: "",
+      licenceNo: "",
+      address: "",
+      contactno: "",
+      imageFile: null,
+    },
+  });
+  const [tehsils, setTehsils] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // Handle Input Changes
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
+  // Watch tehsil value for updates
+  const selectedTehsilId = watch("tehsil");
 
-    if (name === "imageFile") {
-      setForm({ ...form, imageFile: files[0] });
-      return;
-    }
-
-    // Special handling for tehsil
-    if (name === "tehsil") {
-      const selectedTehsil = tehsils.find((t) => t.tehsilId === value);
-
-      setForm({
-        ...form,
-        tehsil: selectedTehsil?.tehsilId || "",
-        tehsilName: selectedTehsil?.tehsilName || "",
-      });
-
-      return;
-    }
-
-    setForm({ ...form, [name]: value });
-  };
-
-  // Get Tehsils from local PUNJAB file
-  const fetchTehsils = (districtId) => {
-    if (!districtId) return;
-
-    const districtObj = PUNJAB.find((d) => d.districtId === districtId);
-
-    setTehsils(districtObj?.tehsils || []);
-  };
-
+  // When district changes, update tehsils & reset tehsil selection
   useEffect(() => {
-    fetchTehsils(districtId);
-  }, [districtId]);
+    setValue("district", districtName || "");
+    setValue("districtId", districtId || "");
+    setValue("tehsil", "");
+    setValue("tehsilName", "");
+    setTehsils([]);
 
-  // Submit Vendor
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (districtId) {
+      const districtObj = PUNJAB.find((d) => d.districtId === districtId);
+      setTehsils(districtObj?.tehsils || []);
+    }
+  }, [districtName, districtId, setValue]);
+
+  // Handle tehsil selection
+  const handleTehsilChange = (e) => {
+    const selected = tehsils.find((t) => t.tehsilId === e.target.value);
+    setValue("tehsil", selected?.tehsilId || "", { shouldValidate: true });
+    setValue("tehsilName", selected?.tehsilName || "");
+  };
+
+
+  const onSubmit = async (data) => {
     setLoading(true);
-    setMessage("");
-
     try {
       const fd = new FormData();
-      fd.append("fullname", form.fullname);
-      fd.append("username", form.username);
-      fd.append("email", form.email);
-      fd.append("password", form.password);
 
-      fd.append("district", form.district);
-      fd.append("districtId", form.districtId);
+      // Explicitly match old code's FormData keys
+      fd.append("fullname", data.fullname);
+      fd.append("username", data.username);
+      fd.append("email", data.email);
+      fd.append("password", data.password);
 
-      fd.append("tehsil", form.tehsilName);
-      fd.append("tehsilId", form.tehsil);
+      fd.append("district", data.district);    // old code: district name
+      fd.append("districtId", data.districtId);
 
-      fd.append("cnic", form.cnic);
-      fd.append("licenceNo", form.licenceNo);
-      fd.append("address", form.address);
-      fd.append("contactno", form.contactno);
+      fd.append("tehsil", data.tehsilName);    // old code: tehsil name
+      fd.append("tehsilId", data.tehsil);      // old code: tehsil id
 
-      fd.append("imageFile", form.imageFile);
+      fd.append("cnic", data.cnic);
+      fd.append("licenceNo", data.licenceNo);
+      fd.append("address", data.address);
+      fd.append("contactno", data.contactno);
+
+      if (data.imageFile) fd.append("imageFile", data.imageFile);
 
       const res = await axios.post(
         "http://localhost:5000/api/adc/createvendor",
         fd,
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
-      setMessage(res.data.message || "Vendor Created Successfully!");
+      if (res.data?.success === true) {
+        toast.success(res.data.message || "Vendor created successfully");
+        reset({
+          fullname: "",
+          username: "",
+          email: "",
+          password: "",
+          district: districtName || "",
+          districtId: districtId || "",
+          tehsil: "",
+          tehsilName: "",
+          cnic: "",
+          licenceNo: "",
+          address: "",
+          contactno: "",
+          imageFile: null,
+        });
+        setTehsils([]);
+      }
 
-      // Reset form
-      setForm({
-        fullname: "",
-        username: "",
-        email: "",
-        password: "",
-        district: districtName || "",
-        districtId: districtId || "",
-        tehsil: "",
-        tehsilName: "",
-        cnic: "",
-        licenceNo: "",
-        address: "",
-        contactno: "",
-        imageFile: null,
-      });
-
-      setTehsils([]);
+      /* BACKEND VALIDATION FAILURE (no reset) */
+      if (res.data?.success === false) {
+        toast.error(res.data.message || "Validation failed");
+      }
     } catch (err) {
-      console.log(err);
-      setMessage(err.response?.data?.message || "Something went wrong.");
+      const errorMessage =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        "Vendor already exists or request failed";
+
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -139,72 +132,98 @@ const CreateVendor = ({ districtName, districtId }) => {
 
     <>
 
-      {message && <p className="create-user-message">{message}</p>}
-      <form
-        onSubmit={handleSubmit}
-        className="form-container"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+
         <div className="input-group">
+          {/* full name */}
           <div className="form-group">
             <input
-              type="text"
-              name="fullname"
-              id="fullname"
-              placeholder=""
-              value={form.fullname}
-              onChange={handleChange}
-              required
+              className={errors.fullname ? "error" : ""}
+              {...register("fullname", { required: "Full name is required" })}
+              placeholder=" "
             />
-            <label htmlFor="fullname">Full Name</label>
+            <label>Full Name</label>
+            {errors.fullname && (
+              <span className="input-error">{errors.fullname.message}</span>
+            )}
           </div>
+          {/* user name */}
           <div className="form-group">
             <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder=""
-              value={form.username}
-              onChange={handleChange}
-              required
+              className={errors.username ? "error" : ""}
+              {...register("username", { required: "user name is required" })}
+              placeholder=" "
             />
-            <label htmlFor="username">User Name</label>
+            <label>User Name</label>
+            {errors.username && (
+              <span className="input-error">{errors.username.message}</span>
+            )}
           </div>
+          {/* email */}
           <div className="form-group">
             <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder=""
-              value={form.email}
-              onChange={handleChange}
-              required
+              className={errors.email ? "error" : ""}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: "Invalid email",
+                },
+              })}
+              placeholder=" "
             />
-            <label htmlFor="email">Email</label>
+            <label>Email</label>
+            {errors.email && (
+              <span className="input-error">{errors.email.message}</span>
+            )}
+          </div>
+          {/* PASSWORD */}
+          <div className="form-group">
+            <input
+              type="password"
+              className={errors.password ? "error" : ""}
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 6, message: "Minimum 6 characters" },
+              })}
+              placeholder=" "
+            />
+
+            <label>Password</label>
+            {errors.password && <span className="input-error">{errors.password.message}</span>}
           </div>
         </div>
-
-
+        {/* address */}
         <div className="input-group">
           <div className="form-group col-70">
             <input
               type="text"
-              name="address"
               id="address"
-              placeholder=""
-              value={form.address}
-              onChange={handleChange}
-              required
+              placeholder=" "
+              className={errors.address ? "error" : ""}
+              {...register("address", {
+                required: "Address is required",
+                minLength: {
+                  value: 10,
+                  message: "Address must be at least 10 characters",
+                },
+              })}
             />
             <label htmlFor="address">Address</label>
-          </div>
 
+            {errors.address && (
+              <span className="input-error">
+                {errors.address.message}
+              </span>
+            )}
+          </div>
+          {/* Tehsil */}
           <div className="form-group col-30">
-            {/* Tehsil Dropdown */}
             <select
-              name="tehsil"
-              value={form.tehsil}
-              onChange={handleChange}
-              required
+              {...register("tehsil", { required: "Tehsil is required" })}
+              value={selectedTehsilId || ""}
+              onChange={handleTehsilChange}
+              className={errors.tehsil ? "error" : ""}
               disabled={!tehsils.length}
             >
               <option value="">Select Tehsil</option>
@@ -214,85 +233,84 @@ const CreateVendor = ({ districtName, districtId }) => {
                 </option>
               ))}
             </select>
+            {errors.tehsil && <span className="input-error">{errors.tehsil.message}</span>}
           </div>
+
+
         </div>
-        <div className="input-group">
-          <div className="form-group">
-            <input
-              type="text"
-              name="cnic"
-              placeholder=""
-              id="cnic"
-              value={form.cnic}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="cnic">CNIC</label>
-          </div>
-          <div className="form-group ">
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder=""
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-
-            <label htmlFor="password">Password</label>
-          </div>
-        </div>
-
-
 
         <div className="input-group">
+          {/* cnic */}
           <div className="form-group">
             <input
-              type="text"
-              name="licenceNo"
-              placeholder=""
-              value={form.licenceNo}
-              onChange={handleChange}
-              required
+              maxLength="13"
+              inputMode="numeric"
+              className={errors.cnic ? "error" : ""}
+              {...register("cnic", {
+                required: "CNIC is required",
+                pattern: {
+                  value: /^[0-9]{13}$/,
+                  message: "CNIC must be exactly 13 digits",
+                },
+              })}
+              placeholder=" "
             />
-            <label htmlFor="licence">Licence</label>
+            <label>CNIC</label>
+            {errors.cnic && (
+              <span className="input-error">{errors.cnic.message}</span>
+            )}
           </div>
+
+          {/* LICENCE */}
           <div className="form-group">
             <input
-              type="text"
-              name="contactno"
-              id="contactno"
-              placeholder=""
-              value={form.contactno}
-              onChange={handleChange}
-              required
+              className={errors.licenceNo ? "error" : ""}
+              {...register("licenceNo", { required: "Licence number is required" })}
+              placeholder=" "
             />
-            <label htmlFor="contactno">Contact No</label>
+            <label>Licence No</label>
+            {errors.licenceNo && <span className="input-error">{errors.licenceNo.message}</span>}
+          </div>
+          {/* CONTACT */}
+          <div className="form-group">
+            <input
+              inputMode="numeric"
+              className={errors.contactno ? "error" : ""}
+              {...register("contactno", {
+                required: "Contact number is required",
+              })}
+              placeholder=" "
+            />
+            <label>Contact No</label>
+            {errors.contactno && <span className="input-error">{errors.contactno.message}</span>}
           </div>
         </div>
-
         {/* Image Upload */}
         <div className="form-group">
           <input
             type="file"
-            name="imageFile"
             accept="image/*"
-            onChange={handleChange}
-            required
+            className={errors.imageFile ? "error" : ""}
+            onChange={(e) => {
+              setValue("imageFile", e.target.files[0], {
+                shouldValidate: true,
+              });
+            }}
           />
+
+          {errors.imageFile && (
+            <span className="input-error">{errors.imageFile.message}</span>
+          )}
+
         </div>
-        <button
-          disabled={loading}
-          className="form-btn"
-        >
+        {/* Hidden fields for district & tehsilName */}
+        <input type="hidden" {...register("district")} />
+        <input type="hidden" {...register("districtId")} />
+        <input type="hidden" {...register("tehsilName")} />
+        <button type="submit" className="form-btn" disabled={loading}>
           {loading ? "Creating..." : "Create Vendor"}
         </button>
       </form>
-
-
-
-
     </>
   );
 };

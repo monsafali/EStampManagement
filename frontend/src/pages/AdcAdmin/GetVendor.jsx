@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 import DataTable from "../../components/common/DataTable";
-// import Tooltip from "@mui/material/Tooltip";
+import { toast } from "react-toastify";
+
 import Tooltip from "../../components/common/Tooltip";
 
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
@@ -72,7 +73,8 @@ const GetVendor = () => {
       );
       setVendors(res.data.vendors || []);
     } catch (err) {
-      console.log("Error fetching vendors:", err);
+      toast.error("Failed to load vendors");
+
     }
   };
   useEffect(() => {
@@ -85,6 +87,7 @@ const GetVendor = () => {
     : vendors;
   const hasVendors = vendors.length > 0;
   const hasFilteredVendors = filteredVendors.length > 0;
+
   const deactivateVendor = async (id) => {
     try {
       await axios.put(
@@ -92,9 +95,10 @@ const GetVendor = () => {
         {},
         { withCredentials: true }
       );
+      toast.success("Vendor deactivated");
       fetchVendors();
     } catch (err) {
-      console.log("Error deactivating vendor:", err);
+      toast.error("Failed to deactivate vendor");
     }
   };
 
@@ -105,9 +109,10 @@ const GetVendor = () => {
         {},
         { withCredentials: true }
       );
-      fetchAdmins();
+      toast.success("Vendor activated");
+      fetchVendors();
     } catch (err) {
-      console.log("Error activating vendor:", err);
+      toast.error("Failed to activate vendor");
     }
   };
 
@@ -124,12 +129,12 @@ const GetVendor = () => {
     const { newpassword, confirmPassword } = passwordForm;
 
     if (!newpassword || !confirmPassword) {
-      alert("Both fields are required.");
+      toast.warn("Both password fields are required");
       return;
     }
 
     if (newpassword !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -142,24 +147,49 @@ const GetVendor = () => {
 
       setShowModal(false);
       fetchAdmins();
-      alert("Password updated successfully!");
+      toast.success("Password updated successfully")
     } catch (err) {
-      console.log("Error updating password:", err);
-      alert("Failed to update password");
+      // console.log("Error updating password:", err);
+      toast.error("Failed to update password");
     }
   };
 
   const deleteVendor = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this vendor?")) return;
+    toast(
+      ({ closeToast }) => (
+        <div>
+          <p>Are you sure you want to delete this vendor?</p>
+          <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+            <button
+              className="btn btn-danger"
+              onClick={async () => {
+                try {
+                  await axios.delete(
+                    `http://localhost:5000/api/adc/deleteVendor/${id}`,
+                    { withCredentials: true }
+                  );
+                  fetchVendors();
+                  toast.success("Vendor deleted successfully");
+                } catch {
+                  toast.error("Failed to delete vendor");
+                }
+                closeToast();
+              }}
+            >
+              Delete
+            </button>
 
-    try {
-      await axios.delete(`http://localhost:5000/api/adc/deleteVendor/${id}`, {
-        withCredentials: true,
-      });
-      fetchAdmins();
-    } catch (err) {
-      console.log("Error deleting vendor:", err);
-    }
+            <button
+              className="btn btn-secondary"
+              onClick={closeToast}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ),
+      { autoClose: false }
+    );
   };
 
   return (

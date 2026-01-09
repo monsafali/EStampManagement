@@ -11,21 +11,6 @@ export default function Stamp() {
   const [geoError, setGeoError] = useState("");
 
 
-  //   Stamptype: "Low Denomination",
-  //   StampAmount: "",
-  //   Description: "",
-  //   Applicant: "",
-  //   cnic: "",
-  //   Relation: "",
-  //   Relation_Name: "",
-  //   agent: "",
-  //   email: "",
-  //   phone: "",
-  //   address: "",
-  //   reason: "",
-  //   vendorInfo: "",
-  // });
-
   const {
     register,
     handleSubmit,

@@ -4,6 +4,7 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { useTheme } from "../context/ThemeContext";
 import { AuthContext } from "../AuthContext";
 import LogoutButton from "./LogoutButton";
+import Tooltip from "./common/Tooltip";
 import ChangePassword from "./ChangePassword";
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -39,7 +40,7 @@ export default function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-// Close profile when mobile menu closes
+  // Close profile when mobile menu closes
   useEffect(() => {
     if (!menuOpen) {
       setOpenProfile(false);
@@ -67,54 +68,68 @@ export default function Navbar() {
         {user?.role === "super-admin" && (
           <Link to="/superadmin" className="navbar-link">Super Admin</Link>
         )}
-
-        <button
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label="Toggle dark mode"
+        <Tooltip
+          text={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          position="bottom"
         >
-          {theme === "dark" ? <LightModeIcon /> : <DarkModeIcon sx={{ color: "#000" }} />
-          }
-        </button>
-
-
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? (
+              <LightModeIcon />
+            ) : (
+              <DarkModeIcon sx={{ color: "#000" }} />
+            )}
+          </button>
+        </Tooltip>
         {/*  Profile Dropdown */}
         {user && (
-          <div className="user-profile" ref={profileRef} >
-            <button
-              className="user-btn"
-              onClick={() => setOpenProfile((prev) => !prev)}
-            >
-            <span>Profile</span>  <span>⌄</span> 
-            </button>
-            {openProfile && (
-              <div className="user-dropdown">
-                <p><b>Name:</b> {user.username}</p>
-                <p><b>Email:</b> {user.email}</p>
-                <p><b>Role:</b> {user.role}</p>
-                <button
-                  className="edit-profile-btn"
-                  onClick={() => setShowEditForm(true)}
-                >
-                  Change Password
-                </button>
-                {/* Show Change Password Panel (outside dropdown) */}
-                {showEditForm && (
-                  <div className="change-password-panel">
-                    <ChangePassword onClose={() => setShowEditForm(false)} />
-                  </div>
-                )}
+          <Tooltip text="View Profile" position="bottom">
+            <div className="user-profile" ref={profileRef} >
+              <button
+                className="user-btn"
+                onClick={() => setOpenProfile((prev) => !prev)}
+              >
+                <span>Profile</span>  <span>⌄</span>
+              </button>
+              {openProfile && (
+                <div className="user-dropdown">
+                  <p><b>Name:</b> {user.username}</p>
+                  <p><b>Email:</b> {user.email}</p>
+                  <p><b>Role:</b> {user.role}</p>
 
-              </div>
-            )}
+                  <button
+                    className="edit-profile-btn"
+                    onClick={() => setShowEditForm(true)}
+                  >
+                    Change Password
+                  </button>
 
-          </div>
+
+                  {/* Show Change Password Panel (outside dropdown) */}
+                  {showEditForm && (
+                    <div className="change-password-panel">
+                      <ChangePassword onClose={() => setShowEditForm(false)} />
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+            </div>
+          </Tooltip>
         )}
 
 
         {/* Logout button  */}
         {user && (
+          <Tooltip text="Logout" position="bottom">
+
             <LogoutButton />
+
+          </Tooltip>
         )}
 
       </nav>
@@ -126,6 +141,8 @@ export default function Navbar() {
       >
         {menuOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
+
+
 
     </header>
   );
