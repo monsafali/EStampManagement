@@ -17,6 +17,7 @@ import { ThemeProvider } from "./context/ThemeContext.jsx";
 /* Global styles */
 import './styles/global/globals.css';
 import './styles/global/customAnimation.css'
+import './styles/global/slidingOverlayBtn.css'
 import "./index.css";
 
 createRoot(document.getElementById("root")).render(
@@ -25,7 +26,7 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <GoogleAuthProvider>
           {/* <div className="app-container"> */}
-            <App />
+          <App />
           {/* </div> */}
           <ToastContainer position="top-right"
             autoClose={3000}

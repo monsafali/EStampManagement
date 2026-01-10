@@ -104,16 +104,8 @@ export default function ChangePassword({ onClose }) {
         </span>
       </div>
 
-
-      {/* Message */}
-      {/* {message && (
-        <p className={`change-password-message ${error ? "error" : "success"}`}>
-          {message}
-        </p>
-      )} */}
-
       {/* Button */}
-      <button type="submit" disabled={loading} className="change-password-btn">
+      <button type="submit" disabled={loading} className="form-btn sliding-overlay-btn">
         {loading ? "Updating..." : "Update Password"}
       </button>
     </form>

@@ -130,11 +130,7 @@ button:hover {
 
 /* cl Button */
 .btn-cancel {
-  background: #9ca3af;
   color: white;
-}
-
-.btn-cancel:hover {
   background: #6b7280;
 }
 

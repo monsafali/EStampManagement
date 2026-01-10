@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GetADCAdmins from "./GetADCAdmins";
 import UpdateADCAdmin from "./UpdateADCAdmin";
+import { toast } from "react-toastify";
 
 
 
@@ -10,7 +11,9 @@ const ManageADCAdmins = () => {
   const [editingAdmin, setEditingAdmin] = useState(null);
   const [originalForm, setOriginalForm] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [message, setMessage] = useState("");
+
+
+
   const [form, setForm] = useState({
     fullname: "",
     username: "",
@@ -18,28 +21,17 @@ const ManageADCAdmins = () => {
     district: "",
   });
 
-  useEffect(() => {
-    if (!message) return;
-
-    const timer = setTimeout(() => {
-      setMessage("");
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [message]);
-
-  const autoClearMessage = () => {
-    setTimeout(() => {
-      setMessage("");
-    }, 3000); // 3 seconds
-  };
 
   const fetchAdmins = async () => {
-    const res = await axios.get(
-      "http://localhost:5000/api/admin/getAllADCAdmin",
-      { withCredentials: true }
-    );
-    setAdmins(res.data.adcAdmins || []);
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/admin/getAllADCAdmin",
+        { withCredentials: true }
+      );
+      setAdmins(res.data.adcAdmins || []);
+    } catch {
+      toast.error("Failed to load ADC admins");
+    }
   };
 
   const startEditing = (admin) => {
@@ -81,7 +73,7 @@ const ManageADCAdmins = () => {
     if (!editingAdmin) return;
     //  STOP if no change
     if (!isFormChanged()) {
-      setMessage("No changes detected.");
+      toast.info("No changes detected");
       return;
     }
     try {
@@ -106,13 +98,13 @@ const ManageADCAdmins = () => {
           // headers: { "Content-Type": "multipart/form-data" }  <-- remove this
         }
       );
-
-      setMessage(res.data.message || "Updated successfully");
+      toast.success(res.data.message || "Updated successfully");
       await fetchAdmins();
       setEditingAdmin(null);
     } catch (err) {
-      console.error(err);
-      setMessage(err.response?.data?.message || "Update failed");
+      toast.error(
+        err.response?.data?.message || "Update failed"
+      );;
     }
     finally {
       setIsUpdating(false); //  STOP LOADING 
@@ -128,12 +120,11 @@ const ManageADCAdmins = () => {
 
   return (
     <>
-      {message && <p>{message}</p>}
-        <GetADCAdmins
-          admins={admins}
-          fetchAdmins={fetchAdmins}
-          onEdit={startEditing}
-        />
+      <GetADCAdmins
+        admins={admins}
+        fetchAdmins={fetchAdmins}
+        onEdit={startEditing}
+      />
       {/* UPDATE PANEL */}
       {editingAdmin && (
         <UpdateADCAdmin

@@ -1,0 +1,57 @@
+/* Particle base */
+.form-orbit-wrapper {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  filter: blur(4px);
+  opacity: 0.7;
+  transform-origin: center;
+  animation: orbit linear infinite;
+}
+.indigo  { background: rgba(99, 102, 241, 0.6); }
+.purple { background: rgba(139, 92, 246, 0.6); }
+.pink   { background: rgba(236, 72, 153, 0.6); }
+.blue   { background: rgba(59, 130, 246, 0.6); }
+.emerald{ background: rgba(16, 185, 129, 0.6); }
+.amber  { background: rgba(245, 158, 11, 0.5); }
+.p1  { width:12px; height:12px; --radius: 40vw; animation-duration:12s; }
+.p2  { width:8px;  height:8px;  --radius: 35vw; animation-duration:15s; }
+.p3  { width:14px; height:14px; --radius: 45vw; animation-duration:18s; }
+
+.p4  { width:8px;  height:8px;  --radius: 50vw; animation-duration:20s; }
+.p5  { width:10px; height:10px; --radius: 55vw; animation-duration:25s; }
+.p6  { width:12px; height:12px; --radius: 48vw; animation-duration:22s; }
+
+.p8  { width:4px;  height:4px;  --radius: 30vw; animation-duration:10s; }
+.p9  { width:4px;  height:4px;  --radius: 32vw; animation-duration:9s; }
+.p10 { width:4px;  height:4px;  --radius: 34vw; animation-duration:10s; }
+.p11 { width:4px;  height:4px;  --radius: 36vw; animation-duration:11s; }
+
+.reverse {
+  animation-name: orbit-reverse;
+}
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-reverse {
+  from {
+    transform: rotate(360deg) translateX(var(--radius)) rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+  }
+}

@@ -15,7 +15,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Success from "./pages/Vendor/Success";
 import VendorMontyReport from "./pages/AdcAdmin/VendorMontyReport.jsx";
 import BothLogins from './components/BothLogins';
-
+import Orbit from "./components/common/Orbit.jsx";
 
 
 export default function App() {
@@ -42,6 +42,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="app-layout">
+           <Orbit /><Orbit /><Orbit /><Orbit />
         {/* <Navbar /> */}
         {user && <Navbar />}
 

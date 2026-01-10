@@ -4,7 +4,6 @@ import { AuthContext } from "../AuthContext";
 import CreateADCAdmin from './SuperAdmin/CreateADCAdmin';
 import ManageADCAdmins from "./SuperAdmin/ManageADCAdmins";
 import UploadRagForm from '../components/UploadRagForm';
-// import "../styles/pages/SuperAdmin/SuperAdminDashboard.css";
 import "../styles/pages/dashboard.shared.css";
 
 
@@ -20,20 +19,20 @@ export default function SuperAdminDashboard() {
     <div className="main-dashborad">
       <div className="dashboard-actions">
         <button
-          className={`dashboard-btn create-btn ${activeSection === "create" ? "active" : ""}`}
+          className={`dashboard-btn sliding-overlay-btn ${activeSection === "create" ? "form-btn" : ""}`}
           onClick={() => setActiveSection("create")}
         >
           Create ADC Admin
         </button>
 
         <button
-          className={`dashboard-btn ${activeSection === "manage" ? "active" : ""}`}
+          className={`dashboard-btn sliding-overlay-btn ${activeSection === "manage" ? "form-btn" : ""}`}
           onClick={() => setActiveSection("manage")}
         >
           View / Manage ADC Admins
         </button>
         <button
-          className={`dashboard-btn  ${activeSection === "upload" ? "active" : ""}`}
+          className={`dashboard-btn sliding-overlay-btn ${activeSection === "upload" ? "form-btn" : ""}`}
           onClick={() => setActiveSection("upload")}
         >
           Upload RAG

@@ -1,164 +1,152 @@
-
 import PUNJAB from "../../utils/District";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import Orbit from "../../components/common/Orbit";
 
 const CreateADCAdmin = () => {
-  const [form, setForm] = useState({
-    fullname: "",
-    username: "",
-    email: "",
-    password: "",
-    district: "",
-    districtId: "",
-    tehsil: "",
-    tehsilId: "",
-    imageFile: null,
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      fullname: "",
+      username: "",
+      email: "",
+      password: "",
+      district: "",
+      districtId: "",
+      imageFile: null,
+    },
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
   const [districts, setDistricts] = useState([]);
-  const [tehsils, setTehsils] = useState([]);
 
-  // Load All Districts on Mount
+  // Load districts
   useEffect(() => {
-    setDistricts(PUNJAB.map((d) => d)); // full district object
+    setDistricts(PUNJAB.map((d) => d));
   }, []);
 
-  // Handle inputs
-  const handleChange = (e) => {
-    if (e.target.name === "imageFile") {
-      setForm({ ...form, imageFile: e.target.files[0] });
-    } else {
-      setForm({ ...form, [e.target.name]: e.target.value });
-    }
-  };
-  // Handle District Selection
+  // Handle district change (ID → name mapping)
   const handleDistrictChange = (e) => {
     const selected = districts.find(
       (d) => d.districtId.toString() === e.target.value
     );
 
-    setForm({
-      ...form,
-      districtId: selected?.districtId || "",
-      district: selected?.districtName || "",
-    });
+    setValue("districtId", selected?.districtId || "");
+    setValue("district", selected?.districtName || "");
   };
 
-  // Submit Handler
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
+    if (loading) return;
     setLoading(true);
-    setMessage("");
 
     try {
       const fd = new FormData();
-      fd.append("fullname", form.fullname);
-      fd.append("username", form.username);
-      fd.append("email", form.email);
-      fd.append("password", form.password);
-      fd.append("district", form.district);
-      fd.append("districtId", form.districtId);
-      fd.append("imageFile", form.imageFile);
+      fd.append("fullname", data.fullname);
+      fd.append("username", data.username);
+      fd.append("email", data.email);
+      fd.append("password", data.password);
+      fd.append("district", data.district);
+      fd.append("districtId", data.districtId);
+      fd.append("imageFile", data.imageFile);
 
       const res = await axios.post(
         "http://localhost:5000/api/admin/createADCAdmin",
         fd,
         {
           withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
-      setMessage(res.data.message || "ADC Admin Created Successfully!");
-
-      setForm({
-        fullname: "",
-        username: "",
-        email: "",
-        password: "",
-        district: "",
-        districtId: "",
-        imageFile: null,
-      });
+      if (res.data?.success === true) {
+        toast.success(res.data.message || "ADC Admin created successfully");
+        reset(); // reset only on success
+      } else {
+        toast.error(res.data?.message || "Validation failed");
+      }
     } catch (err) {
-      console.log(err);
-      setMessage(err.response?.data?.message || "Something went wrong.");
+      toast.error(
+        err.response?.data?.message || "Something went wrong"
+      );
     } finally {
       setLoading(false);
     }
   };
+
   return (
-    <>
-      {message && <p className="create-user-message">{message}</p>}
-      <form
-        onSubmit={handleSubmit}
-        className="form-container"
-      >
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+
         <div className="input-group">
+          {/* FULL NAME */}
           <div className="form-group">
             <input
-              type="text"
-              name="fullname"
-              id="fullname"
               placeholder=" "
-              value={form.fullname}
-              onChange={handleChange}
-              required
+              className={errors.fullname ? "error" : ""}
+              {...register("fullname", {
+                required: "Full name is required",
+              })}
             />
-            <label htmlFor="fullname">Full Name</label>
+            <label>Full Name</label>
+            {errors.fullname && (
+              <span className="input-error">{errors.fullname.message}</span>
+            )}
           </div>
+
+          {/* USERNAME */}
           <div className="form-group">
             <input
-              type="text"
-              name="username"
-              id="username"
               placeholder=" "
-              value={form.username}
-              onChange={handleChange}
-              required
+              className={errors.username ? "error" : ""}
+              {...register("username", {
+                required: "Username is required",
+              })}
             />
-            <label htmlFor="username">User Name</label>
+            <label>User Name</label>
+            {errors.username && (
+              <span className="input-error">{errors.username.message}</span>
+            )}
           </div>
+
+          {/* EMAIL */}
           <div className="form-group">
             <input
               type="email"
-              name="email"
-              id="email"
               placeholder=" "
-              value={form.email}
-              onChange={handleChange}
-              required
+              className={errors.email ? "error" : ""}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: "Invalid email address",
+                },
+              })}
             />
-            <label htmlFor="email">Email</label>
+            <label>Email</label>
+            {errors.email && (
+              <span className="input-error">{errors.email.message}</span>
+            )}
           </div>
         </div>
 
-
         <div className="input-group">
-          <div className="form-group col-70">
-            <input
-              type="password"
-              name="password"
-              placeholder=" "
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="password">Password</label>
-          </div>
-          {/* District Select */}
+          {/* PASSWORD */}
+
+
+          {/* DISTRICT */}
           <div className="form-group col-30">
             <select
-              name="districtId"
-              value={form.districtId}
+              value={watch("districtId")}
               onChange={handleDistrictChange}
-              required
+              className={errors.districtId ? "error" : ""}
             >
               <option value="">Select District</option>
               {districts.map((d) => (
@@ -167,33 +155,56 @@ const CreateADCAdmin = () => {
                 </option>
               ))}
             </select>
+            {errors.districtId && (
+              <span className="input-error">District is required</span>
+            )}
           </div>
-
+          <div className="form-group col-70">
+            <input
+              type="password"
+              placeholder=" "
+              className={errors.password ? "error" : ""}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Minimum 6 characters required",
+                },
+              })}
+            />
+            <label>Password</label>
+            {errors.password && (
+              <span className="input-error">{errors.password.message}</span>
+            )}
+          </div>
         </div>
 
+        {/* IMAGE */}
         <div className="form-group">
           <input
             type="file"
-            name="imageFile"
-            id="imageFile"
             accept="image/*"
-            onChange={handleChange}
-            placeholder=" "
-            required
+            className={errors.imageFile ? "error" : ""}
+            {...register("imageFile", {
+              required: "Photo is required",
+            })}
+            onChange={(e) => setValue("imageFile", e.target.files[0])}
           />
-          <label htmlFor="imageFile">Upload Photo</label>
+          <label>Upload Photo</label>
+          {errors.imageFile && (
+            <span className="input-error">{errors.imageFile.message}</span>
+          )}
         </div>
 
-        <button
-          disabled={loading}
-          className="form-btn"
-        >
+        <button type="submit" className="form-btn sliding-overlay-btn" disabled={loading}>
           {loading ? "Creating..." : "Create ADC Admin"}
         </button>
       </form>
-    </>
-  );
 
+    </div>
+
+
+  );
 };
 
 export default CreateADCAdmin;

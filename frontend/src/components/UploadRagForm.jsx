@@ -50,34 +50,38 @@ export default function UploadRagForm() {
     <div className="upload-rag-card">
       <form onSubmit={submit} className="form-container">
         {/* File Input */}
-        <div className="form-group">
+        <div className="input-group">
+          <div className="form-group col-70">
+            <input
+              id="file"
+              type="file"
+              accept=".txt,.pdf,.docx"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <label
+              htmlFor="file"
+            >
+              Select file
+            </label>
+            {file && (
+              <p className="file-name">
+                Selected: {file.name}
+              </p>
+            )}
+          </div>
+          <div className="form-group col-30">
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading || !file}
+              className="form-btn sliding-overlay-btn"
+            >
+              {loading ? "Uploading..." : "Upload"}
+            </button>
+          </div>
 
-          <input
-            id="file"
-            type="file"
-            accept=".txt,.pdf,.docx"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <label
-            htmlFor="file"
-          >
-            Select file
-          </label>
-          {file && (
-            <p className="file-name">
-              Selected: {file.name}
-            </p>
-          )}
         </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={loading || !file}
-          className="form-btn"
-        >
-          {loading ? "Uploading..." : "Upload"}
-        </button>
       </form>
       {/* Status */}
       {status && <div className="status-text">{status}</div>}

@@ -1,6 +1,8 @@
 // GetADCAdmins.jsx
 import React, { useEffect } from "react";
 import DataTable from "../../components/common/DataTable";
+import Tooltip from "../../components/common/Tooltip";
+
 
 const GetADCAdmins = ({ admins, fetchAdmins, onEdit }) => {
   useEffect(() => {
@@ -30,12 +32,15 @@ const GetADCAdmins = ({ admins, fetchAdmins, onEdit }) => {
       data={admins}
       title="ADC Admins List"
       renderActions={(admin) => (
-        <button
-          className="btn btn-edit"
-          onClick={() => onEdit(admin)}
-        >
-          Edit
-        </button>
+        <Tooltip text="Edit ADC Admin">
+          <button
+            type="button"
+            className="btn btn-edit"
+            onClick={() => onEdit(admin)}
+          >
+            Edit
+          </button>
+        </Tooltip>
       )}
     />
 

@@ -221,6 +221,7 @@ const CreateBankUser = () => {
         {/* EMAIL */}
         <div className="form-group">
           <input
+
             className={errors.email ? "error" : ""}
             {...register("email", {
               required: "Email is required",

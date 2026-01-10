@@ -1,0 +1,33 @@
+.sliding-overlay-btn {
+    position: relative;
+    overflow: hidden;
+    transition:
+        color 0.35s ease,
+        transform 0.35s ease;
+}
+
+/* Sheet layer */
+.sliding-overlay-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    top: 0;
+    z-index: -2;
+    background-color: var(--color-primary);
+    transform: translateY(-100%);
+    transition: transform 0.45s ease-in-out;
+}
+
+.sliding-overlay-btn:hover::before {
+    transform: translateY(0);
+}
+.sliding-overlay-btn:hover{
+    color: white;
+}
+/* Text stays above */
+.sliding-overlay-btn span,
+.sliding-overlay-btn {
+    position: relative;
+    z-index: 1;
+
+}
