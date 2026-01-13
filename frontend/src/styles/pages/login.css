@@ -9,12 +9,9 @@
   font-weight: 700;
   color: var(--color-primary);
 }
-
 .login-btn {
   width: 100%;
 }
-
-/* */
 .login-sm-title {
   text-align: center;
   font-size: 18px;
@@ -22,16 +19,13 @@
   margin-bottom: 20px;
   color: var(--text-strong);
 }
-
 .error {
   color: var(--danger);
   font-size: 12px;
 }
-
 .logout-container {
   text-align: center;
 }
-
 .logout-other-btn {
   background: transparent;
   color: #3d63ce;
@@ -84,14 +78,9 @@
 
 .otp-btn {
   flex: 1;
-  padding: 12px;
-  border-radius: 10px;
   font-weight: 600;
-  cursor: pointer;
-  border: none;
-
+  color:white;
 }
-
 .verify-btn {
   background: var(--success);
 }
@@ -102,7 +91,6 @@
 
 /* Both Login Container */
 .login-wrapper-both {
-
   display: flex;
   align-items: center;
   justify-content: center;

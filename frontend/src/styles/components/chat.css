@@ -17,10 +17,7 @@
   transition: all 0.2s ease;
 }
 
-/*  Card style improvement */
-.auth-combined-box {
-  border: 1px solid var(--border);
-}
+
 
 
 
@@ -123,7 +120,7 @@
 
 .chat-input:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  box-shadow: 0 0 0 3px rgba(32, 99, 73, 0.12);
 }
 
 /* Send button */
@@ -194,7 +191,8 @@
 
 /* Round floating button */
 .chat-widget-btn {
-  background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+
+       background: linear-gradient(90deg, #16a34a, #047857);
   color: white;
   font-size: 18px;
   border: none;
