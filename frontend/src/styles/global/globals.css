@@ -22,7 +22,8 @@
   --text-strong: #0f172a;
   --muted: #6d747e;
   --border: hsl(240, 26%, 83%);
-
+  --green-600: hsl(169, 82%, 27%);
+  --gray-500: hsl(186, 15%, 59%);
   --h1-heading: #1E1A4D;
   --chat-bg: #f8fafc;
   --chat-border: #e5e7eb;
@@ -86,9 +87,7 @@ button {
   border: none;
 }
 
-button:hover {
-  opacity: 0.8;
-}
+
 
 /* update button */
 .btn-primary {

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useState, useRef, useEffect } from "react";
 
-import { useTheme } from "../context/ThemeContext";
+
 import { AuthContext } from "../AuthContext";
 import LogoutButton from "./LogoutButton";
 import Tooltip from "./common/Tooltip";
@@ -9,15 +9,14 @@ import ChangePassword from "./ChangePassword";
 
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
+
 
 import "../styles/components/Navbar.css";
 
 
 export default function Navbar() {
   const { user } = useContext(AuthContext);
-  const { theme, toggleTheme } = useTheme();
+
   const profileRef = useRef(null);
 
   const [openProfile, setOpenProfile] = useState(false);
@@ -68,22 +67,7 @@ export default function Navbar() {
         {user?.role === "super-admin" && (
           <Link to="/superadmin" className="navbar-link">Super Admin</Link>
         )}
-        <Tooltip
-          text={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-          position="bottom"
-        >
-          <button
-            className="theme-toggle"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <LightModeIcon />
-            ) : (
-              <DarkModeIcon sx={{ color: "#000" }} />
-            )}
-          </button>
-        </Tooltip>
+      
         {/*  Profile Dropdown */}
         {user && (
           <Tooltip text="View Profile" position="bottom">
