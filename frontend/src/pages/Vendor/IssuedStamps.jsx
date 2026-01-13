@@ -142,7 +142,7 @@ const IssuedStamps = () => {
     <div className="issued-stamp-page">
       <div>
         <button
-          className="floating-search-btn"
+          className="floating-search-btn sliding-overlay-btn"
           onClick={(e) => {
             e.stopPropagation();
             setShowSearch(prev => !prev);

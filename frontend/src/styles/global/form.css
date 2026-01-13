@@ -158,10 +158,11 @@
    background-color: var(--color-primary);
    transition: 0.2s ease;
    /* display: inline-flex; */
-   background: linear-gradient(90deg,
+   /* background: linear-gradient(90deg,
        #6366f1,
        #8b5cf6,
-       #ec4899);
+       #ec4899); */
+       background: linear-gradient(to right, #16a34a, #15803d);
  }
 
  @media (max-width: 768px) {
@@ -194,3 +195,9 @@
  .form-select {
    max-width: 200px;
  }
+
+
+
+.tahsil-dropdown{
+  max-width: 300px;
+}

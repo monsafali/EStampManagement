@@ -1,62 +1,70 @@
+
 import { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import CustomSelect from "./common/CustomSelect";
 import axios from "axios";
+
 import "../styles/global/form.css";
 import "../styles/pages/login.css";
 
-
-
 function Login() {
   const { setUser } = useContext(AuthContext);
-  const [showOtpPopup, setShowOtpPopup] = useState(false);
-
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    role: "",
-  });
   const navigate = useNavigate();
 
+  const [showOtpPopup, setShowOtpPopup] = useState(false);
   const [otp, setOtp] = useState("");
-
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
+  const [error, setError] = useState("");
 
-
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+      role: "",
+    },
+  });
+  const roleOptions = [
+    { value: "super-admin", label: "Super Admin" },
+    { value: "ADCAdmin", label: "ADC Admin" },
+    { value: "vendor", label: "Vendor" },
+    { value: "bank", label: "Bank" },
+  ];
 
   // -------------------------------------------------
   // STEP 1 → Send username/password and get OTP
   // -------------------------------------------------
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    //  STEP 0: Client-side validation (no loading if empty)na nazar aye
-    if (!formData.username || !formData.password || !formData.role) {
-      setError("Please fill all fields.");
-      return; //  Stops here, no flicker, no API call
-    }
+  const onSubmit = async (data) => {
+    if (loading) return;
 
-    setLoading(true); //  only runs when fields are NOT empty
+    setError("");
+    setLoading(true);
 
     try {
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
-        formData,
+        data,
         { withCredentials: true }
       );
 
       if (res.data.success) {
         toast.success("OTP sent to your email!");
-        setShowOtpPopup(true); // SHOW OTP POPUP
+        setShowOtpPopup(true);
       }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   // -------------------------------------------------
@@ -65,7 +73,6 @@ function Login() {
   const verifyOtp = async () => {
     if (!otp) {
       toast.error("Please enter OTP");
-
       return;
     }
 
@@ -73,36 +80,33 @@ function Login() {
       const res = await axios.post(
         "http://localhost:5000/api/auth/verifyotp",
         {
-          username: formData.username,
+          username: watch("username"),
           otp,
         },
         { withCredentials: true }
       );
-      if (!res.data.success) {
-        throw new Error(res.data.message || "OTP verification failed");
-      }
-      toast.success("Login successful!");
 
-      // FINAL LOGIN SUCCESS
+      if (!res.data.success) {
+        throw new Error();
+      }
+
+      toast.success("Login successful!");
       setShowOtpPopup(false);
 
-      // Backend returns user → Set the logged-in user in context
-      setUser(res.data.user || { username: formData.username });
-
-      // window.location.href = "/"; // redirect if needed
-      // after success
+      setUser(res.data.user || { username: watch("username") });
       navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Invalid OTP");
-
     }
   };
 
   // ---------------------------------------------------------
-  // Logout From Other Devices (Your existing working function)
+  // Logout From Other Devices
   // ---------------------------------------------------------
   const logoutOtherDevice = async () => {
-    if (!formData.username) {
+    const username = watch("username");
+
+    if (!username) {
       setError("Please enter username first.");
       return;
     }
@@ -112,7 +116,7 @@ function Login() {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/auth/reset/${formData.username}`,
+        `http://localhost:5000/api/auth/reset/${username}`,
         {
           method: "PUT",
           credentials: "include",
@@ -124,81 +128,88 @@ function Login() {
 
       if (!res.ok) {
         setError(data.message || "Failed to logout other device");
-        setLogoutLoading(false);
         return;
       }
+
       toast.success("Logged out from other device successfully!");
-
-    } catch (err) {
+    } catch {
       setError("Something went wrong.");
+    } finally {
+      setLogoutLoading(false);
     }
-
-    setLogoutLoading(false);
   };
-
 
   return (
     <div className="login-wrapper">
       <div>
         <h2 className="login-title">E-Stamp</h2>
 
-        <form onSubmit={handleSubmit} className="form-container">
+        <form onSubmit={handleSubmit(onSubmit)} className="form-container">
           <h6 className="login-sm-title">Login in to E-Stamp</h6>
-          {/* user name filed */}
+
+          {/* USERNAME */}
           <div className="form-group">
             <input
-              type="text"
-              name="username"
-              id="username"
               placeholder=" "
-              value={formData.username}
-              onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value })
-              }
+              className={errors.username ? "error" : ""}
+              {...register("username", {
+                required: "Username is required",
+              })}
             />
-            <label htmlFor="username">User Name</label>
+            <label>User Name</label>
+            {errors.username && (
+              <span className="input-error">
+                {errors.username.message}
+              </span>
+            )}
           </div>
-          {/* password filed */}
+
+          {/* PASSWORD */}
           <div className="form-group">
             <input
               type="password"
-              name="password"
-              id="pwd"
               placeholder=" "
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              className={errors.password ? "error" : ""}
+              {...register("password", {
+                required: "Password is required",
+              })}
             />
-            <label htmlFor="pwd">Password</label>
+            <label>Password</label>
+            {errors.password && (
+              <span className="input-error">
+                {errors.password.message}
+              </span>
+            )}
           </div>
-          {/* role filed */}
-          <div className="form-group ">
-            <select
+
+          {/* ROLE */}
+          <div className="form-group">
+            <CustomSelect
               name="role"
-              value={formData.role}
-              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-            >
-              <option value="" disabled hidden>Select</option>
-              <option value="super-admin">Super Admin</option>
-              <option value="ADCAdmin">ADC Admin</option>
-              <option value="vendor">Vendor</option>
-              <option value="bank">Bank</option>
-            </select>
+              placeholder="Select Role"
+              options={roleOptions}
+              value={watch("role")}
+              register={register}
+              setValue={setValue}
+              required
+              error={errors.role?.message}
+            />
+
           </div>
+
 
           {error && <p className="error">{error}</p>}
 
           <button
             type="submit"
-            className="form-btn"
+            className="form-btn login-btn sliding-overlay-btn"
             disabled={loading}
           >
             {loading ? "Sending OTP..." : "Login"}
           </button>
         </form>
 
-        {/* Logout Other Device Button */}
+        {/* Logout Other Device */}
         <div className="logout-container">
           <button
             onClick={logoutOtherDevice}
@@ -210,7 +221,6 @@ function Login() {
         </div>
       </div>
 
-
       {/* OTP POPUP */}
       {showOtpPopup && (
         <div className="otp-overlay">
@@ -218,16 +228,13 @@ function Login() {
             <h3>Enter OTP</h3>
 
             <input
-              style={{ padding: 10, width: "100%" }}
               placeholder="Type your OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
+
             <div className="otp-actions">
-              <button
-                onClick={verifyOtp}
-                className="otp-btn verify-btn"
-              >
+              <button onClick={verifyOtp} className="otp-btn verify-btn">
                 Verify OTP
               </button>
               <button
@@ -240,11 +247,8 @@ function Login() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
 
 export default Login;
-
-

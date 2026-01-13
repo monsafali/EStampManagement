@@ -332,7 +332,7 @@ export default function Stamp() {
 
 
 
-        <button type="submit" className="form-btn">
+        <button type="submit" className="form-btn sliding-overlay-btn">
           Download Stamp PDF
         </button>
       </form>

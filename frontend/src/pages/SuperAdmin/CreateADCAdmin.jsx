@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import Orbit from "../../components/common/Orbit";
-
+import CustomSelect from "../../components/common/CustomSelect";
 const CreateADCAdmin = () => {
   const {
     register,
@@ -32,16 +31,12 @@ const CreateADCAdmin = () => {
   useEffect(() => {
     setDistricts(PUNJAB.map((d) => d));
   }, []);
+  //  Map for CustomSelect
+  const districtOptions = districts.map((d) => ({
+    value: d.districtId.toString(),
+    label: d.districtName,
+  }));
 
-  // Handle district change (ID → name mapping)
-  const handleDistrictChange = (e) => {
-    const selected = districts.find(
-      (d) => d.districtId.toString() === e.target.value
-    );
-
-    setValue("districtId", selected?.districtId || "");
-    setValue("district", selected?.districtName || "");
-  };
 
   const onSubmit = async (data) => {
     if (loading) return;
@@ -55,8 +50,7 @@ const CreateADCAdmin = () => {
       fd.append("password", data.password);
       fd.append("district", data.district);
       fd.append("districtId", data.districtId);
-      fd.append("imageFile", data.imageFile);
-
+      if (data.imageFile) fd.append("imageFile", data.imageFile);
       const res = await axios.post(
         "http://localhost:5000/api/admin/createADCAdmin",
         fd,
@@ -138,27 +132,29 @@ const CreateADCAdmin = () => {
         </div>
 
         <div className="input-group">
-          {/* PASSWORD */}
-
-
+  
           {/* DISTRICT */}
           <div className="form-group col-30">
-            <select
+            <CustomSelect
+              name="districtId"
+              placeholder="Select District"
+              options={districtOptions}
               value={watch("districtId")}
-              onChange={handleDistrictChange}
-              className={errors.districtId ? "error" : ""}
-            >
-              <option value="">Select District</option>
-              {districts.map((d) => (
-                <option key={d.districtId} value={d.districtId}>
-                  {d.districtName}
-                </option>
-              ))}
-            </select>
-            {errors.districtId && (
-              <span className="input-error">District is required</span>
-            )}
+              register={register}
+              setValue={(field, value, opts) => {
+                // set districtId
+                setValue(field, value, opts);
+
+                // set district name
+                const selected = districts.find((d) => d.districtId.toString() === value);
+                setValue("district", selected?.districtName || "", opts);
+              }}
+              required
+              error={errors.districtId?.message}
+            />
           </div>
+
+
           <div className="form-group col-70">
             <input
               type="password"
@@ -185,10 +181,9 @@ const CreateADCAdmin = () => {
             type="file"
             accept="image/*"
             className={errors.imageFile ? "error" : ""}
-            {...register("imageFile", {
-              required: "Photo is required",
-            })}
-            onChange={(e) => setValue("imageFile", e.target.files[0])}
+            onChange={(e) => {
+              setValue("imageFile", e.target.files[0], { shouldValidate: true });
+            }}
           />
           <label>Upload Photo</label>
           {errors.imageFile && (

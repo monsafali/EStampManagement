@@ -21,7 +21,7 @@ export default function ChatSupport() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // ✅ NEW: inline autocomplete text
+  //  NEW: inline autocomplete text
   const [autoComplete, setAutoComplete] = useState("");
 
   // Load chat history
@@ -78,7 +78,6 @@ export default function ChatSupport() {
 
     return () => socket.off("newMessage");
   }, []);
-
   // ✅ INLINE AUTOCOMPLETE (DEBOUNCED)
   useEffect(() => {
     if (!question || question.length < 3) {

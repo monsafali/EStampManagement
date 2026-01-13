@@ -25,21 +25,22 @@ export default function ADCDashboard() {
       {!isMonthlyReportOpen && (
         <div className="dashboard-actions">
           <button
-            className={`dashboard-btn  ${activeSection === "vendors" ? "active" : ""}`}
+            className={`dashboard-btn   sliding-overlay-btn ${activeSection === "vendors" ? "form-btn" : ""}`}
             onClick={() => setActiveSection("vendors")}
           >
+
             Vendors List
           </button>
 
           <button
-            className={`dashboard-btn   ${activeSection === "createVendor" ? "active" : ""}`}
+            className={`dashboard-btn   sliding-overlay-btn ${activeSection === "createVendor" ? "form-btn" : ""}`}
             onClick={() => setActiveSection("createVendor")}
           >
             Create Vendor
           </button>
 
           <button
-            className={`dashboard-btn  ${activeSection === "bank" ? "active" : ""}`}
+            className={`dashboard-btn  sliding-overlay-btn ${activeSection === "bank" ? "form-btn" : ""}`}
             onClick={() => setActiveSection("bank")}
           >
             Create Bank User

@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import DataTable from "../../components/common/DataTable";
 import Tooltip from "../../components/common/Tooltip";
-
+import EditIcon from '@mui/icons-material/Edit';
 
 const GetADCAdmins = ({ admins, fetchAdmins, onEdit }) => {
   useEffect(() => {
@@ -38,7 +38,7 @@ const GetADCAdmins = ({ admins, fetchAdmins, onEdit }) => {
             className="btn btn-edit"
             onClick={() => onEdit(admin)}
           >
-            Edit
+            <EditIcon />
           </button>
         </Tooltip>
       )}

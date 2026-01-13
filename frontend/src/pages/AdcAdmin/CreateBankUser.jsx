@@ -263,7 +263,7 @@ const CreateBankUser = () => {
 
       <button
         type="submit"
-        className="form-btn"
+        className="form-btn sliding-overlay-btn"
         disabled={loading}
       >
         {loading ? "Creating..." : "Create Bank User"}

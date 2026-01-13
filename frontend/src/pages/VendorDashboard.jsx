@@ -22,31 +22,31 @@ export default function VendorDashboard() {
       {/* ACTION BUTTONS */}
       <div className="dashboard-actions">
         <button
-          className={`dashboard-btn  ${activeSection === "stamp" ? "active" : ""}`}
+          className={`dashboard-btn sliding-overlay-btn  ${activeSection === "stamp" ? "form-btn" : ""}`}
           onClick={() => setActiveSection("stamp")}
         >
           Issue Stamp
         </button>
 
         <button
-          className={`dashboard-btn ${activeSection === "challan" ? "active" : ""}`}
+          className={`dashboard-btn sliding-overlay-btn ${activeSection === "challan" ? "form-btn" : ""}`}
           onClick={() => setActiveSection("challan")}
         >
           Generate Challan
         </button>
 
         <button
-          className={`dashboard-btn ${activeSection === "inventory" ? "active" : ""}`}
+          className={`dashboard-btn sliding-overlay-btn ${activeSection === "inventory" ? "form-btn" : ""}`}
           onClick={() => setActiveSection("inventory")}
         >
           Inventory
         </button>
 
         <button
-          className={`dashboard-btn ${activeSection === "AllStamp" ? "active" : ""}`}
+          className={`dashboard-btn sliding-overlay-btn ${activeSection === "AllStamp" ? "form-btn" : ""}`}
           onClick={() => setActiveSection("AllStamp")}
         >
-        
+
           AllStamp
         </button>
         {/* <button
@@ -88,7 +88,7 @@ export default function VendorDashboard() {
         {activeSection === "AllStamp" && (
           <div className="dashboard-card">
             {/* <GetAllStamp /> */}
-            <IssuedStamps/>
+            <IssuedStamps />
           </div>
         )}
         {/* {activeSection === "search" && (

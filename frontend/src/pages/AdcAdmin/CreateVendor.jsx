@@ -4,6 +4,8 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import PUNJAB from "../../utils/District";
+import CustomSelect from "../../components/common/CustomSelect";
+
 const CreateVendor = ({ districtName, districtId }) => {
 
   const {
@@ -34,29 +36,24 @@ const CreateVendor = ({ districtName, districtId }) => {
   const [tehsils, setTehsils] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Watch tehsil value for updates
-  const selectedTehsilId = watch("tehsil");
 
-  // When district changes, update tehsils & reset tehsil selection
+
   useEffect(() => {
     setValue("district", districtName || "");
     setValue("districtId", districtId || "");
     setValue("tehsil", "");
     setValue("tehsilName", "");
-    setTehsils([]);
 
     if (districtId) {
-      const districtObj = PUNJAB.find((d) => d.districtId === districtId);
+      const districtObj = PUNJAB.find(
+        (d) => d.districtId === districtId
+      );
       setTehsils(districtObj?.tehsils || []);
+    } else {
+      setTehsils([]);
     }
   }, [districtName, districtId, setValue]);
 
-  // Handle tehsil selection
-  const handleTehsilChange = (e) => {
-    const selected = tehsils.find((t) => t.tehsilId === e.target.value);
-    setValue("tehsil", selected?.tehsilId || "", { shouldValidate: true });
-    setValue("tehsilName", selected?.tehsilName || "");
-  };
 
 
   const onSubmit = async (data) => {
@@ -109,7 +106,7 @@ const CreateVendor = ({ districtName, districtId }) => {
           contactno: "",
           imageFile: null,
         });
-        setTehsils([]);
+
       }
 
       /* BACKEND VALIDATION FAILURE (no reset) */
@@ -129,11 +126,8 @@ const CreateVendor = ({ districtName, districtId }) => {
   };
 
   return (
-
     <>
-
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
-
         <div className="input-group">
           {/* full name */}
           <div className="form-group">
@@ -189,6 +183,7 @@ const CreateVendor = ({ districtName, districtId }) => {
               placeholder=" "
             />
 
+
             <label>Password</label>
             {errors.password && <span className="input-error">{errors.password.message}</span>}
           </div>
@@ -219,24 +214,21 @@ const CreateVendor = ({ districtName, districtId }) => {
           </div>
           {/* Tehsil */}
           <div className="form-group col-30">
-            <select
-              {...register("tehsil", { required: "Tehsil is required" })}
-              value={selectedTehsilId || ""}
-              onChange={handleTehsilChange}
-              className={errors.tehsil ? "error" : ""}
-              disabled={!tehsils.length}
-            >
-              <option value="">Select Tehsil</option>
-              {tehsils.map((t) => (
-                <option key={t.tehsilId} value={t.tehsilId}>
-                  {t.tehsilName}
-                </option>
-              ))}
-            </select>
-            {errors.tehsil && <span className="input-error">{errors.tehsil.message}</span>}
+            <CustomSelect
+              name="tehsil"
+              label="Tehsil"
+              placeholder="Select Tehsil"
+              options={tehsils.map((t) => ({
+                value: t.tehsilId,
+                label: t.tehsilName,
+              }))}
+              value={watch("tehsil")}
+              register={register}
+              setValue={setValue}
+              required
+              error={errors.tehsil?.message}
+            />
           </div>
-
-
         </div>
 
         <div className="input-group">
@@ -260,6 +252,8 @@ const CreateVendor = ({ districtName, districtId }) => {
               <span className="input-error">{errors.cnic.message}</span>
             )}
           </div>
+
+
 
           {/* LICENCE */}
           <div className="form-group">
@@ -304,13 +298,16 @@ const CreateVendor = ({ districtName, districtId }) => {
 
         </div>
         {/* Hidden fields for district & tehsilName */}
+        {/*     
         <input type="hidden" {...register("district")} />
         <input type="hidden" {...register("districtId")} />
-        <input type="hidden" {...register("tehsilName")} />
-        <button type="submit" className="form-btn" disabled={loading}>
+        <input type="hidden" {...register("tehsilName")} /> */}
+
+
+        <button type="submit" className="form-btn sliding-overlay-btn" disabled={loading}>
           {loading ? "Creating..." : "Create Vendor"}
         </button>
-      </form>
+      </form >
     </>
   );
 };

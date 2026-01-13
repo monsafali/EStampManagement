@@ -2,9 +2,10 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import ChatSupport from "./ChatSupport";
 import GoogleLogin from "./GoogleLogin";
+import ChatIcon from '@mui/icons-material/Chat';
 import { GoogleAuthContext } from "../ GoogleAuthContext";
 import "../styles/components/chat.css";
-
+import Tooltip from "./common/Tooltip";
 export default function ChatWidget() {
   const { googleUser } = useContext(GoogleAuthContext);
   const [open, setOpen] = useState(false);
@@ -30,15 +31,18 @@ export default function ChatWidget() {
   return (
     <div className="chat-widget-container" ref={widgetRef}>
       {/* Floating Button */}
-      <button 
-        className="chat-widget-btn"
-        onClick={(e) => {
-          e.stopPropagation();
-          setOpen(!open);
-        }}
-      >
-        💬 Need help?
-      </button>
+      <Tooltip text="chat with AI" position="top">
+        <button
+          className="chat-widget-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen(!open);
+          }}
+        >
+          <ChatIcon /> <span>Need help?</span>
+        </button>
+      </Tooltip>
+
 
       {/* Popup Window */}
       {open && (

@@ -42,7 +42,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="app-layout">
-           <Orbit /><Orbit /><Orbit /><Orbit />
+           {/* <Orbit /><Orbit /><Orbit /><Orbit /> */}
         {/* <Navbar /> */}
         {user && <Navbar />}
 

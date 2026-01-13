@@ -12,6 +12,7 @@ import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ReportIcon from '@mui/icons-material/Report';
 import EditIcon from '@mui/icons-material/Edit';
 import Modal from "../../components/common/Modal";
+import CustomSelect from "../../components/common/CustomSelect";
 
 const columns = [
   {
@@ -205,23 +206,16 @@ const GetVendor = () => {
       {/* ---------- VENDORS EXIST ---------- */}
       {hasVendors && (
         <>
-          {/* Dropdown */}
-          <div className="form-group select-group">
-            <select
-              className="form-select"
+          <div className="tahsil-dropdown">
+            <CustomSelect
+              name="tehsilFilter"
+              label="Filter by Tehsil"
+              placeholder="All Tehsils"
+              options={[{ value: "", label: "All Tehsils" }, ...tehsils.map((t) => ({ value: t, label: t }))]}
               value={selectedTehsil}
-              onChange={(e) => setSelectedTehsil(e.target.value)}
-            >
-              <option value="">All Tehsils</option>
-
-              {tehsils.map((t, index) => (
-                <option key={index} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
+              onChange={(val) => setSelectedTehsil(val)}
+            />
           </div>
-
           {/* ---------- NO DATA AFTER FILTER ---------- */}
           {!hasFilteredVendors && (
             <div className="empty-state">
