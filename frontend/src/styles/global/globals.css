@@ -6,32 +6,43 @@
 
 :root {
   /* Government-style colors (greens) */
-  --color-primary: #065f46;       /* Dark green for main elements */
-  --color-primary-600: #047857;   /* Slightly brighter green for hover */
+  --color-primary: #065f46;
+  /* Dark green for main elements */
+  --color-primary-600: #047857;
+  /* Slightly brighter green for hover */
   --color-logo: var(--color-primary);
 
-  --bg-1: #f0fdf4;     /* Light greenish background */
-  --bg-2: #dcfce7;     /* Slightly darker greenish tone */
-  --page-bg: #e6f4ea;  /* Page background */
+  --bg-1: #f0fdf4;
+  /* Light greenish background */
+  --bg-2: #dcfce7;
+  /* Slightly darker greenish tone */
+  --page-bg: #e6f4ea;
+  /* Page background */
 
-  --surface: hsl(140, 40%, 95%); /* Cards and surfaces */
+  --surface: hsl(140, 40%, 95%);
+  /* Cards and surfaces */
   --text-default: #1f2937;
   --text-strong: #0f172a;
   --muted: #6d747e;
-  --border: hsl(129, 13%, 80%); 
 
-  --green-600: #065f46; /* Keep consistent with primary green */
+
+  --border: #c4e0ce;
+  --green-600: #065f46;
+  /* Keep consistent with primary green */
   --gray-500: hsl(186, 15%, 59%);
-  --h1-heading: #064e3b; /* Dark green heading */
+  --h1-heading: #064e3b;
+  /* Dark green heading */
 
   --chat-bg: #f0fdf4;
   --chat-border: #dcfce7;
 
-  --success: #16a34a; /* Keep bright green for success */
+  --success: #16a34a;
+  /* Keep bright green for success */
   --danger: #ef4444;
   --error: #dc2626;
 
-  --overlay: rgba(6, 95, 70, 0.5); /* Dark green overlay */
+  --overlay: rgba(6, 95, 70, 0.5);
+  /* Dark green overlay */
 
   --shadow-md: 0 20px 50px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 25px 70px rgba(0, 0, 0, 0.08);
