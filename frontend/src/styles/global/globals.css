@@ -18,7 +18,7 @@
   --text-default: #1f2937;
   --text-strong: #0f172a;
   --muted: #6d747e;
-  --border: hsl(140, 9%, 75%); /* Soft green borders */
+  --border: hsl(129, 13%, 80%); 
 
   --green-600: #065f46; /* Keep consistent with primary green */
   --gray-500: hsl(186, 15%, 59%);

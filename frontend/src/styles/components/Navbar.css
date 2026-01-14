@@ -1,9 +1,9 @@
-/* ================= Navbar (E-Stamp Theme Match) ================= */
+
 
 .navbar {
   height: 64px;
   background: var(--surface);
-  border-bottom: 1px solid var(--border);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -11,31 +11,37 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  background: #ffffff;            
+  border-bottom: 4px solid #16a34a; 
+  border-radius: 0 0 16px 16px;    
+  box-shadow: 0 10px 15px rgba(0,0,0,0.15); 
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
 }
 
 .navbar-logo {
   display: flex;
-  /* flex */
   align-items: center;
-  /* items-center */
   gap: 16px;
-  /* space-x-4 (4 = 16px) */
+
 }
 /* Image */
 .navbar-logo img {
-  height: 56px;               /* h-14 = 56px */
+  height: 56px;         
   width: auto;
   object-fit: contain;
 }
 
 /* Title */
 .navbar-title {
-  font-weight: 800;           /* font-extrabold */
-  letter-spacing: 0.04em;     /* tracking-wide */
-  color: var(--h1-heading); /* your global green */
+  font-weight: 800;          
+  letter-spacing: 0.04em;     
+  color: var(--h1-heading);
   text-align: center;
 
-  font-size: 16px;            /* text-base */
+  font-size: 16px;          
 }
 
 /* sm:text-xl */
