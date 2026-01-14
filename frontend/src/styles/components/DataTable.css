@@ -1,10 +1,9 @@
 /* Card */
 .manage-info-card {
-  background: var(--bg-2);
-  padding: 22px;
   border-radius: 18px;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border);
+  padding: 10px;
 }
 .manage-info-title {
   font-size: 20px;
@@ -19,11 +18,7 @@
 .data-table {
   width: 100%;
   min-width: 700px;
-  background: var(--bg-2);
-}
-
-.data-table thead {
-  background: var(--bg-2);
+  /* background: var(--bg-2); */
 }
 
 .table-actions {
@@ -48,6 +43,8 @@
 /* Hover */
 .data-table tbody tr:hover {
   background: rgba(79, 70, 229, 0.04);
+  background-color:var(--bg-2);
+  cursor: pointer;
 }
 
 /* =========================

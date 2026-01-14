@@ -58,7 +58,7 @@
 .dashboard-actions {
   grid-area: sidebar;
   position: fixed;
-  top: 64px;
+  top: 84px;
   left: 0;
   width: 230px;
   height: 100vh;
@@ -70,10 +70,11 @@
   gap: 6px;
   padding: 19px 6px;
   background-color: var(--surface);
-  border-right: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
+  background-color: var(--bg-2);
 
 }
+
 .dashboard-btn {
   text-align: left;
   border-radius: 8px;
