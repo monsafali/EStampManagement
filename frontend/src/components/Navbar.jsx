@@ -9,7 +9,7 @@ import logo from "../assets/e-stamp-logo.png"
 
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import "../styles/components/Navbar.css";
 
@@ -45,7 +45,7 @@ export default function Navbar() {
       setOpenProfile(false);
       setShowEditForm(false);
     }
-  
+
   }, [menuOpen]);
 
   return (
@@ -53,25 +53,10 @@ export default function Navbar() {
       <div className="navbar-logo">
         <img src={logo} alt="m" />
         <h1 className="navbar-title">E-stamp</h1>
-  
+
       </div>
 
       <nav className={`navbar-links ${menuOpen ? "open" : ""}`}>
-        {!user && <Link to="/login" className="navbar-link">Login</Link>}
-
-        {user?.role === "vendor" && (
-          <Link to="/vendor" className="navbar-link">Vendor</Link>
-        )}
-        {user?.role === "bank" && (
-          <Link to="/bank" className="navbar-link">Bank</Link>
-        )}
-        {user?.role === "ADCAdmin" && (
-          <Link to="/adc" className="navbar-link">ADC Admin</Link>
-        )}
-        {user?.role === "super-admin" && (
-          <Link to="/superadmin" className="navbar-link">Super Admin</Link>
-        )}
-
         {/*  Profile Dropdown */}
         {user && (
           <Tooltip text="View Profile" position="bottom">
@@ -80,7 +65,15 @@ export default function Navbar() {
                 className="user-btn"
                 onClick={() => setOpenProfile((prev) => !prev)}
               >
-                <span>Profile</span>  <span>⌄</span>
+                <span>Profile</span>
+                <KeyboardArrowDownIcon
+                  sx={{
+                    color: openProfile
+                      ? "var(--color-primary)"
+                      : "var(--text-strong)",
+                  }}
+                  className={`arrow ${openProfile ? "rotate" : ""}`}
+                />
               </button>
               {openProfile && (
                 <div className="user-dropdown">
@@ -89,7 +82,7 @@ export default function Navbar() {
                   <p><b>Role:</b> {user.role}</p>
 
                   <button
-                    className="edit-profile-btn"
+                    className="edit-profile-btn sliding-overlay-btn"
                     onClick={() => setShowEditForm(true)}
                   >
                     Change Password

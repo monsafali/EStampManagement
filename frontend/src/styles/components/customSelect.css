@@ -53,7 +53,8 @@
 
   /* Firefox scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: var(--color-primary-600) rgba(0, 0, 0, 0.1);
+  scrollbar-color: var(--success) rgba(0, 0, 0, 0.1);
+
 }
 
 /* Option */
@@ -77,7 +78,7 @@
 
 /* Chrome / Edge / Safari scrollbar */
 .select-options::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
 }
 
 .select-options::-webkit-scrollbar-track {
@@ -93,4 +94,5 @@
 
 .select-options::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-primary);
+
 }

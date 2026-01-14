@@ -14,15 +14,31 @@
   position: sticky;
   top: 0;
   z-index: 50;
-padding: 2.54rem;
+  padding: 2.54rem;
 }
 
 .navbar-logo {
   display: flex;
   align-items: center;
   gap: 16px;
-
 }
+
+/* NAVBAR ARROW (MUI SVG) */
+.user-btn .arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.user-btn .arrow.rotate {
+  transform: rotate(180deg);
+}
+
+
 
 /* Image */
 .navbar-logo img {
@@ -62,39 +78,17 @@ padding: 2.54rem;
   gap: 14px;
 }
 
-.navbar-link {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-default);
-  padding: 8px 12px;
-  border-radius: 10px;
-  transition: 0.2s;
-}
 
-.navbar-link:hover {
-  background: var(--chat-bg);
-  color: var(--color-primary);
-}
 
-/* 
-.navbar-btn {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-600));
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 12px;
-  box-shadow: var(--shadow-sm);
-} */
-
-/* .navbar-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-} */
 
 /* User Profile Dropdown */
 .user-profile {
   position: relative;
+}
+
+.user-btn:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(6, 95, 70, 0.15);
 }
 
 .user-btn {
@@ -114,7 +108,7 @@ padding: 2.54rem;
   position: absolute;
   right: 0;
   top: 45px;
-  width: 240px;
+  width: 255px;
   background: var(--surface);
   border-radius: 14px;
   box-shadow: var(--shadow-lg);
@@ -131,28 +125,13 @@ padding: 2.54rem;
   color: var(--text-default);
 }
 
-/* 
-.dropdown-logout {
-  margin-top: 10px;
-  text-align: right;
-} */
-
-
-
-
 .edit-profile-btn {
   margin-top: 10px;
-  background-color: oklch(62.7% 0.194 149.214);
+  background-color: var(--success);
   color: white;
-  border: none;
-  padding: 8px;
   width: 100%;
-  border-radius: 6px;
-  cursor: pointer;
+
 }
-
-
-
 
 /* ================= Mobile Navbar ================= */
 
@@ -175,29 +154,33 @@ padding: 2.54rem;
     left: 0;
     width: 100%;
     background: var(--surface);
-    flex-direction: column;
-    align-items: start;
-    padding: 12px;
-    border-bottom: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
+    justify-content: space-around;
 
+    padding: 12px;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
-    transition: 0.25s ease;
-    /* 
-    background: red; */
+
+
+    /* background: red; */
+    border-bottom: 4px solid var(--success);
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.15);
   }
 
   .navbar-links.open {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
+
+    transition:
+      transform 0.25s ease-out,
+      opacity 0.2s ease-out;
   }
 
   .user-dropdown {
     position: fixed;
-    top: 154px;
+    top: 65px;
     left: 0;
     width: 100%;
     overflow-y: auto;

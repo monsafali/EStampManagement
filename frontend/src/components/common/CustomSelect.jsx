@@ -23,8 +23,8 @@ const CustomSelect = ({
 
   const field = register
     ? register(name, {
-        required: required ? `${label || name} is required` : false,
-      })
+      required: required ? `${label || name} is required` : false,
+    })
     : null;
 
   // close on outside click
@@ -131,6 +131,7 @@ const CustomSelect = ({
         >
           <span>{selectedOption?.label || placeholder}</span>
           <KeyboardArrowDownIcon
+            sx={{ color: "var(--color-primary)" }}
             className={`arrow ${open ? "rotate" : ""}`}
           />
         </div>
