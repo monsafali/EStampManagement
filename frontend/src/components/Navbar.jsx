@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useContext, useState, useRef, useEffect } from "react";
 
-
 import { AuthContext } from "../AuthContext";
 import LogoutButton from "./LogoutButton";
 import Tooltip from "./common/Tooltip";
 import ChangePassword from "./ChangePassword";
+import logo from "../assets/e-stamp-logo.png"
 
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -45,12 +45,16 @@ export default function Navbar() {
       setOpenProfile(false);
       setShowEditForm(false);
     }
+  
   }, [menuOpen]);
-
 
   return (
     <header className="navbar">
-      <div className="navbar-logo">E-Stamp System</div>
+      <div className="navbar-logo">
+        <img src={logo} alt="m" />
+        <h1 className="navbar-title">E-stamp</h1>
+  
+      </div>
 
       <nav className={`navbar-links ${menuOpen ? "open" : ""}`}>
         {!user && <Link to="/login" className="navbar-link">Login</Link>}
@@ -67,7 +71,7 @@ export default function Navbar() {
         {user?.role === "super-admin" && (
           <Link to="/superadmin" className="navbar-link">Super Admin</Link>
         )}
-      
+
         {/*  Profile Dropdown */}
         {user && (
           <Tooltip text="View Profile" position="bottom">

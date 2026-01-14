@@ -14,23 +14,44 @@
 }
 
 .navbar-logo {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-logo);
-  letter-spacing: 0.3px;
-  background: linear-gradient(90deg,
-      #818cf8,
-      #8b5cf6,
-      #ec4899);
-
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-
-  transition: background 0.3s ease;
-  font-weight: 600;
+  display: flex;
+  /* flex */
+  align-items: center;
+  /* items-center */
+  gap: 16px;
+  /* space-x-4 (4 = 16px) */
+}
+/* Image */
+.navbar-logo img {
+  height: 56px;               /* h-14 = 56px */
+  width: auto;
+  object-fit: contain;
 }
 
+/* Title */
+.navbar-title {
+  font-weight: 800;           /* font-extrabold */
+  letter-spacing: 0.04em;     /* tracking-wide */
+  color: var(--h1-heading); /* your global green */
+  text-align: center;
+
+  font-size: 16px;            /* text-base */
+}
+
+/* sm:text-xl */
+@media (min-width: 640px) {
+  .navbar-title {
+    font-size: 20px;
+  }
+}
+
+/* md:text-2xl + md:text-left */
+@media (min-width: 768px) {
+  .navbar-title {
+    font-size: 24px;
+    text-align: left;
+  }
+}
 .navbar-links {
   display: flex;
   align-items: center;
@@ -196,11 +217,3 @@
 
 
 }
-
-
-
-
-
-
-
-
