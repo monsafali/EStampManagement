@@ -2,10 +2,10 @@
 
  .form-container {
    background: var(--surface);
-   /* background-color: transparent; */
    border-radius: 18px;
    padding: 20px;
    max-width: 600px;
+      /* max-width:100%; */
    /* margin: 0 auto;  */
    box-shadow: var(--shadow-sm);
  }

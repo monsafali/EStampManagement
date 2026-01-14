@@ -45,6 +45,7 @@
   font-size: 30px;
   font-weight: 800;
   color: var(--h1-heading);
+  color: rgb(17 24 39);;
 }
 
 .dashboard-header p {

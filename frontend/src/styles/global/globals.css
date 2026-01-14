@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 :root {
   /* Government-style colors (greens) */
   --color-primary: #065f46;
@@ -17,6 +16,7 @@
   --bg-2: #dcfce7;
   /* Slightly darker greenish tone */
   --page-bg: #e6f4ea;
+    /* --page-bg: white; */
   /* Page background */
 
   --surface: hsl(140, 40%, 95%);
