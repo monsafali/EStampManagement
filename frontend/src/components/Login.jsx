@@ -213,42 +213,17 @@ function Login() {
             className="logout-other-btn"
             disabled={logoutLoading}
           >
-            {logoutLoading ? "Processing..." : "Logout Other Device"}
+             {logoutLoading ? "Processing..." : "Logout Other Device"}
           </button>
         </div>
       </div>
-
       {/* OTP POPUP */}
-      {/* {showOtpPopup && (
-        <div className="otp-overlay">
-          <div className="otp-box">
-            <h3>Enter OTP</h3>
-
-            <input
-              placeholder="Type your OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-
-            <div className="otp-actions">
-              <button onClick={verifyOtp} className="otp-btn verify-btn">
-                Verify OTP
-              </button>
-              <button
-                onClick={() => setShowOtpPopup(false)}
-                className="otp-btn close-btn"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
       {showOtpPopup && (
         <Modal
           title="Enter OTP"
           subtitle="We sent a verification code to your email"
           onClose={() => setShowOtpPopup(false)}
+          closeOnOverlay={false}
         >
           <div className="otp-content">
             <input

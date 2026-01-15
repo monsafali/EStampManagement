@@ -1,6 +1,8 @@
 // UpdateADCAdmin.jsx
 import React from "react";
 import Modal from "../../components/common/Modal";
+import "../../styles/components/UpdateADCAdmin.css"
+
 const UpdateADCAdmin = ({
   form,
   handleChange,
@@ -22,7 +24,7 @@ const UpdateADCAdmin = ({
       }
       onClose={cancelEdit}
     >
-      <form onSubmit={updateAdmin}>
+      <form onSubmit={updateAdmin} className="update-adc-admin-form">
         <input
           name="fullname"
           value={form.fullname}

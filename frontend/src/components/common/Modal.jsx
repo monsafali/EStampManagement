@@ -1,9 +1,21 @@
 import React from "react";
 import "../../styles/components/modal.css";
 
-const Modal = ({ title, subtitle, children, onClose }) => {
+const Modal = ({
+  title,
+  subtitle,
+  children,
+  onClose,
+  closeOnOverlay = true, // 👈 default behavior
+}) => {
+  const handleOverlayClick = () => {
+    if (closeOnOverlay) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={handleOverlayClick}>
       <div
         className="update-adc-modal"
         onClick={(e) => e.stopPropagation()}
