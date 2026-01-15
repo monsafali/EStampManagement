@@ -30,20 +30,15 @@
  .col-30 {
    flex: 1;
  }
-
  /* validation */
  .input-error {
-
    display: block;
    min-height: 14px;
-   /* reserve space */
    margin-top: 2px;
    color: var(--danger);
    font-size: 12px;
    font-style: italic;
-
  }
-
  .form-group input.error,
  .form-group textarea.error,
  .form-group select.error,

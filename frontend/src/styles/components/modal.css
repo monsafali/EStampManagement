@@ -10,9 +10,29 @@
   justify-content: center;
   animation: fadeIn 0.25s ease;
 }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-strong);
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.modal-close-btn:hover {
+  background: rgba(3, 3, 3, 0.233);
+
+}
 
 /* CENTER MODAL */
-.update-adc-modal {
+.overlay-box {
   width: 100%;
   max-width: 520px;
   background: var(--surface);
@@ -22,7 +42,7 @@
   animation: scaleIn 0.25s ease;
 }
 
-.update-adc-modal h3 {
+.overlay-box h3 {
   font-size: 22px;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -34,13 +54,16 @@
 }
 
 /* FORM INPUTS */
-.update-adc-modal input {
+.overlay-box input {
   width: 100%;
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid var(--border);
+     outline: none;
 }
-
+.overlay-box input:focus{
+   border-color: var(--green-600);
+}
 /* ACTIONS */
 .update-actions {
   display: flex;

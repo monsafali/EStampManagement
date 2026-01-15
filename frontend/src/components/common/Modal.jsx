@@ -1,4 +1,5 @@
 import React from "react";
+import CloseIcon from "@mui/icons-material/Close";
 import "../../styles/components/modal.css";
 
 const Modal = ({
@@ -6,7 +7,7 @@ const Modal = ({
   subtitle,
   children,
   onClose,
-  closeOnOverlay = true, // 👈 default behavior
+  closeOnOverlay = true,
 }) => {
   const handleOverlayClick = () => {
     if (closeOnOverlay) {
@@ -17,13 +18,30 @@ const Modal = ({
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div
-        className="update-adc-modal"
+        className="overlay-box"
         onClick={(e) => e.stopPropagation()}
       >
-        {title && <h3>{title}</h3>}
-        {subtitle && <p className="update-sub">{subtitle}</p>}
+        {/* HEADER */}
+        <div className="modal-header">
+          <div>
+            {title && <h3>{title}</h3>}
+            {subtitle && <p className="update-sub">{subtitle}</p>}
+          </div>
 
-        {children}
+          {/* CLOSE BUTTON */}
+          <button
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        {/* BODY */}
+        <div className="modal-body">
+          {children}
+        </div>
       </div>
     </div>
   );

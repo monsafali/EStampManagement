@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DeleteIcon from '@mui/icons-material/Delete';
-import DataTable from "../../components/common/DataTable";
 import { toast } from "react-toastify";
 
-import Tooltip from "../../components/common/Tooltip";
-import PasswordInput from "../../components/common/PasswordInput";
+import DeleteIcon from '@mui/icons-material/Delete';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ReportIcon from '@mui/icons-material/Report';
 import EditIcon from '@mui/icons-material/Edit';
+
+import DataTable from "../../components/common/DataTable";
+import Tooltip from "../../components/common/Tooltip";
 import Modal from "../../components/common/Modal";
 import CustomSelect from "../../components/common/CustomSelect";
+import PasswordInput from "../../components/common/PasswordInput";
+
+
+
+import "../../styles/components/DeleteVendor.css"
 
 const columns = [
   {
@@ -53,6 +58,11 @@ const GetVendor = () => {
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [vendors, setVendors] = useState([]);
   const [selectedTehsil, setSelectedTehsil] = useState("");
+
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [vendorToDelete, setVendorToDelete] = useState(null);
+
+  const [confirmUsername, setConfirmUsername] = useState("");
 
 
   const [passwordForm, setPasswordForm] = useState({
@@ -155,46 +165,104 @@ const GetVendor = () => {
     }
   };
 
-  const deleteVendor = async (id) => {
-    toast(
-      ({ closeToast }) => (
-        <div>
-          <p>Are you sure you want to delete this vendor?</p>
-          <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
-            <button
-              className="btn btn-danger"
-              onClick={async () => {
-                try {
-                  await axios.delete(
-                    `http://localhost:5000/api/adc/deleteVendor/${id}`,
-                    { withCredentials: true }
-                  );
-                  fetchVendors();
-                  toast.success("Vendor deleted successfully");
-                } catch {
-                  toast.error("Failed to delete vendor");
-                }
-                closeToast();
-              }}
-            >
-              Delete
-            </button>
 
-            <button
-              className="btn btn-secondary"
-              onClick={closeToast}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ),
-      { autoClose: false }
-    );
+  //   toast(
+  //     ({ closeToast }) => (
+  //       <div>
+  //         <p>Are you sure you want to delete this vendor?</p>
+  //         <div style={{ display: "flex", gap: "8px", marginTop: "8px" }}>
+  //           <button
+  //             className="btn btn-danger"
+  //             onClick={async () => {
+  //               try {
+  //                 await axios.delete(
+  //                   `http://localhost:5000/api/adc/deleteVendor/${id}`,
+  //                   { withCredentials: true }
+  //                 );
+  //                 fetchVendors();
+  //                 toast.success("Vendor deleted successfully");
+  //               } catch {
+  //                 toast.error("Failed to delete vendor");
+  //               }
+  //               closeToast();
+  //             }}
+  //           >
+  //             Delete
+  //           </button>
+
+  //           <button
+  //             className="btn btn-secondary"
+  //             onClick={closeToast}
+  //           >
+  //             Cancel
+  //           </button>
+  //         </div>
+  //       </div>
+  //     ),
+  //     { autoClose: false }
+  //   );
+  // };
+  const deleteVendor = (vendor) => {
+    setVendorToDelete(vendor);
+    setConfirmUsername("");
+    setDeleteModal(true);
   };
+  const confirmDeleteVendor = async () => {
+    if (!vendorToDelete) return;
+
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/adc/deleteVendor/${vendorToDelete._id}`,
+        { withCredentials: true }
+      );
+
+      toast.success("Vendor deleted successfully");
+      fetchVendors();
+    } catch (error) {
+      toast.error("Failed to delete vendor");
+    } finally {
+      setDeleteModal(false);
+      setVendorToDelete(null);
+      setConfirmUsername("");
+    }
+  };
+
 
   return (
     <div>
+      {deleteModal && vendorToDelete && (
+        <Modal
+          title="Confirm Vendor Deletion"
+          subtitle={`This action cannot be undone.`}
+          onClose={() => setDeleteModal(false)}
+          closeOnOverlay={false}
+        >
+          <div className="delete-confirm-box">
+            <b>
+              To confirm, type   <i>"{vendorToDelete.username}"</i> in the box below
+
+            </b>
+            {/* Confirmation input */}
+            <input
+              type="text"
+              placeholder="Type vendor username to confirm"
+              value={confirmUsername}
+              onChange={(e) => setConfirmUsername(e.target.value)}
+            />
+
+            <div className="modal-actions">
+              <button
+                className="btn btn-danger"
+                disabled={confirmUsername !== vendorToDelete.username}
+                onClick={confirmDeleteVendor}
+              >
+                Delete Vendor
+              </button>
+
+            </div>
+          </div>
+        </Modal>
+      )}
 
       {/* ---------- NO VENDORS AT ALL ---------- */}
       {!hasVendors && (
@@ -253,7 +321,7 @@ const GetVendor = () => {
                   <Tooltip text="Delete Vendor">
                     <button
                       className="btn btn-danger"
-                      onClick={() => deleteVendor(vendor._id)}
+                      onClick={() => deleteVendor(vendor)}
                     >
                       <DeleteIcon />
                     </button>
@@ -289,29 +357,29 @@ const GetVendor = () => {
           title="Update Password"
           onClose={() => setShowModal(false)}
         >
-    
-            <PasswordInput
-              label="New Password"
-              value={passwordForm.newpassword}
-              onChange={(e) =>
-                setPasswordForm({
-                  ...passwordForm,
-                  newpassword: e.target.value,
-                })
-              }
-            />
 
-            <PasswordInput
-              label="Confirm Password"
-              value={passwordForm.confirmPassword}
-              onChange={(e) =>
-                setPasswordForm({
-                  ...passwordForm,
-                  confirmPassword: e.target.value,
-                })
-              }
-            />
-  
+          <PasswordInput
+            label="New Password"
+            value={passwordForm.newpassword}
+            onChange={(e) =>
+              setPasswordForm({
+                ...passwordForm,
+                newpassword: e.target.value,
+              })
+            }
+          />
+
+          <PasswordInput
+            label="Confirm Password"
+            value={passwordForm.confirmPassword}
+            onChange={(e) =>
+              setPasswordForm({
+                ...passwordForm,
+                confirmPassword: e.target.value,
+              })
+            }
+          />
+
           <div className="update-actions">
             <button
               className="btn-primary"

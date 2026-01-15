@@ -1,0 +1,19 @@
+.delete-confirm-box{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.delete-confirm-box input{
+    border-color: var(--danger);
+}
+.delete-confirm-box button{
+    margin-right: 1rem;
+    padding: 0.66rem !important;
+}
+.delete-confirm-box .modal-actions {
+  display: flex;
+  justify-content: center;
+}
+.delete-confirm-box input:focus{
+   border-color: var(--danger);
+}

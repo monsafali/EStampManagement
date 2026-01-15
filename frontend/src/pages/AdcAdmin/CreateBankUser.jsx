@@ -251,7 +251,6 @@ const CreateBankUser = () => {
           }}
           error={errors.password?.message}
         />
-
       </div>
 
       <button
