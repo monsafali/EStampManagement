@@ -4,19 +4,23 @@ import { AuthContext } from "../AuthContext";
 import CreateADCAdmin from './SuperAdmin/CreateADCAdmin';
 import ManageADCAdmins from "./SuperAdmin/ManageADCAdmins";
 import UploadRagForm from '../components/UploadRagForm';
+
 import "../styles/pages/dashboard.shared.css";
 
 
 
 export default function SuperAdminDashboard() {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  
   // Track active section
   const [activeSection, setActiveSection] = useState("create"); // default create
 
-  if (loading) return <p>Loading...</p>;
+
+
 
   return (
     <div className="main-dashborad">
+   
       <div className="dashboard-actions">
         <button
           className={`dashboard-btn sliding-overlay-btn ${activeSection === "create" ? "form-btn" : ""}`}

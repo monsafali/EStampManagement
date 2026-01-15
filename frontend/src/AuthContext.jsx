@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
 
   // Check if user cookie is still valid
   useEffect(() => {
+ 
     fetch("http://localhost:5000/api/auth/Getme", {
       credentials: "include",
     })

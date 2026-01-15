@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import Login from "./components/Login";
+import Loading from "./components/common/Loading.jsx";
 import ADCDashboard from "./pages/ADCDashboard";
 import BankDashboard from "./pages/BankDashboard";
 import SuperAdminDashboard from "./pages/SuperAdminDashboard";
@@ -15,13 +16,14 @@ import ProtectedRoute from "./ProtectedRoute";
 import Success from "./pages/Vendor/Success";
 import VendorMontyReport from "./pages/AdcAdmin/VendorMontyReport.jsx";
 import BothLogins from './components/BothLogins';
-import Orbit from "./components/common/Orbit.jsx";
 
 
 export default function App() {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return <Loading fullscreen text="Checking authentication..." />;
+  }
 
   const redirectRole = () => {
     if (!user) return "/login";
@@ -39,15 +41,15 @@ export default function App() {
     }
   };
 
+
+
   return (
     <BrowserRouter>
       <div className="app-layout">
-           {/* <Orbit /><Orbit /><Orbit /><Orbit /> */}
         {/* <Navbar /> */}
         {user && <Navbar />}
-
         <main className="app-main">
-          {/* <div className="main-container wide"> */}
+
             <Routes>
               <Route
                 path="/login"
@@ -99,7 +101,7 @@ export default function App() {
 
               <Route path="*" element={<Navigate to={redirectRole()} />} />
             </Routes>
-          {/* </div> */}
+
         </main>
         {user && <Footer />}
 

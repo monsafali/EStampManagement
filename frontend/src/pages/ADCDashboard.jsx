@@ -2,22 +2,24 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthContext";
 import { Outlet, useLocation } from "react-router-dom"
 
+
 import GetVendor from "./AdcAdmin/GetVendor";
 import CreateVendor from "./AdcAdmin/CreateVendor";
 import CreateBankUser from "./AdcAdmin/CreateBankUser";
 
-;
 import "../styles/pages/ADCdashboard.css"
 import "../styles/pages/dashboard.shared.css";
 
 export default function ADCDashboard() {
-  const { user, loading } = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState("vendors");
   const location = useLocation();
 
-  if (loading) return <p>Loading...</p>;
 
-  const isMonthlyReportOpen = location.pathname.includes("monthly-report");
+
+
+
+const isMonthlyReportOpen = location.pathname.includes("monthly-report");
 
   return (
     <div className="main-dashborad">

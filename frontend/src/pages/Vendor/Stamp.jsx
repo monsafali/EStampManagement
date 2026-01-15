@@ -3,13 +3,12 @@ import axios from "axios";
 import { AuthContext } from "../../AuthContext";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import CustomSelect from "../../components/common/CustomSelect";
 
 export default function Stamp() {
-
   const { user } = useContext(AuthContext);
   const [geoTehsil, setGeoTehsil] = useState("");
   const [geoError, setGeoError] = useState("");
-
 
   const {
     register,
@@ -34,9 +33,6 @@ export default function Stamp() {
       vendorInfo: "",
     },
   });
-
-
-
   const descriptionPrices = {
     "AGREEMENT OR MEMORANDUM OF AN AGREEMENT - 5(ccc)": 100,
     "PARTNERSHIP - 46(a)": 200,
@@ -47,12 +43,22 @@ export default function Stamp() {
     Divorced: 300,
   };
 
-  const relationOptions = ["S/O", "D/O", "W/O", "F/O", "Widow/Of"];
   const selectedDescription = watch("Description");
+  const relationOptions = ["S/O", "D/O", "W/O", "F/O", "Widow/Of"];
   // auto update stamp amount
   useEffect(() => {
     setValue("StampAmount", descriptionPrices[selectedDescription] || "");
   }, [selectedDescription, setValue]);
+
+  const relationSelectOptions = relationOptions.map((r) => ({
+    label: r,
+    value: r,
+  }));
+  const descriptionSelectOptions = Object.keys(descriptionPrices).map((d) => ({
+    label: d,
+    value: d,
+  }));
+
   // vendor info + geolocation
   useEffect(() => {
     setValue(
@@ -127,8 +133,6 @@ export default function Stamp() {
 
 
 
-
-  // yh
   return (
     <>
 
@@ -167,8 +171,21 @@ export default function Stamp() {
               <span className="input-error">{errors.cnic.message}</span>
             )}
           </div>
-          {/* Relation Name */}
+          {/* Relation */}
+          <div className="form-group ">
+            <CustomSelect
+              name="Relation"
+              label="Relation"
+              options={relationSelectOptions}
+              value={watch("Relation")}
+              register={register}
+              setValue={setValue}
+              required
+              error={errors.Relation?.message}
+            />
 
+          </div>
+          {/* Relation Name */}
           <div className="form-group">
             <input
               className={errors.Relation_Name ? "error" : ""}
@@ -184,25 +201,7 @@ export default function Stamp() {
               </span>
             )}
           </div>
-          {/* Relation */}
-          <div className="form-group ">
-            <select
-              className={errors.Relation ? "error" : ""}
-              {...register("Relation", {
-                required: "Relation is required",
-              })}
-            >
-              <option value="">Select Relation</option>
-              {relationOptions.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
-            {errors.Relation && (
-              <span className="input-error">{errors.Relation.message}</span>
-            )}
-          </div>
+
 
         </div>
 
@@ -299,19 +298,17 @@ export default function Stamp() {
           </div>
 
           <div className="form-group col-30">
-            <select
-              className={errors.Description ? "error" : ""}
-              {...register("Description", {
-                required: "Description required",
-              })}
-            >
-              <option value="">Select Description</option>
-              {Object.keys(descriptionPrices).map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
-              ))}
-            </select>
+            <CustomSelect
+              name="Description"
+              label="Description"
+              options={descriptionSelectOptions}
+              value={watch("Description")}
+              register={register}
+              setValue={setValue}
+              required
+              error={errors.Description?.message}
+            />
+
           </div>
         </div>
         <div className="input-group">

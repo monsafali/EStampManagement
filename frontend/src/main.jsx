@@ -22,12 +22,9 @@ import "./index.css";
 
 createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId="830663248190-qb03bv8d59agjlm3qmggh9r5ugj0b82k.apps.googleusercontent.com">
-
       <AuthProvider>
         <GoogleAuthProvider>
-          {/* <div className="app-container"> */}
           <App />
-          {/* </div> */}
           <ToastContainer position="top-right"
             autoClose={3000}
             hideProgressBar={false}
@@ -38,7 +35,5 @@ createRoot(document.getElementById("root")).render(
           />
         </GoogleAuthProvider>
       </AuthProvider>
-
-
   </GoogleOAuthProvider>
 );

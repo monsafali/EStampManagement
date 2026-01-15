@@ -13,10 +13,10 @@ import "../styles/pages/dashboard.shared.css";
 
 
 export default function VendorDashboard() {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState("stamp");
 
-  if (loading) return <p>Loading...</p>;
+
   return (
     <div className="main-dashborad">
       {/* ACTION BUTTONS */}
@@ -49,12 +49,7 @@ export default function VendorDashboard() {
 
           AllStamp
         </button>
-        {/* <button
-          className={`dashboard-btn ${activeSection === "search" ? "active" : ""}`}
-          onClick={() => setActiveSection("search")}
-        >
-          Search Stamp
-        </button> */}
+   
       </div>
       <div className="dashboard dashboard-wrapper container">
 
