@@ -12,8 +12,6 @@ const ManageADCAdmins = () => {
   const [originalForm, setOriginalForm] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
 
-
-
   const [form, setForm] = useState({
     fullname: "",
     username: "",

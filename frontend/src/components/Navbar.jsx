@@ -5,13 +5,14 @@ import { AuthContext } from "../AuthContext";
 import LogoutButton from "./LogoutButton";
 import Tooltip from "./common/Tooltip";
 import ChangePassword from "./ChangePassword";
-import logo from "../assets/e-stamp-logo.png"
 
+import logo from "../assets/e-stamp-logo.png"
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import "../styles/components/Navbar.css";
+
 
 
 export default function Navbar() {

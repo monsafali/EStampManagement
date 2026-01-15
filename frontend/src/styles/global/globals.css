@@ -133,11 +133,11 @@ button {
 }
 
 .btn-success {
-  background: #16a34a;
+  background: var(--success);
 }
 
 .btn-report {
-  background: #063016;
+  background:var(--color-primary);
 }
 
 .btn-warning {

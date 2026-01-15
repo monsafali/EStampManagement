@@ -6,7 +6,7 @@ import DataTable from "../../components/common/DataTable";
 import { toast } from "react-toastify";
 
 import Tooltip from "../../components/common/Tooltip";
-
+import PasswordInput from "../../components/common/PasswordInput";
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ReportIcon from '@mui/icons-material/Report';
@@ -289,30 +289,29 @@ const GetVendor = () => {
           title="Update Password"
           onClose={() => setShowModal(false)}
         >
-          <input
-            type="password"
-            placeholder="New Password"
-            value={passwordForm.newpassword}
-            onChange={(e) =>
-              setPasswordForm({
-                ...passwordForm,
-                newpassword: e.target.value,
-              })
-            }
-          />
+    
+            <PasswordInput
+              label="New Password"
+              value={passwordForm.newpassword}
+              onChange={(e) =>
+                setPasswordForm({
+                  ...passwordForm,
+                  newpassword: e.target.value,
+                })
+              }
+            />
 
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={passwordForm.confirmPassword}
-            onChange={(e) =>
-              setPasswordForm({
-                ...passwordForm,
-                confirmPassword: e.target.value,
-              })
-            }
-          />
-
+            <PasswordInput
+              label="Confirm Password"
+              value={passwordForm.confirmPassword}
+              onChange={(e) =>
+                setPasswordForm({
+                  ...passwordForm,
+                  confirmPassword: e.target.value,
+                })
+              }
+            />
+  
           <div className="update-actions">
             <button
               className="btn-primary"

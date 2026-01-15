@@ -15,12 +15,12 @@
    position: relative;
    margin-bottom: 12px;
    flex: 1;
-
  }
 
  .input-group {
    display: flex;
    gap: 12px;
+   align-items: center;
  }
 
  .col-70 {

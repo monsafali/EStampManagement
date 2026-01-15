@@ -1,17 +1,14 @@
 import { useState } from "react";
 import "../styles/components/change-password.css";
 import { toast } from "react-toastify";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CloseIcon from '@mui/icons-material/Close';
-
+import PasswordInput from "./common/PasswordInput";
 
 export default function ChangePassword({ onClose }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showOld, setShowOld] = useState(false);
-  const [showNew, setShowNew] = useState(false);
+
 
   const [error, setError] = useState(false);
 
@@ -66,43 +63,18 @@ export default function ChangePassword({ onClose }) {
       </button>
 
       <h2 className="change-password-title">Change Password</h2>
-
       {/* Old Password */}
-      <div className="form-group">
-        <input
-          type={showOld ? "text" : "password"}
-          placeholder=" "
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
-          required
-        />
-
-        <label>Old Password </label>
-        <span
-          className="password-toggle"
-          onClick={() => setShowOld(!showOld)}
-        >
-          {showOld ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
-        </span>
-      </div>
-
+      <PasswordInput
+        label="Old Password"
+        value={oldPassword}
+        onChange={(e) => setOldPassword(e.target.value)}
+      />
       {/* New Password */}
-      <div className="form-group">
-        <input
-          type={showNew ? "text" : "password"}
-          placeholder=" "
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
-        <label>New Password</label>
-        <span
-          className="password-toggle"
-          onClick={() => setShowNew(!showNew)}
-        >
-          {showNew ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
-        </span>
-      </div>
+      <PasswordInput
+        label="New Password"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+      />
 
       {/* Button */}
       <button type="submit" disabled={loading} className="form-btn sliding-overlay-btn">

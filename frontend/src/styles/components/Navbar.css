@@ -107,7 +107,7 @@
 .user-dropdown {
   position: absolute;
   right: 0;
-  top: 45px;
+  top: 50px;
   width: 255px;
   background: var(--surface);
   border-radius: 14px;

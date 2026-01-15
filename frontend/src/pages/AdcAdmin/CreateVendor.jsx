@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import PUNJAB from "../../utils/District";
 import CustomSelect from "../../components/common/CustomSelect";
+import PasswordInput from "../../components/common/PasswordInput";
 
 const CreateVendor = ({ districtName, districtId }) => {
 
@@ -172,21 +173,16 @@ const CreateVendor = ({ districtName, districtId }) => {
             )}
           </div>
           {/* PASSWORD */}
-          <div className="form-group">
-            <input
-              type="password"
-              className={errors.password ? "error" : ""}
-              {...register("password", {
-                required: "Password is required",
-                minLength: { value: 6, message: "Minimum 6 characters" },
-              })}
-              placeholder=" "
-            />
-
-
-            <label>Password</label>
-            {errors.password && <span className="input-error">{errors.password.message}</span>}
-          </div>
+          <PasswordInput
+            name="password"
+            label="Password"
+            register={register}
+            rules={{
+              required: "Password is required",
+              minLength: { value: 6, message: "Minimum 6 characters" },
+            }}
+            error={errors.password?.message}
+          />
         </div>
         {/* address */}
         <div className="input-group">

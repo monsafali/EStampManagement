@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CustomSelect from "./common/CustomSelect";
+import PasswordInput from "./common/PasswordInput";
+import Modal from "./common/Modal";
 import axios from "axios";
 
 import "../styles/global/form.css";
@@ -165,22 +167,17 @@ function Login() {
           </div>
 
           {/* PASSWORD */}
-          <div className="form-group">
-            <input
-              type="password"
-              placeholder=" "
-              className={errors.password ? "error" : ""}
-              {...register("password", {
-                required: "Password is required",
-              })}
-            />
-            <label>Password</label>
-            {errors.password && (
-              <span className="input-error">
-                {errors.password.message}
-              </span>
-            )}
-          </div>
+
+          <PasswordInput
+            name="password"
+            label="Password"
+            register={register}
+            rules={{
+              required: "Password is required",
+              minLength: { value: 6, message: "Minimum 6 characters" },
+            }}
+            error={errors.password?.message}
+          />
 
           {/* ROLE */}
           <div className="form-group">
@@ -222,7 +219,7 @@ function Login() {
       </div>
 
       {/* OTP POPUP */}
-      {showOtpPopup && (
+      {/* {showOtpPopup && (
         <div className="otp-overlay">
           <div className="otp-box">
             <h3>Enter OTP</h3>
@@ -246,7 +243,40 @@ function Login() {
             </div>
           </div>
         </div>
+      )} */}
+      {showOtpPopup && (
+        <Modal
+          title="Enter OTP"
+          subtitle="We sent a verification code to your email"
+          onClose={() => setShowOtpPopup(false)}
+        >
+          <div className="otp-content">
+            <input
+              className="otp-input"
+              placeholder="Type your OTP"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+            />
+
+            <div className="otp-actions">
+              <button
+                onClick={verifyOtp}
+                className="otp-btn verify-btn"
+              >
+                Verify OTP
+              </button>
+
+              <button
+                onClick={() => setShowOtpPopup(false)}
+                className="otp-btn close-btn"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
       )}
+
     </div>
   );
 }

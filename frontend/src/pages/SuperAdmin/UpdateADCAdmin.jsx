@@ -13,7 +13,6 @@ const UpdateADCAdmin = ({
   if (!editingAdmin) return null;
 
   return (
-
       <Modal
       title="Update ADC Admin"
       subtitle={

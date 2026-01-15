@@ -4,6 +4,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CustomSelect from "../../components/common/CustomSelect";
+import PasswordInput from "../../components/common/PasswordInput";
 const CreateADCAdmin = () => {
   const {
     register,
@@ -132,9 +133,9 @@ const CreateADCAdmin = () => {
         </div>
 
         <div className="input-group">
-  
+
           {/* DISTRICT */}
-          <div className="form-group col-30">
+          <div className="form-group">
             <CustomSelect
               name="districtId"
               placeholder="Select District"
@@ -154,7 +155,7 @@ const CreateADCAdmin = () => {
             />
           </div>
 
-
+          {/* 
           <div className="form-group col-70">
             <input
               type="password"
@@ -172,7 +173,22 @@ const CreateADCAdmin = () => {
             {errors.password && (
               <span className="input-error">{errors.password.message}</span>
             )}
-          </div>
+          </div> */}
+          <PasswordInput
+            name="password"
+            label="Password"
+            register={register}
+            rules={{
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Minimum 6 characters required",
+              },
+            }}
+            error={errors.password?.message}
+            className="col-70"
+          />
+
         </div>
 
         {/* IMAGE */}
