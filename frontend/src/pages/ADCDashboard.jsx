@@ -10,14 +10,12 @@ import CreateBankUser from "./AdcAdmin/CreateBankUser";
 import "../styles/pages/ADCdashboard.css"
 import "../styles/pages/dashboard.shared.css";
 
+
+
 export default function ADCDashboard() {
   const { user} = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState("vendors");
   const location = useLocation();
-
-
-
-
 
 const isMonthlyReportOpen = location.pathname.includes("monthly-report");
 

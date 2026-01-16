@@ -23,7 +23,7 @@ const PasswordInput = ({
         : { value, onChange }; // useState
 
     return (
-        <div className="form-group">
+        <div className="form-group input-with-icons">
             <input
                 type={showPassword ? "text" : "password"}
                 placeholder={placeholder}
@@ -34,7 +34,7 @@ const PasswordInput = ({
             <label>{label}</label>
 
             <span
-                className="password-toggle"
+                className="input-icon"
                 onClick={() => setShowPassword((prev) => !prev)}
             >
                 {showPassword ? (

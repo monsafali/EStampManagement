@@ -4,6 +4,12 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import PUNJAB from "../../utils/District";
+
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
+import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
+
 import CustomSelect from "../../components/common/CustomSelect";
 import PasswordInput from "../../components/common/PasswordInput";
 
@@ -155,7 +161,7 @@ const CreateVendor = ({ districtName, districtId }) => {
             )}
           </div>
           {/* email */}
-          <div className="form-group">
+          <div className="form-group input-with-icons">
             <input
               className={errors.email ? "error" : ""}
               {...register("email", {
@@ -168,6 +174,10 @@ const CreateVendor = ({ districtName, districtId }) => {
               placeholder=" "
             />
             <label>Email</label>
+            <span className="input-icon">
+              <EmailOutlinedIcon />
+            </span>
+
             {errors.email && (
               <span className="input-error">{errors.email.message}</span>
             )}
@@ -186,7 +196,7 @@ const CreateVendor = ({ districtName, districtId }) => {
         </div>
         {/* address */}
         <div className="input-group">
-          <div className="form-group col-70">
+          <div className="form-group col-70 input-with-icons">
             <input
               type="text"
               id="address"
@@ -201,7 +211,9 @@ const CreateVendor = ({ districtName, districtId }) => {
               })}
             />
             <label htmlFor="address">Address</label>
-
+            <span className="input-icon">
+              <HomeOutlinedIcon />
+            </span>
             {errors.address && (
               <span className="input-error">
                 {errors.address.message}
@@ -262,7 +274,7 @@ const CreateVendor = ({ districtName, districtId }) => {
             {errors.licenceNo && <span className="input-error">{errors.licenceNo.message}</span>}
           </div>
           {/* CONTACT */}
-          <div className="form-group">
+          <div className="form-group input-with-icons">
             <input
               inputMode="numeric"
               className={errors.contactno ? "error" : ""}
@@ -272,11 +284,12 @@ const CreateVendor = ({ districtName, districtId }) => {
               placeholder=" "
             />
             <label>Contact No</label>
+            <span className="input-icon"><PhoneEnabledOutlinedIcon /></span>
             {errors.contactno && <span className="input-error">{errors.contactno.message}</span>}
           </div>
         </div>
         {/* Image Upload */}
-        <div className="form-group">
+        <div className="form-group input-with-icons">
           <input
             type="file"
             accept="image/*"
@@ -287,7 +300,7 @@ const CreateVendor = ({ districtName, districtId }) => {
               });
             }}
           />
-
+          <span className="input-icon"><InsertPhotoOutlinedIcon /></span>
           {errors.imageFile && (
             <span className="input-error">{errors.imageFile.message}</span>
           )}

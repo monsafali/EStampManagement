@@ -2,13 +2,17 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
 import CustomSelect from "./common/CustomSelect";
 import PasswordInput from "./common/PasswordInput";
 import Modal from "./common/Modal";
+
 import axios from "axios";
 
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import "../styles/global/form.css";
 import "../styles/pages/login.css";
 
@@ -150,7 +154,7 @@ function Login() {
           <h6 className="login-sm-title">Login in to E-Stamp</h6>
 
           {/* USERNAME */}
-          <div className="form-group">
+          <div className="form-group input-with-icons">
             <input
               placeholder=" "
               className={errors.username ? "error" : ""}
@@ -159,6 +163,10 @@ function Login() {
               })}
             />
             <label>User Name</label>
+            <span className="input-icon">
+              <PersonOutlineOutlinedIcon />
+
+            </span>
             {errors.username && (
               <span className="input-error">
                 {errors.username.message}
@@ -213,7 +221,7 @@ function Login() {
             className="logout-other-btn"
             disabled={logoutLoading}
           >
-             {logoutLoading ? "Processing..." : "Logout Other Device"}
+            {logoutLoading ? "Processing..." : "Logout Other Device"}
           </button>
         </div>
       </div>

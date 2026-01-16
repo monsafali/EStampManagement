@@ -3,8 +3,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
 import CustomSelect from "../../components/common/CustomSelect";
 import PasswordInput from "../../components/common/PasswordInput";
+
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+
 const CreateADCAdmin = () => {
   const {
     register,
@@ -112,7 +116,7 @@ const CreateADCAdmin = () => {
           </div>
 
           {/* EMAIL */}
-          <div className="form-group">
+          <div className="form-group  input-with-icons">
             <input
               type="email"
               placeholder=" "
@@ -126,14 +130,15 @@ const CreateADCAdmin = () => {
               })}
             />
             <label>Email</label>
+            <span className="input-icon">
+              <MailOutlineIcon />
+            </span>
             {errors.email && (
               <span className="input-error">{errors.email.message}</span>
             )}
           </div>
         </div>
-
         <div className="input-group">
-
           {/* DISTRICT */}
           <div className="form-group">
             <CustomSelect

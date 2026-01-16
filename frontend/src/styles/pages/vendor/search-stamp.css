@@ -22,11 +22,13 @@
   display: flex;
   align-items: center;
 }
-.btn-reset{
+
+.btn-reset {
   background-color: red;
 }
+
 /* Icon */
-.input-icon {
+.search-section .input-icon {
   position: absolute;
   right: 12px;
   font-size: 20px;
@@ -36,7 +38,7 @@
 
 
 /* Focus effect */
-.input-with-icon input:focus {
+.search-section .input-with-icon input:focus {
   border-color: var(--color-primary);
 }
 

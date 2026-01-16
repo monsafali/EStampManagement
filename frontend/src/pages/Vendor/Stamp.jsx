@@ -3,9 +3,15 @@ import axios from "axios";
 import { AuthContext } from "../../AuthContext";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+
+import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
+import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+
 import CustomSelect from "../../components/common/CustomSelect";
 
 export default function Stamp() {
+
   const { user } = useContext(AuthContext);
   const [geoTehsil, setGeoTehsil] = useState("");
   const [geoError, setGeoError] = useState("");
@@ -226,7 +232,7 @@ export default function Stamp() {
               <span className="input-error">{errors.agent.message}</span>
             )}
           </div>
-          <div className="form-group">
+          <div className="form-group input-with-icons">
             <input
               className={errors.email ? "error" : ""}
               {...register("email",
@@ -240,26 +246,27 @@ export default function Stamp() {
               placeholder=" "
             />
             <label>Email</label>
+            <span className="input-icon"> <MailOutlineOutlinedIcon  /> </span>
             {errors.email && (
               <span className="input-error">{errors.email.message}</span>
             )}
           </div>
 
           {/* Phone */}
-          {/* Address */}
-          <div className="form-group">
+          <div className="form-group input-with-icons">
             <input
               className={errors.phone ? "error" : ""}
               {...register("phone", {
                 required: "Phone number is required",
               })} placeholder=" " />
             <label>Phone</label>
+            <span className="input-icon"> <PhoneEnabledOutlinedIcon /> </span>
             {errors.phone && (
               <span className="input-error">{errors.phone.message}</span>
             )}
           </div>
-
-          <div className="form-group">
+          {/* Address */}
+          <div className="form-group input-with-icons">
             <input
               className={errors.address ? "error" : ""}
               {...register("address", {
@@ -271,6 +278,7 @@ export default function Stamp() {
               })}
               placeholder=" " />
             <label>Address</label>
+            <span className="input-icon"> <HomeOutlinedIcon /> </span>
             {errors.address && (
               <span className="input-error">{errors.address.message}</span>
             )}
