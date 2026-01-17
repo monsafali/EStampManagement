@@ -96,3 +96,13 @@
   background-color: var(--color-primary);
 
 }
+@media (max-width:768px) {
+    .select-trigger {
+     padding: 5px;
+     font-size: 12px;
+   }
+   .select-options li{
+    font-size: 12px !important;
+    padding: 8px 12px;
+   }
+}

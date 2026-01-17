@@ -193,11 +193,33 @@
    .form-container {
      padding: 12px;
      max-width: 100%;
-     /* background-color: inherit; */
    }
+
+   .form-group input,
+   .form-group select {
+     padding: 8px;
+     font-size: 13px;
+   }
+
+   .input-with-icons input {
+     padding-right: 35px;
+   }
+.input-with-icons .input-icon{
+  top: 18px;
+    right: 8px;
+}
+   .form-group label {
+     font-size: 10px;
+   }
+
+   .form-select {
+     padding: 8px;
+   }
+
+ 
  }
 
- @media (max-width:400px) {
+ @media (max-width:450px) {
    .input-group {
      flex-direction: column;
      gap: 0;

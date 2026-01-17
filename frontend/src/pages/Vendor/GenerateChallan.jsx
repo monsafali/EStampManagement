@@ -82,7 +82,6 @@ const GenerateChallan = () => {
     } catch (err) {
       console.error("Generate challan error:", err);
       toast.error("Error generating challan PDF. See console for details.");
-
     } finally {
       setLoading(false);
     }

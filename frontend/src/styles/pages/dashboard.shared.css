@@ -45,7 +45,8 @@
   font-size: 30px;
   font-weight: 800;
   color: var(--h1-heading);
-  color: rgb(17 24 39);;
+  color: rgb(17 24 39);
+  ;
 }
 
 .dashboard-header p {
@@ -70,7 +71,6 @@
   justify-content: flex-start;
   gap: 6px;
   padding: 19px 6px;
-  background-color: var(--surface);
   box-shadow: var(--shadow-sm);
   background-color: var(--bg-2);
 
@@ -84,8 +84,9 @@
   background-color: var(--border);
 }
 
-
-
+.main-dashborad button:active {
+  transform: scale(0.9);
+}
 
 /*CONTENT CARD  */
 .dashboard-card {
@@ -93,6 +94,10 @@
   /* border-radius: 18px; */
   animation: fadeIn 0.25s ease-in-out;
 }
+
+
+
+
 
 .dashboard-card h2 {
   font-size: 22px;
@@ -116,14 +121,13 @@
   .dashboard-actions {
     flex-direction: row;
     position: static;
-
+    justify-content: center;
     flex-wrap: wrap;
     width: 100%;
-    border-right: none;
-    /* border-bottom: 1px solid var(--border); */
     height: fit-content;
-    background-color: inherit;
-    margin: 18px 0;
+    background-color: transparent;
+    margin: 12px 0;
+
   }
 
   /* Buttons → horizontal */
@@ -132,6 +136,7 @@
     white-space: nowrap;
     border-radius: 8px;
     padding: 10px 14px;
+    width: fit-content;
   }
 
   .dashboard-wrapper {
@@ -140,5 +145,22 @@
 
   .dashboard-card {
     padding: 15px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 24px;
+  }
+
+  .dashboard-header h1+p {
+    font-size: 12px;
+  }
+
+  .dashboard-card h2 {
+    font-size: 18px;
+  }
+
+  .main-dashborad button {
+    font-size: 12px;
+    padding: 8px 14px;
   }
 }

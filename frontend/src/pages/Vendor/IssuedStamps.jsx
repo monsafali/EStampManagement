@@ -208,14 +208,7 @@ const IssuedStamps = () => {
           </div>
         )}
       </div>
-
-
-
-
-
       {/* SEARCH UI (UNCHANGED STRUCTURE) */}
-
-
       {/*  CONDITIONAL RENDERING */}
       {hasData ? (
         <>
@@ -276,6 +269,8 @@ const IssuedStamps = () => {
           No issued stamps found.
         </div>
       )}
+
+
 
     </div>
   );

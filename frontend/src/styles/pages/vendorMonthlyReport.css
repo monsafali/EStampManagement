@@ -16,22 +16,18 @@
   flex-wrap: wrap;
   gap: 12px;
 }
-
 .report-title {
   font-size: 22px;
   font-weight: 600;
   color: #1f2937;
+    /* color: red; */
 }
-
 /* BACK BUTTON */
 .btn-back {
-  background: #eef2ff;
-  color: var(--color-primary-600);
-  border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
+  background:var(--color-primary-600);
+  color: white;
   font-weight: 500;
-  cursor: pointer;
+  font-size: 18px;
   margin-bottom: 12px;
 }
 
@@ -71,7 +67,7 @@
 .toggle-thumb {
   width: 18px;
   height: 18px;
-  background: #4f46e5;
+    background: var(--color-primary-600) ;
   border-radius: 50%;
   position: absolute;
   top: 2px;
