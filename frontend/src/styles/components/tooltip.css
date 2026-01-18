@@ -11,8 +11,8 @@
   color: var(--color-logo);
   padding: 6px 10px;
   font-size: 12px;
-  border-radius: 8px;
-  white-space: nowrap;
+  border-radius: 5px;
+ white-space: nowrap;
   box-shadow: var(--shadow-sm);
   opacity: 0;
   visibility: hidden;

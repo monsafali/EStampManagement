@@ -216,7 +216,10 @@
      padding: 8px;
    }
 
- 
+ .input-icon{
+  font-size: 2px !important;
+color: red;
+ }
  }
 
  @media (max-width:450px) {

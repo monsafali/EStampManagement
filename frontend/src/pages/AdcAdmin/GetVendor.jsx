@@ -301,47 +301,48 @@ const GetVendor = () => {
                   {vendor.isActive ? (
                     <Tooltip text="Deactivate Vendor">
                       <button
-                        className="btn btn-warning"
+                        className="btn"
                         onClick={() => deactivateVendor(vendor._id)}
                       >
-                        <ToggleOffIcon />
+                        <ToggleOffIcon sx={{ color: '#ca8a04' }} />
                       </button>
                     </Tooltip>
                   ) : (
                     <Tooltip text="Activate Vendor">
                       <button
-                        className="btn btn-success"
+                        className="btn "
                         onClick={() => activateVendor(vendor._id)}
                       >
-                        <ToggleOnIcon />
+                        <ToggleOnIcon sx={{ color: '#16a34a' }} />
                       </button>
                     </Tooltip>
                   )}
 
                   <Tooltip text="Delete Vendor">
                     <button
-                      className="btn btn-danger"
+                      className="btn"
                       onClick={() => deleteVendor(vendor)}
                     >
-                      <DeleteIcon />
+                      <DeleteIcon sx={{ color: '#ef4444' }} />
+
                     </button>
                   </Tooltip>
 
                   <Tooltip text="Update Password">
                     <button
-                      className="btn btn-edit"
+                      className="btn"
                       onClick={() => openPasswordModal(vendor._id)}
                     >
-                      <EditIcon />
+                      <EditIcon sx={{ color: '#2563eb' }} />
                     </button>
                   </Tooltip>
 
                   <Tooltip text="View Monthly Report">
                     <button
-                      className="btn btn-report"
+                      className="btn"
                       onClick={() => onMonthlyReport(vendor._id)}
                     >
-                      <ReportIcon />
+                      <ReportIcon sx={{ color: "#065f46" }} />
                     </button>
                   </Tooltip>
                 </div>

@@ -141,7 +141,6 @@ export default function Stamp() {
 
   return (
     <>
-
       {geoError && <p className="error">{geoError}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         {/* Applicant */}
@@ -246,7 +245,7 @@ export default function Stamp() {
               placeholder=" "
             />
             <label>Email</label>
-            <span className="input-icon"> <MailOutlineOutlinedIcon  /> </span>
+            <span className="input-icon"> <MailOutlineOutlinedIcon /> </span>
             {errors.email && (
               <span className="input-error">{errors.email.message}</span>
             )}
@@ -300,10 +299,7 @@ export default function Stamp() {
 
         {/*Stamp Amount + Description */}
         <div className="input-group">
-          <div className="form-group col-70">
-            <input readOnly {...register("StampAmount")} placeholder=" " />
-            <label>Stamp Amount</label>
-          </div>
+
 
           <div className="form-group col-30">
             <CustomSelect
@@ -316,7 +312,10 @@ export default function Stamp() {
               required
               error={errors.Description?.message}
             />
-
+          </div>
+          <div className="form-group col-70">
+            <input readOnly {...register("StampAmount")} placeholder=" " />
+            <label>Stamp Amount</label>
           </div>
         </div>
         <div className="input-group">
@@ -338,7 +337,7 @@ export default function Stamp() {
 
 
         <button type="submit" className="form-btn sliding-overlay-btn">
-          Download Stamp PDF
+          Submit
         </button>
       </form>
 
