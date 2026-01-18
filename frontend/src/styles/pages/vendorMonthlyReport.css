@@ -1,10 +1,13 @@
 /* MAIN CARD */
 .report-container {
-  background: #ffffff;
-  padding: 24px;
   border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   margin: 16px;
+  width: 100%;
+  min-height: 100vh;
+  padding: 30px;
+  background: var(--bg-1);
+
+
 }
 
 /* HEADER */
@@ -16,28 +19,40 @@
   flex-wrap: wrap;
   gap: 12px;
 }
+
 .report-title {
   font-size: 22px;
   font-weight: 600;
   color: #1f2937;
-    /* color: red; */
+  /* color: red; */
 }
+
 /* BACK BUTTON */
 .btn-back {
-  background:var(--color-primary-600);
+  background: var(--color-primary-600);
   color: white;
   font-weight: 500;
   font-size: 18px;
   margin-bottom: 12px;
 }
-
+.btn-back:active{
+  transform: scale(0.9);
+}
+.btn-back:hover{
+  transform: scale(1.1);
+}
 /* MONTH PICKER */
 .month-picker {
   margin-bottom: 16px;
   padding: 10px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border);
   border-radius: 8px;
   max-width: 200px;
+  cursor: pointer;
+}
+
+.month-picker:focus {
+  outline-color: var(--color-primary-600);
 }
 
 /* CHART WRAPPER */
@@ -57,17 +72,16 @@
 .toggle-switch {
   width: 44px;
   height: 22px;
-  background: #c7d2fe;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
+  background: var(--border);
+  border-radius: 999px; 
+
   position: relative;
 }
 
 .toggle-thumb {
   width: 18px;
   height: 18px;
-    background: var(--color-primary-600) ;
+  background: var(--color-primary-600);
   border-radius: 50%;
   position: absolute;
   top: 2px;

@@ -7,18 +7,27 @@ import GetVendor from "./AdcAdmin/GetVendor";
 import CreateVendor from "./AdcAdmin/CreateVendor";
 import CreateBankUser from "./AdcAdmin/CreateBankUser";
 
-import "../styles/pages/ADCdashboard.css"
+
 import "../styles/pages/dashboard.shared.css";
 
 
 
 export default function ADCDashboard() {
-  const { user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState("vendors");
   const location = useLocation();
 
-const isMonthlyReportOpen = location.pathname.includes("monthly-report");
+  const isMonthlyReportOpen = location.pathname.includes("monthly-report");
 
+  // --------------- If Monthly Report is Open ---------------
+  if (isMonthlyReportOpen) {
+    return (
+      <div className="monthly-report-page">
+        <Outlet />
+      </div>
+    );
+  }
+  // --------------- Dashboard Layout ---------------
   return (
     <div className="main-dashborad">
       {/* ACTION BUTTONS (AUTO HIDE) */}
