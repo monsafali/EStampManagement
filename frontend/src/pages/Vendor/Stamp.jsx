@@ -299,8 +299,6 @@ export default function Stamp() {
 
         {/*Stamp Amount + Description */}
         <div className="input-group">
-
-
           <div className="form-group col-30">
             <CustomSelect
               name="Description"

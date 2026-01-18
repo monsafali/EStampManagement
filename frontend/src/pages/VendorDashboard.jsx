@@ -4,9 +4,9 @@ import { AuthContext } from "../AuthContext";
 import { Outlet } from "react-router-dom";
 import Stamp from "./Vendor/Stamp";
 import GenerateChallan from './Vendor/GenerateChallan';
-import GetAllStamp from "./Vendor/GetAllStamp";
+
 import GetInventory from "./Vendor/GetInventory";
-import SearchStamp from "./Vendor/SearchStamp";
+
 import IssuedStamps from "./Vendor/IssuedStamps";
 import "../styles/pages/dashboard.shared.css";
 
@@ -81,24 +81,14 @@ export default function VendorDashboard() {
           )}
           {activeSection === "AllStamp" && (
             <div className="dashboard-card">
-              {/* <GetAllStamp /> */}
+              <h2>All Stamps</h2>
               <IssuedStamps />
             </div>
           )}
-          {/* {activeSection === "search" && (
-          <div className="dashboard-card">
-            <SearchStamp />
-          </div>
-        )} */}
-
-
-
         </div>
-
       </div>
+      <Outlet />
 
-        <Outlet />
-      
     </>
 
 

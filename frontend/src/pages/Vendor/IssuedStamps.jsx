@@ -2,7 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SearchIcon from "@mui/icons-material/Search";
+
+
 import DataTable from "../../components/common/DataTable";
+import CustomSelect from "../../components/common/CustomSelect";
+import Modal from "../../components/common/Modal";
 
 import "../../styles/pages/vendor/getAllStamp.css";
 import "../../styles/pages/vendor/search-stamp.css";
@@ -56,7 +60,7 @@ const IssuedStamps = () => {
   };
 
   // -----------------------------
-  // SEARCH (REAL-TIME FEEL)
+  // SEARCH 
   // -----------------------------
   const handleSearch = () => {
     let filtered = [...allStamps];
@@ -86,7 +90,7 @@ const IssuedStamps = () => {
   };
 
   // ------------------------------------------
-  // EXPORT CSV (SAME AS GetAllStamp)
+  // EXPORT CSV 
   // ------------------------------------------
   const exportToCSV = () => {
     if (visibleStamps.length === 0) return;
@@ -117,6 +121,14 @@ const IssuedStamps = () => {
   const currentStamps = visibleStamps.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(visibleStamps.length / entriesPerPage);
 
+  const PAGE_WINDOW = 10;
+
+  const startPage =
+    Math.floor((currentPage - 1) / PAGE_WINDOW) * PAGE_WINDOW + 1;
+
+  const endPage = Math.min(startPage + PAGE_WINDOW - 1, totalPages);
+
+
   const hasData = visibleStamps.length > 0;
 
   // ------------------------------------------
@@ -126,7 +138,8 @@ const IssuedStamps = () => {
     {
       key: "sr",
       label: "Sr.",
-      render: (_, i) => indexOfFirstItem + i + 1,
+      render: (row) =>
+        indexOfFirstItem + currentStamps.indexOf(row) + 1,
     },
     { key: "stampId", label: "Stamp ID" },
     { key: "Stamptype", label: "Type" },
@@ -136,6 +149,13 @@ const IssuedStamps = () => {
     { key: "issueDate", label: "Issue Date" },
     { key: "validity", label: "Validity" },
     { key: "vendorInfo", label: "Vendor" },
+  ];
+
+  const entryOptions = [
+    { label: "10", value: 10 },
+    { label: "25", value: 25 },
+    { label: "50", value: 50 },
+    { label: "100", value: 100 },
   ];
 
   return (
@@ -151,8 +171,13 @@ const IssuedStamps = () => {
           Search
         </button>
         {showSearch && (
-          <div className="search-overlay" onClick={() => setShowSearch(false)}  >
-            <div className="search-section floating-search"
+          <Modal
+            title="Search Stamps"
+            subtitle="Search by CNIC, Stamp ID or Date range"
+            onClose={() => setShowSearch(false)}
+            closeOnOverlay={true}
+          >
+            <div className="search-stamp-section"
               ref={searchRef}
               onClick={(e) => e.stopPropagation()}>
 
@@ -205,31 +230,27 @@ const IssuedStamps = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </Modal>
+
+
         )}
       </div>
-      {/* SEARCH UI (UNCHANGED STRUCTURE) */}
+      {/* SEARCH UI  */}
       {/*  CONDITIONAL RENDERING */}
       {hasData ? (
         <>
           {/* Show Entries */}
-          <div className="entries-control">
-            <label>
-              Show
-              <select
-                value={entriesPerPage}
-                onChange={(e) => {
-                  setEntriesPerPage(Number(e.target.value));
-                  setCurrentPage(1);
-                }}
-              >
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              entries
-            </label>
+          <div className="entries-control-drop-down">
+            <label>Show entries</label>
+            <CustomSelect
+              options={entryOptions}
+              value={entriesPerPage}
+              onChange={(val) => {
+                setEntriesPerPage(Number(val));
+                setCurrentPage(1);
+              }}
+              placeholder="Entries"
+            />
           </div>
 
           {/* TABLE */}
@@ -237,25 +258,30 @@ const IssuedStamps = () => {
 
           {/* PAGINATION */}
           {totalPages > 1 && (
-            <div className="pagination">
+            <div className="pagination ">
               <button
+                className="btn-prev"
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage(p => p - 1)}
               >
                 Prev
               </button>
 
-              {[...Array(totalPages)].map((_, i) => (
+              {Array.from(
+                { length: endPage - startPage + 1 },
+                (_, i) => startPage + i
+              ).map((page) => (
                 <button
-                  key={i}
-                  className={currentPage === i + 1 ? "active" : ""}
-                  onClick={() => setCurrentPage(i + 1)}
+                  key={page}
+                  className={currentPage === page ? "active" : ""}
+                  onClick={() => setCurrentPage(page)}
                 >
-                  {i + 1}
+                  {page}
                 </button>
               ))}
 
               <button
+                className="btn-next"
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage(p => p + 1)}
               >

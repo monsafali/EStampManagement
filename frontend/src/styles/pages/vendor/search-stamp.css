@@ -4,10 +4,12 @@
   margin-bottom: 16px;
 }
 
-.search-section .input-group {
-  margin-bottom: 10px;
+.search-stamp-section .input-group {
+  margin-bottom: 20px;
 }
-
+.search-stamp-section .input-group .search-group{
+  width: 100%;
+}
 .search-group label {
   display: block;
   font-weight: 500;
@@ -23,12 +25,17 @@
   align-items: center;
 }
 
+.input-with-icon input {
+  padding-right: 25px !important;
+
+}
+
 .btn-reset {
-  background-color: red;
+  background-color: var(--border);
 }
 
 /* Icon */
-.search-section .input-icon {
+.search-stamp-section .input-icon {
   position: absolute;
   right: 12px;
   font-size: 20px;
@@ -38,7 +45,7 @@
 
 
 /* Focus effect */
-.search-section .input-with-icon input:focus {
+.search-stamp-section .input-with-icon input:focus {
   border-color: var(--color-primary);
 }
 
@@ -63,6 +70,15 @@
   border-color: var(--color-primary);
 }
 
+.search-actions {
+  display: flex;
+  margin-top: 1rem;
+  gap: 0.77rem;
+}
+.btn-edit{
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
 /* Date inputs */
 .date-range {
   display: flex;
@@ -77,54 +93,11 @@
 }
 
 @media (max-width:907px) {
-  .search-section {
+  .search-stamp-section {
     flex-direction: column;
   }
 }
 
-/* ============================ */
-/* FLOATING SEARCH BUTTON */
-/* ============================ */
-
-
-/* ============================ */
-/* SEARCH OVERLAY */
-/* ============================ */
-.search-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(4px);
-  z-index: 998;
-}
-
-/* ============================ */
-/* FLOATING SEARCH PANEL */
-/* ============================ */
-
-.floating-search {
-  position: fixed;
-  top: 154px;
-  right: 24px;
-  width: min(90vw, 720px);
-  max-height: 80vh;
-  overflow-y: auto;
-  z-index: 999;
-  animation: slideDown 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background-color: var(--surface);
-  padding: 1rem;
-  border-radius: 16px;
-  max-width: 400px;
-}
-
-.click-me {
-  background-color: red !important;
-  position: fixed;
-  top: -23px;
-}
 
 .floating-search-btn {
   position: fixed !important;
@@ -140,7 +113,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
@@ -148,20 +120,6 @@
   transform: translateY(-2px);
 }
 
-/* ============================ */
-/* ANIMATION */
-/* ============================ */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 @media (max-width:465px) {
   .floating-search {

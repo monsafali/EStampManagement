@@ -1,12 +1,19 @@
 // src/components/GenerateChallan.jsx
 import React, { useState } from "react";
 import axios from "axios";
-import DataTable from "../../components/common/DataTable";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+import DataTable from "../../components/common/DataTable";
+import Tooltip from "../../components/common/Tooltip";
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+
 import "../../styles/pages/vendor/generate-challan.css"
+
 const API_BASE = "http://localhost:5000/api/stamp";
+
 const columns = [
   {
     key: "type",
@@ -36,7 +43,7 @@ const GenerateChallan = () => {
     setItems((prev) => [
       ...prev,
       {
-        _id: Date.now(),
+        // _id: Date.now(),
         type,
         quantity: qty,
       },
@@ -49,6 +56,8 @@ const GenerateChallan = () => {
   // Remove an item from the list
   const removeItem = (index) => {
     setItems((prev) => prev.filter((_, i) => i !== index));
+    toast.success("Item added successfully");
+
   };
 
   // Download PDF by calling your existing createChallan endpoint
@@ -163,8 +172,8 @@ const GenerateChallan = () => {
         {/* Action buttons */}
         <div className="challan-actions">
 
-          <button type="submit" className="btn btn-success">
-            + Add
+          <button type="submit" className="btn btn-success sliding-overlay-btn">
+            < AddCircleOutlineOutlinedIcon /> <span>Add</span> 
           </button>
 
           <button
@@ -182,21 +191,23 @@ const GenerateChallan = () => {
         {items.length === 0 ? (
           <div className="empty-state">No items added yet.</div>
         ) : (
-    
+
           <DataTable
             title="Added Items"
             columns={columns}
             data={items}
             renderActions={(row) => (
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() =>
-                  removeItem(items.findIndex((i) => i._id === row._id))
-                }
-              >
-                Remove
-              </button>
+              <Tooltip text="Delete item" position="top">
+                <button
+                  className="btn"
+                  onClick={() => removeItem(items.indexOf(row))}
+                >
+                  <DeleteIcon sx={{ color: '#ef4444' }} />
+                </button>
+              </Tooltip>
+
             )}
+
           />
 
         )}
@@ -206,7 +217,7 @@ const GenerateChallan = () => {
       {/* Footer buttons */}
       <div className="challan-footer">
         <button
-          className="btn btn-primary"
+          className="btn btn-primary sliding-overlay-btn"
           onClick={handleGenerateChallan}
           disabled={loading || items.length === 0}
         >
@@ -214,7 +225,7 @@ const GenerateChallan = () => {
         </button>
 
         <button
-          className="btn btn-indigo"
+          className="btn btn-indigo sliding-overlay-btn"
           onClick={handleStripePay}
           disabled={loading || items.length === 0}
         >

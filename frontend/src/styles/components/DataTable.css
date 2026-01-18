@@ -74,7 +74,7 @@
 /* =========================
    BUTTONS
 ========================= */
-.btn {
+.data-table  .btn {
   padding: 6px 8px !important;
   border-radius: 6px;
   font-size: 12px !important;
@@ -82,7 +82,7 @@
   color: #fff;
   background-color: hsla(186, 15%, 59%, 0.2);
 }
-.btn:hover{
+.data-table  .btn:hover{
   background-color: hsla(186, 15%, 59%, 0.4);
 
 }
