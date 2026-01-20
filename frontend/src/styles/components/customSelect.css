@@ -48,10 +48,9 @@
   animation: dropdownFade 0.2s ease;
   border: 1px solid var(--border);
 
-  max-height: 300px;
-  overflow-y: auto;
-
-  /* Firefox scrollbar */
+  max-height: 150px;
+  overflow: auto;
+  padding: 6px 0;
   scrollbar-width: thin;
   scrollbar-color: var(--success) rgba(0, 0, 0, 0.1);
 
@@ -59,9 +58,10 @@
 
 /* Option */
 .select-options li {
-  padding: 10px 12px;
+  padding: 6px 12px;
   cursor: pointer;
   transition: background 0.2s;
+  font-size: 11px;
 }
 
 /* Hover (soft government green) */
@@ -91,6 +91,7 @@
   border-radius: 10px;
   border: 2px solid rgba(0, 0, 0, 0.05);
 }
+
 .select-options::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-primary);
 }
@@ -99,12 +100,13 @@
 
 
 @media (max-width:768px) {
-    .select-trigger {
-     padding: 5px;
-     font-size: 12px;
-   }
-   .select-options li{
+  .select-trigger {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .select-options li {
     font-size: 12px !important;
     padding: 8px 12px;
-   }
+  }
 }

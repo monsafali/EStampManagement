@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+
+
+
 import "../../styles/pages/vendorMonthlyReport.css";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 
 import axios from "axios";
 import {
@@ -23,25 +27,33 @@ export default function VendorMontyReport() {
   const [chartData, setChartData] = useState([]);
   const [month, setMonth] = useState("2025-11");
   const [chartType, setChartType] = useState("bar"); // "bar" or "line"
-  const [vendorName, setVendorName] = useState("");
-  const { vendorId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { vendorId } = useParams();
+
+  const [vendorName, setVendorName] = useState(
+    location.state?.vendorName || ""
+  );
+
+
 
   const fetchVendorName = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/adc/vendor/${id}`, {
-        withCredentials: true,
-      });
-      console.log(res.data)
-      setVendorName(res.data.vendor || "Unknown Vendor");
-    } catch (error) {
+      const res = await axios.get(
+        `http://localhost:5000/api/adc/vendor/${id}`,
+        { withCredentials: true }
+      );
+      setVendorName(res.data.vendor.fullname);
+    } catch {
       setVendorName("Unknown Vendor");
     }
   };
 
-
-
-
+  useEffect(() => {
+    if (!vendorName && vendorId) {
+      fetchVendorName(vendorId);
+    }
+  }, [vendorId, vendorName]);
 
   useEffect(() => {
     fetchDailyStampData(month);
@@ -49,10 +61,7 @@ export default function VendorMontyReport() {
 
   useEffect(() => {
     console.log("Vendor ID received:", vendorId);
-    // now call your API using vendorId
-    if (vendorId) {
-      fetchVendorName(vendorId);
-    }
+
   }, [vendorId]);
 
   const fetchDailyStampData = async (monthStr) => {
@@ -99,11 +108,10 @@ export default function VendorMontyReport() {
       {/* Header */}
       <div className="report-header">
         <h2 className="report-title">
-          Daily Stamp Issue Visualization
+          Daily Stamp Issue Visualization of Vendor
+          <span> <i>{vendorName || "Loading..."}</i> </span>
         </h2>
-        <h3 className="vendor-name">
-          Vendor: <span>{vendorName}</span>
-        </h3>
+
         {/* Toggle: Bar / Line */}
         <div className="chart-toggle">
           <span>Bar</span>

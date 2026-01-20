@@ -7,7 +7,6 @@
   padding: 30px;
   background: var(--bg-1);
 
-
 }
 
 /* HEADER */
@@ -15,7 +14,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin: 20px 0;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -23,10 +22,12 @@
 .report-title {
   font-size: 22px;
   font-weight: 600;
-  color: #1f2937;
+  color: #1f2937 !important;
   /* color: red; */
 }
-
+.report-title span{
+  color: var(--color-primary-600);
+}
 /* BACK BUTTON */
 .btn-back {
   background: var(--color-primary-600);
@@ -43,7 +44,7 @@
 }
 /* MONTH PICKER */
 .month-picker {
-  margin-bottom: 16px;
+  margin-bottom: 22px;
   padding: 10px;
   border: 1px solid var(--border);
   border-radius: 8px;

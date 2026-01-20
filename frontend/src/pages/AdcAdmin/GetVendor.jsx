@@ -72,9 +72,14 @@ const GetVendor = () => {
 
   const navigate = useNavigate();
 
-  const onMonthlyReport = (vendorId) => {
-    navigate(`/adc/monthly-report/${vendorId}`);
-  };
+const onMonthlyReport = (vendor) => {
+  navigate(`/adc/monthly-report/${vendor._id}`, {
+    state: {
+      vendorName: vendor.fullname
+    }
+  });
+};
+
 
   const fetchVendors = async () => {
     try {
@@ -83,6 +88,7 @@ const GetVendor = () => {
         { withCredentials: true }
       );
       setVendors(res.data.vendors || []);
+      console.log(res.data.vendors)
     } catch (err) {
       toast.error("Failed to load vendors");
 
@@ -90,6 +96,7 @@ const GetVendor = () => {
   };
   useEffect(() => {
     fetchVendors();
+
   }, []);
 
   const tehsils = [...new Set(vendors.map(v => v.tehsil))];
@@ -340,7 +347,8 @@ const GetVendor = () => {
                   <Tooltip text="View Monthly Report">
                     <button
                       className="btn"
-                      onClick={() => onMonthlyReport(vendor._id)}
+                  onClick={() => onMonthlyReport(vendor)}
+
                     >
                       <ReportIcon sx={{ color: "#065f46" }} />
                     </button>

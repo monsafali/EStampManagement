@@ -23,6 +23,17 @@
     transform: translateY(0);
   }
 }
+/* Right ➜ Left floating animation */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
 /* dropdown animation */
 @keyframes dropdownFade {

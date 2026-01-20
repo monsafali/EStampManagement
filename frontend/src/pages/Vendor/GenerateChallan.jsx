@@ -175,15 +175,6 @@ const GenerateChallan = () => {
           <button type="submit" className="btn btn-success sliding-overlay-btn">
             < AddCircleOutlineOutlinedIcon /> <span>Add</span> 
           </button>
-
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => reset()}
-          >
-            Clear Inputs
-          </button>
-
         </div>
       </form>
       {/* Items table */}

@@ -67,10 +67,10 @@ export default function ADCDashboard() {
         {/* DASHBOARD CONTENT (AUTO CLOSE) */}
         {!isMonthlyReportOpen && activeSection === "vendors" && (
           <div className="dashboard-card">
+            <h2>  All Vendors </h2>
             <GetVendor />
           </div>
         )}
-
         {!isMonthlyReportOpen && activeSection === "createVendor" && (
           <div className="dashboard-card">
             <h2>Create Vendor</h2>
@@ -83,7 +83,7 @@ export default function ADCDashboard() {
 
         {!isMonthlyReportOpen && activeSection === "bank" && (
           <div className="dashboard-card">
-            <h2>Create Bank User</h2>
+            <h2> Create Bank User</h2>
             <CreateBankUser />
 
           </div>
