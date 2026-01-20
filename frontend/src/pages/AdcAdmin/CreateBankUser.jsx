@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 
 import PasswordInput from "../../components/common/PasswordInput";
+import { API_BASE_URL } from "../../api";
 
 const CreateBankUser = () => {
   const {
@@ -29,10 +30,10 @@ const CreateBankUser = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/adc/createBankUser",
+      const res = await API_BASE_URL.post(
+        `api/adc/createBankUser`,
         data,
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (res.data?.success === true) {

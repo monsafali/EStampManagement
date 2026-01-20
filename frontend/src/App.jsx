@@ -1,12 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
-import Login from "./components/Login";
 import Loading from "./components/common/Loading.jsx";
 import ADCDashboard from "./pages/ADCDashboard";
 import BankDashboard from "./pages/BankDashboard";

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { API_BASE_URL } from "../../api";
 
 const Success = () => {
   useEffect(() => {
@@ -11,7 +12,7 @@ const Success = () => {
       return;
     }
 
-    fetch("http://localhost:5000/api/stamp/stripe-success-load-stamps", {
+    fetch(`${API_BASE_URL}/api/stamp/stripe-success-load-stamps`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

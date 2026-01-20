@@ -1,5 +1,5 @@
 
-import { StrictMode } from "react";
+
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 
@@ -21,19 +21,20 @@ import './styles/global/slidingOverlayBtn.css'
 import "./index.css";
 
 createRoot(document.getElementById("root")).render(
-  <GoogleOAuthProvider clientId="830663248190-qb03bv8d59agjlm3qmggh9r5ugj0b82k.apps.googleusercontent.com">
-      <AuthProvider>
-        <GoogleAuthProvider>
-          <App />
-          <ToastContainer position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            pauseOnHover
-            draggable
-          />
-        </GoogleAuthProvider>
-      </AuthProvider>
-  </GoogleOAuthProvider>
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    <AuthProvider>
+      <GoogleAuthProvider>
+        <App />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnHover
+          draggable
+        />
+      </GoogleAuthProvider>
+    </AuthProvider>
+  </GoogleOAuthProvider>,
 );

@@ -11,6 +11,9 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import { API_BASE_URL } from "../api";
+
+
 
 const VendorReport = () => {
   const { vendorId } = useParams(); // get vendor ID from URL
@@ -32,7 +35,7 @@ const VendorReport = () => {
 
       const request = axios
         .get(
-          `http://localhost:5000/api/stamp/search?from=${date}&to=${date}&vendorId=${vendorId}`,
+          `${API_BASE_URL}/api/stamp/search?from=${date}&to=${date}&vendorId=${vendorId}`,
           { withCredentials: true }
         )
         .then((res) => ({

@@ -15,6 +15,8 @@ import axios from "axios";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import "../styles/global/form.css";
 import "../styles/pages/login.css";
+import { API_BASE_URL } from '../api';
+
 
 function Login() {
   const { setUser } = useContext(AuthContext);
@@ -56,10 +58,10 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+      const res = await API_BASE_URL.post(
+        "api/auth/login",
         data,
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (res.data.success) {
@@ -83,13 +85,13 @@ function Login() {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/verifyotp",
+      const res = await API_BASE_URL.post(
+        `api/auth/verifyotp`,
         {
           username: watch("username"),
           otp,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (!res.data.success) {
@@ -109,41 +111,28 @@ function Login() {
   // ---------------------------------------------------------
   // Logout From Other Devices
   // ---------------------------------------------------------
-  const logoutOtherDevice = async () => {
-    const username = watch("username");
+const logoutOtherDevice = async () => {
+  const username = watch("username");
 
-    if (!username) {
-      setError("Please enter username first.");
-      return;
-    }
+  if (!username) {
+    setError("Please enter username first.");
+    return;
+  }
 
-    setError("");
-    setLogoutLoading(true);
+  setError("");
+  setLogoutLoading(true);
 
-    try {
-      const res = await fetch(
-        `http://localhost:5000/api/auth/reset/${username}`,
-        {
-          method: "PUT",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+  try {
+    const res = await API_BASE_URL.put(`/api/auth/reset/${username}`);
 
-      const data = await res.json();
+    toast.success("Logged out from other device successfully!");
+  } catch (err) {
+    setError(err.response?.data?.message || "Failed to logout other device");
+  } finally {
+    setLogoutLoading(false);
+  }
+};
 
-      if (!res.ok) {
-        setError(data.message || "Failed to logout other device");
-        return;
-      }
-
-      toast.success("Logged out from other device successfully!");
-    } catch {
-      setError("Something went wrong.");
-    } finally {
-      setLogoutLoading(false);
-    }
-  };
 
   return (
     <div className="login-wrapper">

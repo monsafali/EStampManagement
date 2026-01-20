@@ -3,6 +3,7 @@ import "../styles/components/change-password.css";
 import { toast } from "react-toastify";
 import CloseIcon from '@mui/icons-material/Close';
 import PasswordInput from "./common/PasswordInput";
+import { API_BASE_URL } from "../api";
 
 export default function ChangePassword({ onClose }) {
   const [oldPassword, setOldPassword] = useState("");
@@ -16,39 +17,29 @@ export default function ChangePassword({ onClose }) {
 
   const handlePasswordUpdate = async (e) => {
     e.preventDefault();
-    // setMessage("");
     setLoading(true);
+    setError(false);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/updatePassword", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ oldPassword, newPassword }),
+      const res = await API_BASE_URL.put("/api/auth/updatePassword", {
+        oldPassword,
+        newPassword,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        // setMessage(data.message || "Failed to update password.");
-        toast.error(data.message || "Old password is incorrect");
-        setError(true)
-        setLoading(false);
-        return;
-      }
-
-      // setMessage("Password changed successfully!");
-      toast.success(" Password changed successfully!");
+      toast.success(res.data?.message || "Password changed successfully!");
       setOldPassword("");
       setNewPassword("");
-    } catch (error) {
-      // setMessage("Something went wrong.");
-      toast.error("Something went wrong.");
-      setError(true);
-    }
+    } catch (err) {
+      const message =
+        err.response?.data?.message || "Old password is incorrect";
 
-    setLoading(false);
+      toast.error(message);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
 

@@ -9,6 +9,7 @@ import PhoneEnabledOutlinedIcon from '@mui/icons-material/PhoneEnabledOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 import CustomSelect from "../../components/common/CustomSelect";
+import { API_BASE_URL } from "../../api";
 
 export default function Stamp() {
 
@@ -118,10 +119,10 @@ export default function Stamp() {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/stamp/generate-pdf",
+      const res = await API_BASE_URL.post(
+        `api/stamp/generate-pdf`,
         data,
-        { responseType: "blob", withCredentials: true }
+        { responseType: "blob", withCredentials: true },
       );
 
       const file = new Blob([res.data], { type: "application/pdf" });
@@ -335,7 +336,7 @@ export default function Stamp() {
 
 
         <button type="submit" className="form-btn sliding-overlay-btn">
-          Submit
+          Get Stamps
         </button>
       </form>
 

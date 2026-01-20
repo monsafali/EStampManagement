@@ -21,6 +21,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
+import { API_BASE_URL } from "../../api";
 
 export default function VendorMontyReport() {
 
@@ -39,10 +40,9 @@ export default function VendorMontyReport() {
 
   const fetchVendorName = async (id) => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/adc/vendor/${id}`,
-        { withCredentials: true }
-      );
+      const res = await axios.get(`${API_BASE_URL}/api/adc/vendor/${id}`, {
+        withCredentials: true,
+      });
       setVendorName(res.data.vendor.fullname);
     } catch {
       setVendorName("Unknown Vendor");
@@ -64,40 +64,38 @@ export default function VendorMontyReport() {
 
   }, [vendorId]);
 
-  const fetchDailyStampData = async (monthStr) => {
-    const [year, month] = monthStr.split("-");
-    const daysInMonth = new Date(year, month, 0).getDate();
+const fetchDailyStampData = async (monthStr) => {
+  const [year, month] = monthStr.split("-");
+  const daysInMonth = new Date(year, month, 0).getDate();
 
-    const requests = [];
+  const requests = [];
 
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = `${year}-${month.padStart(2, "0")}-${String(day).padStart(
-        2,
-        "0"
-      )}`;
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = `${year}-${month.padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
-      const request = axios
-        .get(
-          `http://localhost:5000/api/adc/search?from=${date}&to=${date}&vendorId=${vendorId}`,
-          {
-            withCredentials: true,
-          }
-        )
-        .then((res) => ({
-          day,
-          count: res.data.results?.length || 0,
-        }))
-        .catch(() => ({
-          day,
-          count: 0,
-        }));
+    const request = API_BASE_URL.get(`/api/adc/search`, {
+      params: {
+        from: date,
+        to: date,
+        vendorId,
+      },
+    })
+      .then((res) => ({
+        day,
+        count: res.data.results?.length || 0,
+      }))
+      .catch(() => ({
+        day,
+        count: 0,
+      }));
 
-      requests.push(request);
-    }
+    requests.push(request);
+  }
 
-    const results = await Promise.all(requests);
-    setChartData(results);
-  };
+  const results = await Promise.all(requests);
+  setChartData(results);
+};
+
 
   return (
     <div className="report-container container">

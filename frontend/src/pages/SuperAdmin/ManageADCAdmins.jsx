@@ -5,6 +5,7 @@ import GetADCAdmins from "./GetADCAdmins";
 import UpdateADCAdmin from "./UpdateADCAdmin";
 
 import { toast } from "react-toastify";
+import { API_BASE_URL } from "../../api";
 
 
 
@@ -24,10 +25,9 @@ const ManageADCAdmins = () => {
 
   const fetchAdmins = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/admin/getAllADCAdmin",
-        { withCredentials: true }
-      );
+      const res = await API_BASE_URL.get(`api/admin/getAllADCAdmin`, {
+        withCredentials: true,
+      });
       setAdmins(res.data.adcAdmins || []);
     } catch {
       toast.error("Failed to load ADC admins");
@@ -36,13 +36,6 @@ const ManageADCAdmins = () => {
 
   const startEditing = (admin) => {
     setEditingAdmin(admin);
-    // setForm({
-    //   fullname: admin.fullname,
-    //   username: admin.username,
-    //   email: admin.email,
-    //   district: admin.district,
-    // });
-    // setOriginalForm(initialData);
 
     const initialData = {
       fullname: admin.fullname || "",
@@ -90,13 +83,13 @@ const ManageADCAdmins = () => {
       }
 
       // DO NOT set Content-Type header manually — let axios set the boundary
-      const res = await axios.put(
-        `http://localhost:5000/api/admin/updateADCAdmin/${editingAdmin._id}`,
+      const res = await API_BASE_URL.put(
+        `api/admin/updateADCAdmin/${editingAdmin._id}`,
         fd,
         {
           withCredentials: true,
           // headers: { "Content-Type": "multipart/form-data" }  <-- remove this
-        }
+        },
       );
       toast.success(res.data.message || "Updated successfully");
       await fetchAdmins();

@@ -6,13 +6,18 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import axios from "axios";
+
 import io from "socket.io-client";
 import { GoogleAuthContext } from "../ GoogleAuthContext";
 import "../styles/components/chat.css";
+import { API_BASE_URL } from "../api";
 
-// Connect socket
-const socket = io("http://localhost:5000");
+
+
+
+const socket = io(import.meta.env.VITE_BACKEND_URL, {
+  withCredentials: true,
+});
 
 export default function ChatSupport() {
   const { googleUser, logout } = useContext(GoogleAuthContext);
@@ -30,8 +35,8 @@ export default function ChatSupport() {
       if (!googleUser?._id) return;
 
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/ai/messages/${googleUser._id}`
+        const res = await API_BASE_URL.get(
+          `api/ai/messages/${googleUser._id}`,
         );
 
         const sorted = (res.data.messages || []).sort(
@@ -54,30 +59,23 @@ export default function ChatSupport() {
     }
   }, [googleUser]);
 
-  // Socket listener
-  useEffect(() => {
-    socket.on("newMessage", (savedMessage) => {
-      setMessages((prev) => {
-        const pendingExists = prev.some(
-          (m) =>
-            m.userQuery === savedMessage.userQuery &&
-            m.isPending
-        );
 
-        if (pendingExists) {
-          return prev.map((m) =>
-            m.userQuery === savedMessage.userQuery && m.isPending
-              ? savedMessage
-              : m
-          );
-        }
+useEffect(() => {
+  const handler = (savedMessage) => {
+    setMessages((prev) => {
+      const exists = prev.some((m) => m._id === savedMessage._id);
 
-        return [...prev, savedMessage];
-      });
+      if (exists) return prev;
+      return [...prev, savedMessage];
     });
+  };
 
-    return () => socket.off("newMessage");
-  }, []);
+  socket.on("newMessage", handler);
+
+  return () => socket.off("newMessage", handler);
+}, []);
+
+
   // ✅ INLINE AUTOCOMPLETE (DEBOUNCED)
   useEffect(() => {
     if (!question || question.length < 3) {
@@ -87,10 +85,9 @@ export default function ChatSupport() {
 
     const timer = setTimeout(async () => {
       try {
-        const res = await axios.post(
-          "http://localhost:5000/api/ai/suggest",
-          { text: question }
-        );
+        const res = await API_BASE_URL.post(`api/ai/suggest`, {
+          text: question,
+        });
 
         const suggestion = res.data.suggestions?.[0] || "";
 
@@ -110,38 +107,46 @@ export default function ChatSupport() {
     return () => clearTimeout(timer);
   }, [question]);
 
-  const handleAsk = async () => {
-    if (!question) return;
 
-    const userQuestion = question;
-    const tempId = Date.now();
+const handleAsk = async () => {
+  if (!question) return;
 
-    const tempMessage = {
-      _id: tempId,
-      userQuery: userQuestion,
-      AiResponse: null,
-      userId: googleUser._id,
-      isPending: true,
-    };
+  const userQuestion = question;
+  const tempId = Date.now();
 
-    setMessages((prev) => [...prev, tempMessage]);
-    setQuestion("");
-    setAutoComplete("");
-    setLoading(true);
-
-    try {
-      await axios.post("http://localhost:5000/api/ai/ask", {
-        question: userQuestion,
-        userId: googleUser._id,
-      });
-    } catch (err) {
-      setMessages((prev) =>
-        prev.filter((m) => m._id !== tempId)
-      );
-    }
-
-    setLoading(false);
+  const tempMessage = {
+    _id: tempId,
+    userQuery: userQuestion,
+    AiResponse: null,
+    userId: googleUser._id,
+    isPending: true,
   };
+
+  setMessages((prev) => [...prev, tempMessage]);
+  setQuestion("");
+  setAutoComplete("");
+  setLoading(true);
+
+  try {
+    const res = await API_BASE_URL.post(`api/ai/ask`, {
+      question: userQuestion,
+      userId: googleUser._id,
+    });
+
+    const savedMessage = res.data.message;
+
+    // ✅ Replace pending message instantly
+    setMessages((prev) =>
+      prev.map((m) => (m._id === tempId ? savedMessage : m)),
+    );
+  } catch (err) {
+    setMessages((prev) => prev.filter((m) => m._id !== tempId));
+  }
+
+  setLoading(false);
+};
+
+
 
   if (!googleUser)
     return <p>Please login with Google.</p>;

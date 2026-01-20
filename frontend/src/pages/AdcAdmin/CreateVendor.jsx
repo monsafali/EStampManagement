@@ -12,6 +12,7 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 
 import CustomSelect from "../../components/common/CustomSelect";
 import PasswordInput from "../../components/common/PasswordInput";
+import { API_BASE_URL } from "../../api";
 
 const CreateVendor = ({ districtName, districtId }) => {
 
@@ -87,13 +88,14 @@ const CreateVendor = ({ districtName, districtId }) => {
 
       if (data.imageFile) fd.append("imageFile", data.imageFile);
 
-      const res = await axios.post(
-        "http://localhost:5000/api/adc/createvendor",
+      const res = await API_BASE_URL.post(
+        `api/adc/createvendor`,
+
         fd,
         {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
-        }
+        },
       );
 
       if (res.data?.success === true) {

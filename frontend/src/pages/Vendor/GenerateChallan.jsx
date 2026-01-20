@@ -11,8 +11,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 import "../../styles/pages/vendor/generate-challan.css"
+import { API_BASE_URL } from "../../api";
 
-const API_BASE = "http://localhost:5000/api/stamp";
+
 
 const columns = [
   {
@@ -73,13 +74,13 @@ const GenerateChallan = () => {
     setLoading(true);
     try {
       // send vendor cookie jwt as you did previously
-      const response = await axios.post(
-        `${API_BASE}/createChallan`,
+      const response = await API_BASE_URL.post(
+        'api/stamp/createChallan',
         { items },
         {
           responseType: "blob", // expecting PDF
           withCredentials: true,
-        }
+        },
       );
 
       // download PDF
@@ -109,21 +110,20 @@ const GenerateChallan = () => {
       quantity: Number(row.quantity),
     }));
 
-    const res = await fetch(
-      "http://localhost:5000/api/stamp/pay-via-stripe",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ items: cleanedItems }),
-      }
-    );
+    try {
+      const res = await API_BASE_URL.post("/api/stamp/pay-via-stripe", {
+        items: cleanedItems,
+      });
 
-    const data = await res.json();
-
-    // Redirect new tab to stripe checkout
-    newTab.location.href = data.url;
+      // Redirect new tab to stripe checkout
+      newTab.location.href = res.data.url;
+    } catch (err) {
+      newTab.close();
+      console.error(err);
+      alert("Stripe payment failed");
+    }
   };
+
 
   return (
     <div className="challan-card">

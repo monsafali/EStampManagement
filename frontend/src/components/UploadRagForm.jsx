@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "../styles/pages/SuperAdmin/uploadRagForm.css"
 
 
-
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+import { API_BASE_URL } from "../api";
 
 export default function UploadRagForm() {
+
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,26 +25,25 @@ export default function UploadRagForm() {
     fd.append("file", file);
 
     try {
-      const res = await fetch(`${API_BASE}/api/uploadrag`, {
-        method: "POST",
-        body: fd,
-        credentials: "include",
+      const res = await API_BASE_URL.post("/api/uploadrag", fd, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data?.message || "Upload failed");
+      if (!res.data?.success) {
+        throw new Error(res.data?.message || "Upload failed");
       }
 
-      setStatus("File uploaded successfully ");
+      setStatus("File uploaded successfully");
       setFile(null);
     } catch (err) {
-      setStatus(`Upload failed: ${err.message}`);
+      setStatus(`Upload failed: ${err.response?.data?.message || err.message}`);
     } finally {
       setLoading(false);
     }
   }
+
 
   return (
     <div className="upload-rag-card">

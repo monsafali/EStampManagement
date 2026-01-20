@@ -47,8 +47,8 @@ app.use(cookieParser());
 
 
 // routes
-app.use("/api/auth", AuthRoutes);
 app.use("/api/auth", CitizenRoutes);
+app.use("/api/auth", AuthRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/adc", adcRoutes);
 app.use("/api/stamp", stampRoutes);

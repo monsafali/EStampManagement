@@ -10,6 +10,7 @@ import Modal from "../../components/common/Modal";
 
 import "../../styles/pages/vendor/getAllStamp.css";
 import "../../styles/pages/vendor/search-stamp.css";
+import { API_BASE_URL } from "../../api";
 
 const IssuedStamps = () => {
   const [allStamps, setAllStamps] = useState([]);
@@ -46,9 +47,10 @@ const IssuedStamps = () => {
   };
   const fetchAllStamps = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/stamp/AllIssuedStamp",
-        { withCredentials: true }
+      const res = await API_BASE_URL.get(
+        `api/stamp/AllIssuedStamp`,
+
+        { withCredentials: true },
       );
 
       const data = res.data.issuedStamps || [];

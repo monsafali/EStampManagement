@@ -6,23 +6,23 @@ import jwt from 'jsonwebtoken'
 
 
 
-import oauth2Client from '../utils/googleClient.js';
 
-export const googleAuth = async (req, res, next) => {
-  const code = req.query.code;
-
+export const googleAuth = async (req, res) => {
   try {
-    const googleRes = await oauth2Client.getToken(code);
-    oauth2Client.setCredentials(googleRes.tokens);
+    const { access_token } = req.body;
 
-    const userRes = await axios.get(
-      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleRes.tokens.access_token}`
+    const googleRes = await axios.get(
+      "https://www.googleapis.com/oauth2/v3/userinfo",
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      },
     );
 
-    const { email, name, picture } = userRes.data;
+    const { email, name, picture } = googleRes.data;
 
     let user = await User.findOne({ email });
-
     if (!user) {
       user = await User.create({
         name,
@@ -31,21 +31,13 @@ export const googleAuth = async (req, res, next) => {
       });
     }
 
-    const token = jwt.sign(
-      { _id: user._id, email },
-      process.env.JWT_SECRET_KEY,
-      { expiresIn: process.env.JWT_EXPIRES }
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
 
-    res.status(200).json({
-      message: "success",
-      user,
-      token,
-    });
+    res.json({ user, token });
   } catch (err) {
-    res.status(500).json({
-      message: "Internal Server Error",
-      error: err.response?.data || err.message,
-    });
+    console.error("GOOGLE AUTH FAILED:", err.response?.data || err.message);
+    res.status(401).json({ message: "Google authentication failed" });
   }
 };

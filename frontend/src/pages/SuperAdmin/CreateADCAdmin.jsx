@@ -8,6 +8,7 @@ import CustomSelect from "../../components/common/CustomSelect";
 import PasswordInput from "../../components/common/PasswordInput";
 
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { API_BASE_URL } from "../../api";
 
 const CreateADCAdmin = () => {
   const {
@@ -56,13 +57,13 @@ const CreateADCAdmin = () => {
       fd.append("district", data.district);
       fd.append("districtId", data.districtId);
       if (data.imageFile) fd.append("imageFile", data.imageFile);
-      const res = await axios.post(
-        "http://localhost:5000/api/admin/createADCAdmin",
+      const res = await API_BASE_URL.post(
+        `api/admin/createADCAdmin`,
         fd,
         {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
-        }
+        },
       );
 
       if (res.data?.success === true) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import DataTable from "../../components/common/DataTable";
+import { API_BASE_URL } from "../../api";
 
 
 const GetInventory = () => {
@@ -15,9 +15,11 @@ const GetInventory = () => {
 
   const fetchInventory = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5000/api/stamp/getinventory",
-        { withCredentials: true }
+      const res = await API_BASE_URL.get(
+        `api/stamp/getinventory`,
+        {
+          withCredentials: true,
+        },
       );
 
       const inventory = res.data.stamps || [];

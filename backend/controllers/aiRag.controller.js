@@ -218,7 +218,7 @@ ${question}
     // 9️⃣ Respond FIRST
     res.json({
       success: true,
-      answer,
+      message: savedMessage,
     });
 
     // 🔟 Socket emit (NON-BLOCKING)
