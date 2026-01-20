@@ -3,7 +3,7 @@ import { ErrorHandler } from "../middleware/errorMiddleware.js";
 import UserAuth from "../models/UserAuth.model.js";
 import { catchAsyncErrors } from "../middleware/catchAsyncErrors.js";
 import { setTokenCookieAndSend } from "../utils/jwtToken.js";
-import { transporter } from '../utils/nodemailer.js';
+
 
 import  crypto  from "crypto";
 import { sendEmail } from "../utils/sendEmail.js";
@@ -54,8 +54,9 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
       )
     );
   }
-  const otp = crypto.randomInt(100000, 999999).toString();
-  user.otpCode = otp;
+  // const otp = crypto.randomInt(100000, 999999).toString();
+  const otp = "123456";
+  user.otpCode = otp
   user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
   user.isOtpVerified = false;
 

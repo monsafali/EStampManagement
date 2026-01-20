@@ -24,6 +24,7 @@ const columns = [
     label: "Quantity",
   },
 ];
+
 const GenerateChallan = () => {
   const {
     register,
@@ -48,6 +49,7 @@ const GenerateChallan = () => {
         quantity: qty,
       },
     ]);
+
 
     toast.success("Item added successfully");
     reset();
@@ -231,5 +233,7 @@ const GenerateChallan = () => {
     </div>
   );
 };
+
+
 
 export default GenerateChallan;

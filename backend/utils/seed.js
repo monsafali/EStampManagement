@@ -25,3 +25,7 @@ export const seedSuperAdmin = async () => {
     console.error("Super-admin seeding failed:", error);
   }
 };
+
+
+
+
