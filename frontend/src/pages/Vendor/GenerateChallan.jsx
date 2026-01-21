@@ -4,8 +4,11 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+
 import DataTable from "../../components/common/DataTable";
 import Tooltip from "../../components/common/Tooltip";
+import CustomSelect from "../../components/common/CustomSelect";
+
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
@@ -25,12 +28,20 @@ const columns = [
     label: "Quantity",
   },
 ];
+const DENOMINATION_OPTIONS = [
+  { label: "100 Rs", value: 100 },
+  { label: "200 Rs", value: 200 },
+  { label: "500 Rs", value: 500 },
+  { label: "1000 Rs", value: 1000 },
+];
 
 const GenerateChallan = () => {
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -128,30 +139,22 @@ const GenerateChallan = () => {
   return (
     <div className="challan-card">
       {/* inputs */}
-      <form onSubmit={handleSubmit(handleAddItem)}>
+      <form onSubmit={handleSubmit(handleAddItem)} className="form-container">
         <div className="input-group">
           <div className="form-group">
-            <input
-              className={errors.denomination ? "error" : ""}
-              type="number"
-              min="1"
-              {...register("denomination", {
-                required: "Denomination is required",
-                min: { value: 1, message: "Must be greater than 0" },
-              })}
+            <CustomSelect
+              name="denomination"
+              label="Denomination (Rs)"
+              options={DENOMINATION_OPTIONS}
+              value={watch("denomination")}
+              register={register}
+              setValue={setValue}
+              required={true}
+              error={errors.denomination?.message}
+              placeholder="Select denomination"
             />
-
-            <label>
-              Denomination (Rs)
-            </label>
-            {errors.denomination && (
-              <span className="input-error">
-                {errors.denomination.message}
-              </span>
-            )}
           </div>
           <div className="form-group">
-
             <input
               className={errors.quantity ? "error" : ""}
               type="number"
@@ -175,7 +178,7 @@ const GenerateChallan = () => {
         <div className="challan-actions">
 
           <button type="submit" className="btn btn-success sliding-overlay-btn">
-            < AddCircleOutlineOutlinedIcon /> <span>Add</span> 
+            < AddCircleOutlineOutlinedIcon /> <span>Add</span>
           </button>
         </div>
       </form>

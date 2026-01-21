@@ -17,6 +17,7 @@
 }
 .challan-card form{
   margin: 0 !important;
+
 }
 
 /* FOOTER */
@@ -40,12 +41,6 @@
   color: #666;
 }
 
-/* BUTTON SYSTEM (shared style) */
-/* .btn {
-  padding: 12px 18px;
-  font-size: 14px;
-  font-weight: 600;
-} */
 .challan-card .btn-primary {
   background-color: var(--color-primary-600);
 }
