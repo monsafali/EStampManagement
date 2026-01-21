@@ -15,9 +15,6 @@ export default function SuperAdminDashboard() {
   // Track active section
   const [activeSection, setActiveSection] = useState("create"); // default create
 
-
-
-
   return (
     <div className="main-dashborad">
    

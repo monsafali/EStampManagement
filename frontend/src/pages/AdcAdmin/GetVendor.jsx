@@ -202,7 +202,6 @@ const confirmDeleteVendor = async () => {
           <div className="delete-confirm-box">
             <b>
               To confirm, type   <i>"{vendorToDelete.username}"</i> in the box below
-
             </b>
             {/* Confirmation input */}
             <input

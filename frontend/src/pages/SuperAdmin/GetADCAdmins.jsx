@@ -36,10 +36,10 @@ const GetADCAdmins = ({ admins, fetchAdmins, onEdit }) => {
         <Tooltip text="Edit ADC Admin">
           <button
             type="button"
-            className="btn btn-edit"
+            className="btn btn-edit"   
             onClick={() => onEdit(admin)}
           >
-            <EditIcon />
+                <EditIcon sx={{ color: '#2563eb' }} />
           </button>
         </Tooltip>
       )}
