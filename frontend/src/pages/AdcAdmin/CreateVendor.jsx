@@ -184,6 +184,10 @@ const CreateVendor = ({ districtName, districtId }) => {
               <span className="input-error">{errors.email.message}</span>
             )}
           </div>
+
+        </div>
+        {/* address */}
+        <div className="input-group">
           {/* PASSWORD */}
           <PasswordInput
             name="password"
@@ -195,9 +199,6 @@ const CreateVendor = ({ districtName, districtId }) => {
             }}
             error={errors.password?.message}
           />
-        </div>
-        {/* address */}
-        <div className="input-group">
           <div className="form-group col-70 input-with-icons">
             <input
               type="text"
@@ -308,12 +309,6 @@ const CreateVendor = ({ districtName, districtId }) => {
           )}
 
         </div>
-        {/* Hidden fields for district & tehsilName */}
-        {/*     
-        <input type="hidden" {...register("district")} />
-        <input type="hidden" {...register("districtId")} />
-        <input type="hidden" {...register("tehsilName")} /> */}
-
 
         <button type="submit" className="form-btn sliding-overlay-btn" disabled={loading}>
           {loading ? "Creating..." : "Create Vendor"}

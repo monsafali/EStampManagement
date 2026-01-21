@@ -142,7 +142,7 @@ export default function Stamp() {
 
   return (
     <>
-      {geoError && <p className="error">{geoError}</p>}
+      {geoError && <p style={{textAlign:"center"}} className="error">{geoError}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         {/* Applicant */}
         <div className="input-group">
@@ -177,41 +177,30 @@ export default function Stamp() {
               <span className="input-error">{errors.cnic.message}</span>
             )}
           </div>
-          {/* Relation */}
-          <div className="form-group ">
-            <CustomSelect
-              name="Relation"
-              label="Relation"
-              options={relationSelectOptions}
-              value={watch("Relation")}
-              register={register}
-              setValue={setValue}
-              required
-              error={errors.Relation?.message}
-            />
-
-          </div>
-          {/* Relation Name */}
-          <div className="form-group">
+          <div className="form-group input-with-icons">
             <input
-              className={errors.Relation_Name ? "error" : ""}
-              {...register("Relation_Name", {
-                required: "Relation name required",
-              })}
+              className={errors.email ? "error" : ""}
+              {...register("email",
+                {
+                  required: "emai number is required",
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: "Invalid email",
+                  },
+                })}
               placeholder=" "
             />
-            <label>Relation Name</label>
-            {errors.Relation_Name && (
-              <span className="input-error">
-                {errors.Relation_Name.message}
-              </span>
+            <label>Email</label>
+            <span className="input-icon"> <MailOutlineOutlinedIcon /> </span>
+            {errors.email && (
+              <span className="input-error">{errors.email.message}</span>
             )}
           </div>
 
 
         </div>
 
-        {/* Agent + Email */}
+        {/* Agent  */}
         <div className="input-group">
           <div className="form-group">
             <input
@@ -232,25 +221,7 @@ export default function Stamp() {
               <span className="input-error">{errors.agent.message}</span>
             )}
           </div>
-          <div className="form-group input-with-icons">
-            <input
-              className={errors.email ? "error" : ""}
-              {...register("email",
-                {
-                  required: "emai number is required",
-                  pattern: {
-                    value: /^\S+@\S+$/i,
-                    message: "Invalid email",
-                  },
-                })}
-              placeholder=" "
-            />
-            <label>Email</label>
-            <span className="input-icon"> <MailOutlineOutlinedIcon /> </span>
-            {errors.email && (
-              <span className="input-error">{errors.email.message}</span>
-            )}
-          </div>
+
 
           {/* Phone */}
           <div className="form-group input-with-icons">
@@ -284,8 +255,38 @@ export default function Stamp() {
             )}
           </div>
         </div>
+        <div className="input-group">
+          {/* Relation */}
+          <div className="form-group ">
+            <CustomSelect
+              name="Relation"
+              label="Relation"
+              options={relationSelectOptions}
+              value={watch("Relation")}
+              register={register}
+              setValue={setValue}
+              required
+              error={errors.Relation?.message}
+            />
 
-        {/* Reason */}
+          </div>
+          {/* Relation Name */}
+          <div className="form-group">
+            <input
+              className={errors.Relation_Name ? "error" : ""}
+              {...register("Relation_Name", {
+                required: "Relation name required",
+              })}
+              placeholder=" "
+            />
+            <label>Relation Name</label>
+            {errors.Relation_Name && (
+              <span className="input-error">
+                {errors.Relation_Name.message}
+              </span>
+            )}
+          </div>
+              {/* Reason */}
         <div className="form-group">
           <textarea
             className={errors.reason ? "error" : ""}
@@ -297,10 +298,12 @@ export default function Stamp() {
             <span className="input-error">{errors.reason.message}</span>
           )}
         </div>
+        </div>
+    
 
         {/*Stamp Amount + Description */}
         <div className="input-group">
-          <div className="form-group col-30">
+          <div className="form-group col-70">
             <CustomSelect
               name="Description"
               label="Description"
@@ -312,28 +315,17 @@ export default function Stamp() {
               error={errors.Description?.message}
             />
           </div>
-          <div className="form-group col-70">
+          <div className="form-group col-30">
             <input readOnly {...register("StampAmount")} placeholder=" " />
             <label>Stamp Amount</label>
           </div>
         </div>
         <div className="input-group">
           {/* Stamp Type */}
-          <div className="form-group">
-            <input readOnly {...register("Stamptype")} />
-            <label>Stamp Type</label>
-          </div>
-
-
+          <input hidden readOnly {...register("Stamptype")} />
           {/* Vendor Info */}
-          <div className="form-group">
-            <input readOnly {...register("vendorInfo")} />
-            <label>Vendor Info</label>
-          </div>
+          <input hidden readOnly {...register("vendorInfo")} />
         </div>
-
-
-
 
         <button type="submit" className="form-btn sliding-overlay-btn">
           Get Stamps

@@ -116,6 +116,9 @@ const CreateADCAdmin = () => {
             )}
           </div>
 
+        </div>
+        <div className="input-group">
+
           {/* EMAIL */}
           <div className="form-group  input-with-icons">
             <input
@@ -138,6 +141,20 @@ const CreateADCAdmin = () => {
               <span className="input-error">{errors.email.message}</span>
             )}
           </div>
+          <PasswordInput
+            name="password"
+            label="Password"
+            register={register}
+            rules={{
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Minimum 6 characters required",
+              },
+            }}
+            error={errors.password?.message}
+            className="col-70"
+          />
         </div>
         <div className="input-group">
           {/* DISTRICT */}
@@ -161,58 +178,22 @@ const CreateADCAdmin = () => {
             />
           </div>
 
-          {/* 
-          <div className="form-group col-70">
+          {/* IMAGE */}
+          <div className="form-group">
             <input
-              type="password"
-              placeholder=" "
-              className={errors.password ? "error" : ""}
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Minimum 6 characters required",
-                },
-              })}
+              type="file"
+              accept="image/*"
+              className={errors.imageFile ? "error" : ""}
+              onChange={(e) => {
+                setValue("imageFile", e.target.files[0], { shouldValidate: true });
+              }}
             />
-            <label>Password</label>
-            {errors.password && (
-              <span className="input-error">{errors.password.message}</span>
+            <label>Upload Photo</label>
+            {errors.imageFile && (
+              <span className="input-error">{errors.imageFile.message}</span>
             )}
-          </div> */}
-          <PasswordInput
-            name="password"
-            label="Password"
-            register={register}
-            rules={{
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Minimum 6 characters required",
-              },
-            }}
-            error={errors.password?.message}
-            className="col-70"
-          />
-
+          </div>
         </div>
-
-        {/* IMAGE */}
-        <div className="form-group">
-          <input
-            type="file"
-            accept="image/*"
-            className={errors.imageFile ? "error" : ""}
-            onChange={(e) => {
-              setValue("imageFile", e.target.files[0], { shouldValidate: true });
-            }}
-          />
-          <label>Upload Photo</label>
-          {errors.imageFile && (
-            <span className="input-error">{errors.imageFile.message}</span>
-          )}
-        </div>
-
         <button type="submit" className="form-btn sliding-overlay-btn" disabled={loading}>
           {loading ? "Creating..." : "Create ADC Admin"}
         </button>

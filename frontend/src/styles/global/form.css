@@ -160,6 +160,8 @@
 
  .tahsil-dropdown {
    max-width: 300px;
+   width: 150px;
+   align-self: flex-start;
  }
 
  /*
@@ -237,4 +239,8 @@ color: red;
    .col-30 {
      flex: 1;
    }
+    .tahsil-dropdown {
+width: 100%;
+ }
+
  }

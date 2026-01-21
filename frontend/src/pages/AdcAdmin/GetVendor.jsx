@@ -191,7 +191,7 @@ const confirmDeleteVendor = async () => {
 
 
   return (
-    <div>
+    <>
       {deleteModal && vendorToDelete && (
         <Modal
           title="Confirm Vendor Deletion"
@@ -359,7 +359,7 @@ const confirmDeleteVendor = async () => {
             </button>
           </div>
         </Modal>)}
-    </div>
+    </>
   );
 };
 

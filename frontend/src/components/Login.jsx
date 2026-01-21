@@ -10,7 +10,6 @@ import CustomSelect from "./common/CustomSelect";
 import PasswordInput from "./common/PasswordInput";
 import Modal from "./common/Modal";
 
-import axios from "axios";
 
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import "../styles/global/form.css";

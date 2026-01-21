@@ -54,10 +54,9 @@ export default function VendorDashboard() {
 
           {/* HEADER (same as others) */}
           <div className="dashboard-header">
-            <h1>Vendor Dashboard</h1>
-            <p>
-              Welcome {user?.username} — Tehsil {user?.tehsil}
-            </p>
+            <h1>Vendor Dashboard
+           <span className="dashboard-user"> — {user?.username}</span>
+           </h1>
           </div>
 
           {/* CONTENT CARDS */}

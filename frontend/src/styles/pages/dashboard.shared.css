@@ -11,6 +11,9 @@
 
 }
 
+.main-dashborad form {
+  margin: 0 40px;
+}
 
 .main-dashborad>* {
   min-width: 0;
@@ -22,7 +25,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
 
   overflow-y: auto;
   width: 100%;
@@ -33,27 +36,24 @@
 }
 
 
-
-
-/* ===== HEADER ===== */
-.dashboard-header {
-  width: 100%;
-}
-
+/* Main heading */
 .dashboard-header h1 {
-  /* text-align: left; */
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 800;
-  color: var(--h1-heading);
-  color: rgb(17 24 39);
-  ;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.2;
+  margin: 0;
 }
 
-.dashboard-header p {
-  margin-top: 5px;
+/* Username styling */
+.dashboard-user {
+  font-size: 16px;
+  font-weight: 600;
   color: var(--muted);
-  font-size: 15px;
 }
+
 
 /* action buttons */
 
@@ -90,20 +90,22 @@
 
 /*CONTENT CARD  */
 .dashboard-card {
-  /* background: var(--surface); */
-  /* border-radius: 18px; */
+  animation: fadeIn 0.25s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
   animation: fadeIn 0.25s ease-in-out;
 }
 
 
 
-
-
 .dashboard-card h2 {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   color: var(--h1-heading);
+  text-align: center;
 }
 
 /* RESPONSIVE */
@@ -117,7 +119,7 @@
       "dashboard";
   }
 
-  /* Sidebar → top bar */
+  /* Sidebar top bar */
   .dashboard-actions {
     flex-direction: row;
     position: static;
@@ -136,7 +138,7 @@
     white-space: nowrap;
     border-radius: 8px;
     padding: 10px 14px;
-    width: fit-content;
+    width: fit-content !important;
   }
 
   .dashboard-wrapper {
@@ -151,7 +153,7 @@
     font-size: 24px;
   }
 
-  .dashboard-header h1+p {
+  .dashboard-header h1 span {
     font-size: 12px;
   }
 
@@ -162,5 +164,18 @@
   .main-dashborad button {
     font-size: 12px;
     padding: 8px 14px;
+  }
+}
+
+@media (max-width:600px) {
+  .main-dashborad form {
+    margin: 0;
+  }
+
+}
+
+@media (max-width:400px) {
+  .dashboard-btn {
+    width: 100% !important;
   }
 }

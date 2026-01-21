@@ -59,8 +59,11 @@ export default function ADCDashboard() {
       <div className="dashboard dashboard-wrapper container">
         {/* HEADER */}
         <div className="dashboard-header">
-          <h1>ADC Dashboard</h1>
-          <p>Welcome {user?.username}</p>
+          <h1>
+            ADC Dashboard
+            <span className="dashboard-user"> — {user?.username}</span>
+          </h1>
+     
         </div>
 
 
@@ -69,6 +72,7 @@ export default function ADCDashboard() {
           <div className="dashboard-card">
             <h2>  All Vendors </h2>
             <GetVendor />
+               
           </div>
         )}
         {!isMonthlyReportOpen && activeSection === "createVendor" && (

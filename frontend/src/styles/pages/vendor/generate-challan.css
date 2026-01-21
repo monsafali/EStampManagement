@@ -15,7 +15,9 @@
 .challan-table-section {
   margin-bottom: 26px;
 }
-
+.challan-card form{
+  margin: 0 !important;
+}
 
 /* FOOTER */
 .challan-footer {

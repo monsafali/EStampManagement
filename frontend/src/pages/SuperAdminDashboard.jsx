@@ -11,13 +11,13 @@ import "../styles/pages/dashboard.shared.css";
 
 export default function SuperAdminDashboard() {
   const { user } = useContext(AuthContext);
-  
+
   // Track active section
   const [activeSection, setActiveSection] = useState("create"); // default create
 
   return (
     <div className="main-dashborad">
-   
+
       <div className="dashboard-actions">
         <button
           className={`dashboard-btn sliding-overlay-btn ${activeSection === "create" ? "form-btn" : ""}`}
@@ -41,9 +41,12 @@ export default function SuperAdminDashboard() {
       </div>
       <div className="dashboard dashboard-wrapper container">
         <div className="dashboard-header">
-          <h1>Super Admin Dashboard</h1>
-          <p>Welcome {user?.username}</p>
+          <h1>
+            Super Admin Dashboard
+            <span className="dashboard-user"> — {user?.username}</span>
+          </h1>
         </div>
+
         {/* CONDITIONALLY RENDER */}
         {activeSection === "create" && (
           <div className="dashboard-card">
