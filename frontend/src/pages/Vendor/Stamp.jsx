@@ -134,7 +134,7 @@ export default function Stamp() {
       toast.success("Stamp PDF generated successfully");
     } catch (err) {
       console.error(err);
-      toast.error("Error generating PDF");
+      toast.error("No Stamp In Stock Please buy Stamp First");
     }
   };
 
