@@ -107,44 +107,51 @@ useEffect(() => {
     return () => clearTimeout(timer);
   }, [question]);
 
+  
+  const handleAsk = async () => {
+    if (!question.trim()) return;
+    if (!googleUser?._id) return; // ✅ prevent crash
 
-const handleAsk = async () => {
-  if (!question) return;
+    const userQuestion = question;
+    const tempId = Date.now();
 
-  const userQuestion = question;
-  const tempId = Date.now();
-
-  const tempMessage = {
-    _id: tempId,
-    userQuery: userQuestion,
-    AiResponse: null,
-    userId: googleUser._id,
-    isPending: true,
-  };
-
-  setMessages((prev) => [...prev, tempMessage]);
-  setQuestion("");
-  setAutoComplete("");
-  setLoading(true);
-
-  try {
-    const res = await API_BASE_URL.post(`api/ai/ask`, {
-      question: userQuestion,
+    const tempMessage = {
+      _id: tempId,
+      userQuery: userQuestion,
+      AiResponse: null,
       userId: googleUser._id,
-    });
+      isPending: true,
+    };
 
-    const savedMessage = res.data.message;
+    setMessages((prev) => [...prev, tempMessage]);
+    setQuestion("");
+    setAutoComplete("");
+    setLoading(true);
 
-    // ✅ Replace pending message instantly
-    setMessages((prev) =>
-      prev.map((m) => (m._id === tempId ? savedMessage : m)),
-    );
-  } catch (err) {
-    setMessages((prev) => prev.filter((m) => m._id !== tempId));
-  }
+    try {
+      const res = await API_BASE_URL.post(`api/ai/ask`, {
+        question: userQuestion,
+        userId: googleUser._id,
+      });
 
-  setLoading(false);
-};
+      // ✅ backend may return answer OR message depending on your code
+      const savedMessage = res.data.message || {
+        _id: tempId,
+        userQuery: userQuestion,
+        AiResponse: res.data.answer,
+        userId: googleUser._id,
+      };
+
+      setMessages((prev) =>
+        prev.map((m) => (m._id === tempId ? savedMessage : m)),
+      );
+    } catch (err) {
+      console.log("Ask error:", err);
+      setMessages((prev) => prev.filter((m) => m._id !== tempId));
+    }
+
+    setLoading(false);
+  };
 
 
 
