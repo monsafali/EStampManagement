@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../../api";
 const Success = () => {
   useEffect(() => {
     const session_id = new URLSearchParams(window.location.search).get(
-      "session_id"
+      "session_id",
     );
 
     if (!session_id) {
@@ -12,23 +12,25 @@ const Success = () => {
       return;
     }
 
-    fetch(`${API_BASE_URL}/api/stamp/stripe-success-load-stamps`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ session_id }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Stamps Loaded:", data);
-      })
-      .catch((err) => {
+    const loadStamps = async () => {
+      try {
+        const res = await API_BASE_URL.post(
+          "/api/stamp/stripe-success-load-stamps",
+          { session_id },
+          { withCredentials: true },
+        );
+
+        console.log("✅ Stamps Loaded:", res.data);
+      } catch (err) {
         console.error("❌ Error loading stamps:", err);
-      });
+      }
+    };
+
+    loadStamps();
   }, []);
 
   return (
-    <div >
+    <div>
       <h1 className="text-4xl font-bold bg-green-500 text-white">
         Payment Successfully Done 🎉
       </h1>

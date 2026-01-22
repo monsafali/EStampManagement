@@ -54,8 +54,8 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
       )
     );
   }
-  const otp = crypto.randomInt(100000, 999999).toString();
-  // const otp = "123456";
+  // const otp = crypto.randomInt(100000, 999999).toString();
+  const otp = "123456";
   user.otpCode = otp
   user.otpExpiry = Date.now() + 5 * 60 * 1000; // 5 minutes
   user.isOtpVerified = false;

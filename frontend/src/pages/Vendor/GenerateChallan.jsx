@@ -31,8 +31,7 @@ const columns = [
 const DENOMINATION_OPTIONS = [
   { label: "100 Rs", value: 100 },
   { label: "200 Rs", value: 200 },
-  { label: "500 Rs", value: 500 },
-  { label: "1000 Rs", value: 1000 },
+  { label: "300 Rs", value: 300 },
 ];
 
 const GenerateChallan = () => {
@@ -122,9 +121,13 @@ const GenerateChallan = () => {
     }));
 
     try {
-      const res = await API_BASE_URL.post("/api/stamp/pay-via-stripe", {
-        items: cleanedItems,
-      });
+  const res = await API_BASE_URL.post(
+    "/api/stamp/pay-via-stripe",
+    { items: cleanedItems },
+    { withCredentials: true },
+  );
+
+
 
       // Redirect new tab to stripe checkout
       newTab.location.href = res.data.url;
