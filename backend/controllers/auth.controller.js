@@ -5,7 +5,6 @@ import { catchAsyncErrors } from "../middleware/catchAsyncErrors.js";
 import { setTokenCookieAndSend } from "../utils/jwtToken.js";
 
 
-import  crypto  from "crypto";
 import { sendEmail } from "../utils/sendEmail.js";
 import { LOGIN_OTP_EMAIL_TEMPLATE } from "../utils/Email_Templates.js";
 
