@@ -34,7 +34,7 @@ import "./utils/cronJobs.js";
 
 
 
-const port = process.env.PORT;
+const port = process.env.PORT 
 
 
 app.use(
@@ -88,6 +88,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
 }
+
+
+
 
 
 startServer();
