@@ -27,7 +27,7 @@ import { connectCloudinary } from "./utils/cloudinaryConfig.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 import { seedSuperAdmin } from "./utils/seed.js";
 import { app , server } from "./utils/socket.js";
-import "./utils/cronJobs.js";
+// import "./utils/cronJobs.js";
 import job from "./utils/cronJobs.js";
 
 
